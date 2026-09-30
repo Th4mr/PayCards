@@ -54,7 +54,13 @@ export const ANALYTICS = {
   /** مثال Plausible:
    * '<script defer data-domain="paycards.io" src="https://plausible.io/js/script.js"></script>'
    */
-  headHtml: '',
+  headHtml: `<script async src="https://www.googletagmanager.com/gtag/js?id=G-XW4F5GBPLM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XW4F5GBPLM');
+</script>`,
 } as const;
 
 export const NAV = [

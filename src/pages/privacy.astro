@@ -1,13 +1,12 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import V from '../components/V.astro';
 import { SITE } from '../config';
 ---
 <PageLayout title="سياسة الخصوصية" heading="سياسة الخصوصية" description="كيف يتعامل موقع PayCards مع بيانات الزوار: ما نجمعه، وما لا نجمعه، والخدمات الخارجية المستخدمة." page="privacy" path="/privacy" showUpdated>
   <p>نحترم خصوصيتك. PayCards موقع محتوى ثابت، <strong>لا يحتوي على نماذج تسجيل ولا حسابات مستخدمين</strong>، ولا نطلب منك أي بيانات شخصية.</p>
   <h2>ما الذي قد يُجمع؟</h2>
   <ul>
-    <li><strong>إحصائيات الزيارات:</strong> قد نستخدم أداة إحصائيات لقياس عدد الزيارات والنقرات على الأزرار بشكل مجمّع (مثل الصفحة وموضع الزر)، دون محاولة التعرف على هويتك. <V n="اسم أداة الإحصائيات المستخدمة وهل تستخدم ملفات تعريف الارتباط" /></li>
+    <li><strong>إحصائيات الزيارات:</strong> نستخدم Google Analytics لقياس عدد الزيارات والصفحات الأكثر قراءة والنقرات على أزرار التسجيل (مثل اسم الصفحة وموضع الزر). تستخدم هذه الخدمة ملفات تعريف الارتباط (cookies) وتعالج بيانات مثل عنوان IP ونوع الجهاز وفق <a href="https://policies.google.com/privacy" rel="nofollow noopener" target="_blank">سياسة خصوصية Google</a>. يمكنك منعها عبر إعدادات متصفحك أو إضافة إلغاء الاشتراك من Google.</li>
     <li><strong>سجلات الاستضافة:</strong> الموقع مستضاف على Cloudflare Pages، وقد تسجّل Cloudflare بيانات تقنية مثل عنوان IP لأغراض الأمان والأداء وفق سياستها.</li>
     <li><strong>الخطوط:</strong> نحمّل الخط العربي من Google Fonts، ما يعني أن متصفحك يتصل بخوادم Google لتحميل الخط.</li>
   </ul>
