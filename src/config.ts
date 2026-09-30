@@ -9,7 +9,7 @@
 export const SITE = {
   name: 'PayCards',
   nameAr: 'باي كاردز',
-  url: 'https://paycards.io',
+  url: 'https://www.paycards.io',
   domain: 'paycards.io',
   tagline: 'دليلك العربي للدفع بالعملات الرقمية في الحياة اليومية',
   description:

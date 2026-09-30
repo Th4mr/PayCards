@@ -132,4 +132,4 @@ scripts/
 - [ ] تأكد أن البريد `hello@paycards.io` يعمل أو غيّره في `SITE.email`
 - [ ] أضف أداة الإحصائيات وحدّث صفحة الخصوصية
 - [ ] جرّب `/go/redotpay` بعد النشر وتأكد أنه يفتح صفحة التسجيل الصحيحة
-- [ ] أضف الموقع إلى Google Search Console وأرسل `https://paycards.io/sitemap-index.xml`
+- [ ] أضف الموقع إلى Google Search Console وأرسل `https://www.paycards.io/sitemap-index.xml`
