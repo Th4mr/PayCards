@@ -46,6 +46,7 @@ const fontHref =
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {SITE.googleVerification && <meta name="google-site-verification" content={SITE.googleVerification} />}
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#f5f7fb" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

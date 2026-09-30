@@ -16,6 +16,8 @@ export const SITE = {
     'PayCards دليل عربي مستقل يشرح كيف تدفع بعملاتك الرقمية في المتاجر والاشتراكات والسفر عبر بطاقة RedotPay، بخطوات واضحة ومزايا وعيوب بصراحة.',
   email: 'hello@paycards.io',
   locale: 'ar_AR',
+  /** رمز التحقق من Google Search Console */
+  googleVerification: 'DbT6Rpij9Dgk_rT1RNENvi9AZY5ZTfEFEWNltgzcvxc',
   /** تاريخ آخر مراجعة للمحتوى، يُعرض في صفحات الإفصاح والخصوصية والشروط */
   lastReviewed: '2026-09-30',
 } as const;
