@@ -10,13 +10,30 @@ import { execSync } from 'node:child_process';
 import { SITE, REFERRAL } from './src/config';
 
 /**
- * يولّد ملف _redirects لـ Cloudflare Pages من src/config.ts
+ * يولّد ملف _redirects لـ Cloudflare Pages من src/config.ts،
+ * ويتحقق أن تحويل vercel.json (للنشر على Vercel) يطابق الرابط نفسه.
  * ويطبع عدد علامات {{تحقق}} المتبقية في الموقع بعد البناء.
  */
 function paycardsBuild() {
   return {
     name: 'paycards-build',
     hooks: {
+      // Vercel يقرأ التحويل من vercel.json؛ نتأكد أنه يطابق الرابط في src/config.ts
+      'astro:config:setup': ({ logger }) => {
+        let vercel;
+        try {
+          vercel = JSON.parse(readFileSync('./vercel.json', 'utf8'));
+        } catch {
+          return;
+        }
+        const r = (vercel.redirects || []).find((x) => x.source === REFERRAL.goPath);
+        if (!r || r.destination !== REFERRAL.url) {
+          throw new Error(
+            `رابط الإحالة في vercel.json (${r?.destination ?? 'غير موجود'}) لا يطابق src/config.ts (${REFERRAL.url}). حدّث الملفين بالرابط نفسه.`,
+          );
+        }
+        logger.info(`vercel.json: ${REFERRAL.goPath} → ${r.destination}`);
+      },
       'astro:build:done': async ({ dir, logger }) => {
         const out = fileURLToPath(dir);
         const lines = [
