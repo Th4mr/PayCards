@@ -1,0 +1,38 @@
+---
+import Logo from './Logo.astro';
+import { SITE, CATEGORIES } from '../config';
+const year = new Date().getFullYear();
+---
+<footer class="mt-20 border-t border-line bg-bg-2 pb-28 md:pb-10">
+  <div class="container-x grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="lg:col-span-2">
+      <Logo />
+      <p class="mt-3 max-w-md text-sm text-muted">{SITE.tagline}، بأدلة عملية واضحة خطوة بخطوة.</p>
+      <div class="mt-5 rounded-xl border border-line bg-surface p-4 text-sm leading-7">
+        <p><strong>PayCards موقع مستقل وغير تابع لـ RedotPay.</strong> الأسماء والعلامات التجارية ملك لأصحابها.</p>
+        <p class="mt-2 text-muted">بعض الروابط في هذا الموقع <strong class="text-fg">روابط إحالة</strong>؛ إذا سجّلت عبرها قد نحصل على عمولة دون أي تكلفة إضافية عليك. <a href="/disclosure" class="text-accent-fg underline">اقرأ الإفصاح</a>.</p>
+        <p class="mt-2 text-muted">العملات الرقمية تنطوي على مخاطر تقلّب وخسارة. المحتوى هنا تعليمي وليس نصيحة مالية أو استثمارية.</p>
+      </div>
+    </div>
+    <nav aria-label="المقالات">
+      <p class="font-bold">المقالات</p>
+      <ul class="mt-3 space-y-2 text-sm text-muted">
+        <li><a class="hover:text-fg" href="/articles">كل المقالات</a></li>
+        {Object.entries(CATEGORIES).map(([k, c]) => <li><a class="hover:text-fg" href={`/articles/category/${k}`}>{c.label}</a></li>)}
+      </ul>
+    </nav>
+    <nav aria-label="عن الموقع">
+      <p class="font-bold">الموقع</p>
+      <ul class="mt-3 space-y-2 text-sm text-muted">
+        <li><a class="hover:text-fg" href="/about">من نحن</a></li>
+        <li><a class="hover:text-fg" href="/disclosure">الإفصاح عن الإحالة</a></li>
+        <li><a class="hover:text-fg" href="/privacy">سياسة الخصوصية</a></li>
+        <li><a class="hover:text-fg" href="/terms">شروط الاستخدام</a></li>
+        <li><a class="hover:text-fg" href="/contact">تواصل معنا</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="container-x border-t border-line pt-6 text-xs text-muted">
+    <p>© {year} PayCards · <span dir="ltr">{SITE.domain}</span> — جميع الحقوق محفوظة.</p>
+  </div>
+</footer>

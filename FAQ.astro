@@ -1,0 +1,25 @@
+---
+/**
+ * أسئلة شائعة بصيغة أكورديون (details/summary — بدون JavaScript).
+ * يدعم النص {{تحقق: تعليق}} داخل الإجابات ويحوّله إلى علامة تحقق مرئية.
+ * الـ FAQ Schema تضيفه الصفحة الأم عبر faqSchema().
+ */
+interface Props {
+  items: { q: string; a: string }[];
+  headingLevel?: 'h2' | 'h3';
+}
+import { renderVerify as render } from '../lib/verify';
+const { items } = Astro.props;
+
+---
+<div class="not-prose divide-y divide-line overflow-hidden rounded-2xl border border-line bg-surface">
+  {items.map((it, i) => (
+    <details class="group" open={i === 0}>
+      <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 font-bold hover:bg-surface-2">
+        <span>{it.q}</span>
+        <svg class="faq-icon h-5 w-5 shrink-0 text-accent-fg transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </summary>
+      <div class="px-5 pb-5 leading-8 text-muted" set:html={render(it.a)} />
+    </details>
+  ))}
+</div>

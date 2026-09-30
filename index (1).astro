@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card3D from '../components/Card3D.astro';
+import CTAButton from '../components/CTAButton.astro';
+import Icon from '../components/Icon.astro';
+import VText from '../components/VText.astro';
+import V from '../components/V.astro';
+import FAQ from '../components/FAQ.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { SITE, REFERRAL } from '../config';
+import { trustItems, features, steps, useCases, homeFaq } from '../data/home';
+import { getArticles, orgSchema, websiteSchema, faqSchema } from '../lib/articles';
+
+const latest = (await getArticles()).slice(0, 6);
+const schema = [orgSchema, websiteSchema, faqSchema(homeFaq)];
+---
+<BaseLayout
+  title="PayCards — ادفع بعملاتك الرقمية في أي مكان بالعالم"
+  description={SITE.description}
+  page="home"
+  schema={schema}
+>
+  <!-- 1) Hero -->
+  <section class="relative overflow-hidden">
+    <div class="container-x grid items-center gap-12 pb-16 pt-10 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:pb-24">
+      <div>
+        <span class="eyebrow"><span class="h-1.5 w-1.5 rounded-full bg-accent"></span> دليل عربي مستقل لبطاقة RedotPay</span>
+        <h1 class="mt-5 text-[2rem] font-extrabold leading-[1.3] sm:text-5xl sm:leading-[1.25]">
+          ادفع بعملاتك الرقمية <span class="bg-gradient-to-l from-accent-fg to-[#4c6ef5] bg-clip-text text-transparent">في أي مكان بالعالم</span>
+        </h1>
+        <p class="mt-5 max-w-xl text-lg text-muted">
+          بطاقة واحدة تحوّل رصيدك من USDT والعملات الرقمية إلى مشتريات واشتراكات ومدفوعات يومية، أونلاين أو عبر هاتفك. وأدلتنا العربية ترافقك خطوة بخطوة من التسجيل حتى أول عملية دفع.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <CTAButton position="hero" label="احصل على بطاقتك الآن" size="lg" />
+          <a href="#how" class="btn-ghost px-7 py-4 text-lg">كيف تعمل؟</a>
+        </div>
+        <ul class="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+          {['بطاقة افتراضية بعد التوثيق', 'Apple Pay و Google Pay', 'لا يلزم حساب بنكي'].map((t) => (
+            <li class="flex items-center gap-1.5"><Icon name="check" class="h-4 w-4 text-accent-fg" />{t}</li>
+          ))}
+        </ul>
+      </div>
+      <Card3D />
+    </div>
+  </section>
+
+  <!-- 2) شريط الثقة -->
+  <section aria-label="أبرز المزايا" class="border-y border-line bg-surface/60">
+    <ul class="container-x grid grid-cols-2 gap-x-4 gap-y-5 py-6 text-sm font-semibold lg:grid-cols-4">
+      {trustItems.map((t) => (
+        <li class="flex items-center gap-3">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-surface-2 text-accent-fg"><Icon name={t.icon} class="h-5 w-5" /></span>
+          <VText text={t.text} />
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- 3) لماذا هذه البطاقة؟ -->
+  <section class="section" id="why">
+    <div class="container-x">
+      <h2 class="section-title reveal">لماذا هذه البطاقة؟</h2>
+      <p class="section-lead reveal">الفكرة بسيطة: رصيدك الرقمي يصبح قابلاً للإنفاق مثل أي بطاقة بنكية، دون خطوات بيع وتحويل معقدة.</p>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {features.map((f) => (
+          <div class="card reveal flex gap-4 p-5 transition hover:border-accent/60 sm:block sm:p-6">
+            <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-accent/15 text-accent-fg"><Icon name={f.icon} /></span>
+            <div>
+              <h3 class="text-lg font-bold sm:mt-4">{f.title}</h3>
+              <p class="mt-1.5 text-[15px] text-muted sm:mt-2 sm:text-base">{f.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4) ابدأ في 4 خطوات -->
+  <section class="section bg-bg-2" id="how">
+    <div class="container-x">
+      <h2 class="section-title reveal">ابدأ في 4 خطوات</h2>
+      <p class="section-lead reveal">من التحميل إلى أول عملية دفع. التفاصيل الكاملة في <a class="text-accent-fg underline" href="/articles/redotpay-signup-kyc">دليل التسجيل والتوثيق</a>.</p>
+      <ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((s, i) => (
+          <li class="card reveal relative p-6">
+            <span class="absolute end-5 top-5 text-5xl font-extrabold text-line">{i + 1}</span>
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-accent text-on-accent"><Icon name={s.icon} /></span>
+            <h3 class="mt-4 text-lg font-bold">{s.title}</h3>
+            <p class="mt-2 text-sm text-muted">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <CTAButton position="steps" label="ابدأ التسجيل الآن" size="lg" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 5) حالات الاستخدام -->
+  <section class="section" id="use-cases">
+    <div class="container-x">
+      <h2 class="section-title reveal">فيمَ تستخدمها؟</h2>
+      <p class="section-lead reveal">أشهر الاستخدامات اليومية، ولكل منها دليل مفصّل.</p>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {useCases.map((u) => (
+          <a href={u.href} class="card group reveal flex flex-col p-6 transition hover:-translate-y-1 hover:border-accent/60">
+            <Icon name={u.icon} class="h-8 w-8 text-accent-fg" />
+            <h3 class="mt-4 text-lg font-bold">{u.title}</h3>
+            <p class="mt-1 text-sm text-muted">{u.text}</p>
+            <span class="mt-4 text-sm font-bold text-accent-fg">اقرأ الدليل ←</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 8) أحدث المقالات -->
+  <section class="section bg-bg-2" id="articles">
+    <div class="container-x">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h2 class="section-title reveal">أحدث المقالات</h2>
+          <p class="section-lead reveal">أدلة عملية خطوة بخطوة.</p>
+        </div>
+        <a href="/articles" class="hidden shrink-0 font-bold text-accent-fg sm:inline">كل المقالات ←</a>
+      </div>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {latest.map((a) => <ArticleCard article={a} />)}
+      </div>
+      <a href="/articles" class="btn-ghost mt-8 w-full sm:hidden">كل المقالات</a>
+    </div>
+  </section>
+
+  <!-- 9) الأسئلة الشائعة -->
+  <section class="section" id="faq">
+    <div class="container-x max-w-3xl">
+      <h2 class="section-title reveal text-center">الأسئلة الشائعة</h2>
+      <p class="section-lead reveal mx-auto text-center">إجابات مختصرة عن أكثر ما يُسأل قبل التسجيل.</p>
+      <div class="mt-10 reveal"><FAQ items={homeFaq} /></div>
+    </div>
+  </section>
+
+  <!-- 10) الدعوة النهائية -->
+  <section class="pb-8">
+    <div class="container-x">
+      <div class="reveal relative overflow-hidden rounded-3xl border border-line bg-surface px-6 py-12 text-center sm:px-12 sm:py-16">
+        <div aria-hidden="true" class="pointer-events-none absolute -top-32 start-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-accent/25 blur-3xl"></div>
+        <h2 class="relative text-2xl font-extrabold leading-snug sm:text-4xl">رصيدك الرقمي جاهز للإنفاق.<br class="hidden sm:block" /> ابدأ في دقائق.</h2>
+        <p class="relative mx-auto mt-4 max-w-xl text-muted">أنشئ حسابك، وثّق هويتك، وأصدر بطاقتك الافتراضية لتبدأ الدفع أونلاين وعبر هاتفك.{REFERRAL.bonus && <> المستخدمون الجدد يحصلون حالياً على مكافأة ترحيبية <strong class="text-fg">{REFERRAL.bonus}</strong><V n="شروط مكافأة المستخدم الجديد" />.</>}</p>
+        <div class="relative mx-auto mt-8 flex max-w-md flex-col gap-4">
+          <CTAButton position="end" label="احصل على بطاقتك الآن" size="lg" full />
+        </div>
+        <p class="relative mt-6 text-xs text-muted">يتم التسجيل على منصة RedotPay الرسمية · العملات الرقمية تنطوي على مخاطر · ليس نصيحة مالية</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

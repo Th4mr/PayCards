@@ -1,0 +1,6 @@
+---
+import { renderVerify } from '../lib/verify';
+interface Props { text: string; as?: string; class?: string; }
+const { text, as: Tag = 'span', class: cls } = Astro.props;
+---
+<Tag class={cls} set:html={renderVerify(text)} />

@@ -1,0 +1,23 @@
+---
+/**
+ * علامة {{تحقق}}: توضع مكان أي رقم أو تفصيل قابل للتغيّر (رسوم، حدود، دول، مكافآت).
+ * الاستخدام في MDX:   <V n="رسوم إصدار البطاقة الافتراضية" />
+ * داخل خلية جدول لا تحتوي غيرها أضف cell:   <V n="..." cell />
+ *
+ * SHOW_VERIFY_MARKERS في src/config.ts:
+ *   false → لا يظهر شيء، وخلية الجدول تظهر "حسب التطبيق"
+ *   true  → تظهر العلامة الصفراء {{تحقق}} للمراجعة
+ * لعرض كل العلامات: npm run verify — وبعد التحقق اكتب القيمة الصحيحة مكان المكوّن.
+ */
+import { SHOW_VERIFY_MARKERS } from '../config';
+interface Props {
+  n: string;
+  cell?: boolean;
+}
+const { n, cell = false } = Astro.props;
+---
+{SHOW_VERIFY_MARKERS ? (
+  <>{' '}<span class="verify" data-verify={n} title={`تحقق: ${n}`} aria-label={`قيمة بانتظار التحقق: ${n}`}>{'{{تحقق}}'}</span></>
+) : cell ? (
+  <span class="whitespace-nowrap text-muted" data-verify-hidden>حسب التطبيق</span>
+) : null}

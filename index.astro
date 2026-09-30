@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CategoryTabs from '../../components/CategoryTabs.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import CTABox from '../../components/CTABox.astro';
+import { getArticles, breadcrumbSchema } from '../../lib/articles';
+
+const all = await getArticles();
+const counts = all.reduce<Record<string, number>>((m, a) => ((m[a.data.category] = (m[a.data.category] ?? 0) + 1), m), {});
+const crumbs = [{ name: 'الرئيسية', url: '/' }, { name: 'المقالات', url: '/articles' }];
+---
+<BaseLayout title="كل المقالات: أدلة الدفع بالعملات الرقمية" description="أدلة ومقالات عربية عن بطاقة RedotPay والدفع بالعملات الرقمية: التسجيل، الشحن بـ USDT، الرسوم، الاشتراكات والتسوق، ومقارنات صريحة." page="articles" schema={[breadcrumbSchema(crumbs)]}>
+  <section class="container-x pt-8 sm:pt-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-5 text-3xl font-extrabold sm:text-4xl">كل المقالات</h1>
+    <p class="mt-3 max-w-2xl text-muted">أدلة عملية عن الدفع بالعملات الرقمية في الحياة اليومية، مرتبة حسب التصنيف.</p>
+    <div class="mt-8"><CategoryTabs counts={counts} total={all.length} /></div>
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {all.map((a) => <ArticleCard article={a} />)}
+    </div>
+    <div class="mx-auto max-w-3xl"><CTABox position="end" /></div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,43 @@
+---
+import { REFERRAL } from '../config';
+
+/**
+ * زر الإحالة الموحّد. كل الأزرار تشير إلى /go/redotpay ولا تحتوي الرابط الأصلي.
+ * position: موضع الزر ويُرسل مع حدث التتبع (hero / inline / sticky / end / header / topbar / ...)
+ */
+interface Props {
+  position: string;
+  label?: string;
+  variant?: 'primary' | 'ghost' | 'link';
+  size?: 'md' | 'lg' | 'sm';
+  class?: string;
+  full?: boolean;
+}
+const {
+  position,
+  label = 'احصل على بطاقتك الآن',
+  variant = 'primary',
+  size = 'md',
+  class: cls = '',
+  full = false,
+} = Astro.props;
+
+const sizes = { sm: 'px-4 py-2 text-sm', md: '', lg: 'px-7 py-4 text-lg' };
+const base =
+  variant === 'link'
+    ? 'font-bold text-accent-fg underline underline-offset-4'
+    : `${variant === 'primary' ? 'btn-primary' : 'btn-ghost'} ${sizes[size]}`;
+---
+<a
+  href={REFERRAL.goPath}
+  rel={REFERRAL.rel}
+  target="_blank"
+  data-cta
+  data-cta-position={position}
+  class:list={[base, full && 'w-full', cls]}
+>
+  <span>{label}</span>
+  {variant !== 'link' && (
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
+  )}
+</a>

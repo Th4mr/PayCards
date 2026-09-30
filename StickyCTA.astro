@@ -1,0 +1,13 @@
+---
+import { REFERRAL } from '../config';
+---
+<div id="sticky-cta" class="sticky-cta fixed inset-x-0 bottom-0 z-40 translate-y-full p-3 transition-transform duration-300 md:hidden" aria-hidden="true">
+  <div class="flex items-center gap-2 rounded-2xl border border-line bg-surface/95 p-2 shadow-[0_-10px_40px_-10px_rgb(0_0_0/0.45)] backdrop-blur">
+    <a href={REFERRAL.goPath} rel={REFERRAL.rel} target="_blank" data-cta data-cta-position="sticky" tabindex="-1" class="btn-primary flex-1 py-3 text-[15px]">
+      احصل على بطاقتك
+    </a>
+    <button type="button" data-dismiss="sticky-cta" tabindex="-1" class="grid h-11 w-11 shrink-0 place-items-center rounded-xl text-muted hover:bg-surface-2" aria-label="إغلاق">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+---
+import { CATEGORIES } from '../config';
+interface Props { active?: string; counts: Record<string, number>; total: number; }
+const { active = 'all', counts, total } = Astro.props;
+const tabs = [{ key: 'all', label: 'الكل', href: '/articles', n: total }, ...Object.entries(CATEGORIES).map(([k, c]) => ({ key: k, label: c.label, href: `/articles/category/${k}`, n: counts[k] ?? 0 }))];
+---
+<nav aria-label="تصنيفات المقالات" class="-mx-4 overflow-x-auto px-4">
+  <ul class="flex gap-2 whitespace-nowrap">
+    {tabs.map((t) => (
+      <li>
+        <a href={t.href} aria-current={t.key === active ? 'page' : undefined}
+          class:list={['inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition', t.key === active ? 'border-accent bg-accent text-on-accent' : 'border-line bg-surface hover:border-accent/60']}>
+          {t.label}<span class="text-xs opacity-70">{t.n}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

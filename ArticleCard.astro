@@ -1,0 +1,20 @@
+---
+import Cover from './Cover.astro';
+import { articleUrl, categoryLabel, readingMinutes, readingLabel, formatDate, type Article } from '../lib/articles';
+interface Props { article: Article; }
+const { article: a } = Astro.props;
+---
+<article class="card group reveal flex flex-col overflow-hidden transition hover:-translate-y-1 hover:border-accent/60">
+  <a href={articleUrl(a)} class="flex h-full flex-col" aria-label={a.data.h1 ?? a.data.title}>
+    <Cover icon={a.data.cover.icon} hue={a.data.cover.hue} class="aspect-[1.9]" />
+    <div class="flex flex-1 flex-col p-5">
+      <div class="flex items-center gap-2 text-xs text-muted">
+        <span class="rounded-full bg-surface-2 px-2 py-0.5 font-semibold text-accent-fg">{categoryLabel(a.data.category)}</span>
+        <span>{readingLabel(readingMinutes(a.body))} قراءة</span>
+      </div>
+      <h3 class="mt-3 text-lg font-bold leading-snug group-hover:text-accent-fg">{a.data.h1 ?? a.data.title}</h3>
+      <p class="mt-2 line-clamp-2 text-sm text-muted">{a.data.description}</p>
+      <p class="mt-auto pt-4 text-xs text-muted"><time datetime={(a.data.updatedDate ?? a.data.pubDate).toISOString()}>{formatDate(a.data.updatedDate ?? a.data.pubDate)}</time></p>
+    </div>
+  </a>
+</article>

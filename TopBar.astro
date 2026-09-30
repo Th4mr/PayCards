@@ -1,0 +1,14 @@
+---
+import { REFERRAL } from '../config';
+---
+<div id="topbar" class="topbar relative z-50 bg-gradient-to-l from-accent to-[#4cd3e0] text-on-accent">
+  <div class="container-x flex min-h-10 items-center justify-center gap-2 py-1.5 pe-10 text-center text-[13px] font-semibold sm:text-sm">
+    <span>
+      {REFERRAL.bonus ? <>مكافأة ترحيبية {REFERRAL.bonus} للمستخدمين الجدد عند فتح حساب RedotPay</> : <>بطاقة RedotPay: ادفع بعملاتك الرقمية أونلاين وعبر هاتفك</>}
+    </span>
+    <a href={REFERRAL.goPath} rel={REFERRAL.rel} target="_blank" data-cta data-cta-position="topbar" class="underline underline-offset-4 whitespace-nowrap">ابدأ الآن ←</a>
+  </div>
+  <button type="button" data-dismiss="topbar" class="absolute end-2 top-1/2 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-lg hover:bg-black/10" aria-label="إغلاق الشريط">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+</div>

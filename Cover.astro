@@ -1,0 +1,56 @@
+---
+/**
+ * صورة غلاف مصممة بـ SVG لكل مقال (بدون ملفات صور = أداء أعلى).
+ * cover في frontmatter: { icon: 'card'|'signup'|'topup'|'shopping'|'subscriptions'|'wallet'|'fees'|'compare', hue: 0-360 }
+ */
+interface Props {
+  icon: string;
+  hue?: number;
+  label?: string;
+  class?: string;
+  size?: 'sm' | 'lg';
+}
+const { icon, hue = 160, label = '', class: cls = '', size = 'sm' } = Astro.props;
+const id = `cv-${icon}-${hue}-${size}`;
+const c1 = `hsl(${hue} 85% 55%)`;
+const c2 = `hsl(${(hue + 60) % 360} 80% 60%)`;
+
+const icons: Record<string, string> = {
+  card: '<rect x="-60" y="-38" width="120" height="76" rx="12"/><path d="M-60 -14h120"/><rect x="-44" y="10" width="26" height="12" rx="3"/>',
+  signup: '<circle cx="0" cy="-18" r="20"/><path d="M-36 40c4-22 18-32 36-32s32 10 36 32"/><path d="M34 -30l10 10 20-22"/>',
+  topup: '<rect x="-56" y="-26" width="112" height="70" rx="12"/><path d="M-56 -4h112"/><path d="M0 -70v40M-14 -44l14 14 14-14"/>',
+  shopping: '<path d="M-58 -40h16l14 62h64l12-44H-34"/><circle cx="-18" cy="40" r="7"/><circle cx="30" cy="40" r="7"/>',
+  subscriptions: '<rect x="-60" y="-40" width="120" height="80" rx="14"/><path d="M-10 -18v36l30-18z"/><path d="M-80 0a80 80 0 0 1 20-52M80 0a80 80 0 0 1-20 52"/>',
+  wallet: '<rect x="-32" y="-60" width="64" height="120" rx="14"/><path d="M-10 46h20"/><path d="M44 -20a30 30 0 0 1 0 40M58 -32a48 48 0 0 1 0 64"/>',
+  fees: '<circle cx="-26" cy="-26" r="14"/><circle cx="26" cy="26" r="14"/><path d="M34 -40L-34 40"/><rect x="-70" y="-70" width="140" height="140" rx="24" stroke-opacity=".35"/>',
+  compare: '<path d="M0 -60v110M-50 50h100M-60 -40h120"/><path d="M-60 -40l-18 44h36zM60 -40l-18 44h36z"/>',
+};
+const glyph = icons[icon] ?? icons.card;
+---
+<div class:list={['relative overflow-hidden', cls]} role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : 'true'}>
+  <svg viewBox="0 0 640 336" class="block h-full w-full" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#0b1324" />
+        <stop offset="1" stop-color="#121c38" />
+      </linearGradient>
+      <radialGradient id={`${id}-a`} cx=".82" cy=".15" r=".65">
+        <stop offset="0" stop-color={c1} stop-opacity=".55" />
+        <stop offset="1" stop-color={c1} stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id={`${id}-b`} cx=".1" cy=".95" r=".6">
+        <stop offset="0" stop-color={c2} stop-opacity=".35" />
+        <stop offset="1" stop-color={c2} stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <rect width="640" height="336" fill={`url(#${id}-bg)`} />
+    <rect width="640" height="336" fill={`url(#${id}-a)`} />
+    <rect width="640" height="336" fill={`url(#${id}-b)`} />
+    <g stroke="#fff" stroke-opacity=".05">
+      {Array.from({ length: 15 }, (_, i) => <path d={`M${i * 44} 0v336`} />)}
+      {Array.from({ length: 8 }, (_, i) => <path d={`M0 ${i * 44}h640`} />)}
+    </g>
+    <g transform="translate(320 168) scale(1.35)" fill="none" stroke={c1} stroke-width="6" stroke-linecap="round" stroke-linejoin="round" set:html={glyph} />
+    <text x="600" y="306" fill="#fff" fill-opacity=".55" font-family="system-ui,sans-serif" font-size="18" font-weight="700" text-anchor="end" direction="ltr">PayCards</text>
+  </svg>
+</div>
