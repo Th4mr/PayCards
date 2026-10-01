@@ -7,6 +7,24 @@ const fav = await readFile('public/favicon.svg');
 const square = Buffer.from(fav.toString().replace('rx="8" fill="url(#bg)"', 'fill="url(#bg)"'));
 await sharp(fav, { density: 512 }).resize(32, 32).png().toFile('public/favicon-32.png');
 await sharp(fav, { density: 512 }).resize(48, 48).png().toFile('public/favicon-48.png');
+await sharp(fav, { density: 1024 }).resize(96, 96).png().toFile('public/favicon-96.png');
+
+// favicon.ico (16 + 32 + 48) — المسار الذي يبحث عنه Google ومتصفحات كثيرة افتراضياً
+const icoSizes = [16, 32, 48];
+const pngs = await Promise.all(icoSizes.map((n) => sharp(fav, { density: 512 }).resize(n, n).png().toBuffer()));
+const header = Buffer.alloc(6);
+header.writeUInt16LE(0, 0); header.writeUInt16LE(1, 2); header.writeUInt16LE(pngs.length, 4);
+let offset = 6 + 16 * pngs.length;
+const entries = pngs.map((buf, i) => {
+  const e = Buffer.alloc(16);
+  e.writeUInt8(icoSizes[i], 0); e.writeUInt8(icoSizes[i], 1);
+  e.writeUInt16LE(1, 4); e.writeUInt16LE(32, 6);
+  e.writeUInt32LE(buf.length, 8); e.writeUInt32LE(offset, 12);
+  offset += buf.length;
+  return e;
+});
+const { writeFile } = await import('node:fs/promises');
+await writeFile('public/favicon.ico', Buffer.concat([header, ...entries, ...pngs]));
 await sharp(square, { density: 1024 }).resize(180, 180).png().toFile('public/apple-touch-icon.png');
 await sharp(square, { density: 2048 }).resize(192, 192).png().toFile('public/icon-192.png');
 await sharp(square, { density: 2048 }).resize(512, 512).png().toFile('public/icon-512.png');
