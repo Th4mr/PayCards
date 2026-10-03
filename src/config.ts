@@ -70,10 +70,10 @@ export const NAV = [
 ] as const;
 
 export const CATEGORIES = {
-  guides: { label: 'أدلة', description: 'شروحات أساسية خطوة بخطوة للبدء واستخدام البطاقة.' },
-  'use-cases': { label: 'استخدامات', description: 'كيف تستخدم البطاقة في التسوق والاشتراكات والسفر.' },
-  comparisons: { label: 'مقارنات', description: 'مقارنات صريحة بين RedotPay والبدائل المتاحة.' },
-  troubleshooting: { label: 'حلول مشاكل', description: 'حلول للمشاكل الشائعة مثل رفض الدفع ومشاكل التوثيق.' },
+  guides: { label: 'أدلة', description: 'شروحات عملية خطوة بخطوة لشراء العملات الرقمية وتحويلها وحمايتها والدفع بها.' },
+  'use-cases': { label: 'استخدامات', description: 'كيف تدفع بالعملات الرقمية في التسوق والاشتراكات والسفر والإعلانات والعمل الحر.' },
+  comparisons: { label: 'مقارنات', description: 'مقارنات صريحة بين البطاقات والمحافظ وطرق الدفع المختلفة لتختار الأنسب لك.' },
+  troubleshooting: { label: 'حلول مشاكل', description: 'حلول عملية لمشاكل رفض الدفع وتوثيق الهوية والتحويلات الخاطئة.' },
 } as const;
 
 export type CategoryKey = keyof typeof CATEGORIES;
