@@ -50,7 +50,7 @@ export const steps = [
 export const useCases = [
   { icon: 'card', title: 'What the card is', text: 'Virtual vs physical, Visa programmes, and the 130M+ merchant claim.', href: '/en/articles/redotpay-review' },
   { icon: 'coins', title: 'Fees', text: 'Issuance, ATM, FX, and the lines RedotPay does not publish.', href: '/en/articles/redotpay-fees' },
-  { icon: 'globe', title: 'Supported countries', text: 'Citizenships blocked at KYC, including the United States, and delivery bans.', href: '/en/articles/redotpay-supported-countries' },
+  { icon: 'globe', title: 'Supported countries', text: 'KYC, app access, and who can be issued a card. US residents are not eligible.', href: '/en/articles/redotpay-supported-countries' },
   { icon: 'cash', title: 'ATM withdrawal', text: 'USD and HKD cash fees, and why the virtual card cannot withdraw.', href: '/en/articles/redotpay-atm-withdrawal' },
 ];
 
@@ -61,7 +61,7 @@ export const homeFaq = [
   },
   {
     q: 'Is the RedotPay card available in my country?',
-    a: 'RedotPay publishes a citizenship list that cannot complete KYC, and a wider list of places it will not ship a physical card. The United States is on the citizenship list. A country missing from both lists is not an approval, and local law can still restrict crypto cards. See the supported-countries guide.',
+    a: 'US residents cannot be issued a virtual or physical card, people located in the United States cannot open the app, and US citizens cannot finish KYC. Those are three RedotPay help pages, checked on 24 October 2026. This guide is for English readers elsewhere. Pakistan, Bangladesh, Nigeria, and the Gulf states we checked are not named on those lists. India is on the card-issuance list, so Indian residents are ineligible for a card. A missing country is not an approval. See the country guide.',
   },
   {
     q: 'What is the RedotPay referral code?',
