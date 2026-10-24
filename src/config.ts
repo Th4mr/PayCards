@@ -47,8 +47,8 @@ export const REFERRAL_EN = {
 } as const;
 
 export const SITE_EN = {
-  /** hreflang في الصفحات هو en بلا منطقة. og:locale بلا en_US حتى لا تُقرأ الصفحات كأنها موجهة لأمريكا. */
-  locale: 'en',
+  /** hreflang في الصفحات هو en بلا منطقة. og:locale هو en_GB، وهو صيغة صالحة وليست en_US. */
+  locale: 'en_GB',
   tagline: 'An independent guide to the RedotPay card',
   description:
     'Independent English guide to the RedotPay card: published fees, supported countries, referral code yj8cq, top-ups, and ATM withdrawals. Figures come from RedotPay’s own pages.',
