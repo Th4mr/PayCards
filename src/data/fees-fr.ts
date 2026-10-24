@@ -43,12 +43,12 @@ const FR_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'شحن البطاقة المادية': {
     item: 'Livraison de la carte physique',
     value: 'Pas publié comme ligne séparée',
-    detail: 'Les étapes de commande citent les 100 USD d’émission et ne listent pas de frais de port. Ce n’est pas une confirmation que la livraison est gratuite. Vérifiez le montant dans l’app avant de payer.',
+    detail: 'Les étapes de commande citent les 100 USD d’émission et ne listent pas de frais de port. L’absence de cette ligne ne signifie pas que la livraison est gratuite. Vérifiez le montant dans l’app avant de payer.',
   },
   'رسوم شهرية أو سنوية للبطاقة العادية': {
     item: 'Frais mensuels ou annuels de la carte standard',
     value: 'Aucun',
-    detail: 'RedotPay dit ne pas facturer de frais de gestion, mensuels ou annuels. RedotPay Pro est optionnel et à part.',
+    detail: 'RedotPay dit qu’elle ne facture pas de frais de gestion, mensuels ou annuels. RedotPay Pro est optionnel et à part.',
   },
   'معاملة بعملة البطاقة': {
     item: 'Transaction dans la devise de la carte',

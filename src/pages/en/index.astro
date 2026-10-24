@@ -158,7 +158,7 @@ const schema = [
       <div class="reveal relative overflow-hidden rounded-3xl border border-line bg-surface px-6 py-12 text-center sm:px-12 sm:py-16">
         <div aria-hidden="true" class="pointer-events-none absolute -top-32 start-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-accent/25 blur-3xl"></div>
         <h2 class="relative text-2xl font-extrabold leading-snug sm:text-4xl">Check the country list, then open the account.</h2>
-        <p class="relative mx-auto mt-4 max-w-xl text-muted">Create the account, finish verification, and issue the virtual card.{REFERRAL_EN.bonus && <> The current spending reward is <strong class="text-fg">{REFERRAL_EN.bonus}</strong>{REFERRAL_EN.bonusTerms && <>: {REFERRAL_EN.bonusTerms}</>}.</>}</p>
+        <p class="relative mx-auto mt-4 max-w-xl text-muted">Create the account, finish verification, and issue the virtual card.{REFERRAL_EN.bonus && <> The current spending reward is <strong class="text-fg">{REFERRAL_EN.bonus}</strong>{REFERRAL_EN.bonusTerms ? <>: {REFERRAL_EN.bonusTerms}</> : '.'}</>}</p>
         <div class="relative mx-auto mt-8 max-w-md text-start">
           <ReferralCode lang="en" placement="end" compact />
           <CTAButton lang="en" position="end" label="Get your card" size="lg" full class="mt-4" />

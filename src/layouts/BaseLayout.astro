@@ -62,6 +62,7 @@ const altLocales = (['ar', 'en', 'fr'] as const).filter((code) => code !== lang 
     {pair?.en && <link rel="alternate" hreflang="en" href={new URL(pair.en, SITE.url).href} />}
     {pair?.fr && <link rel="alternate" hreflang="fr" href={new URL(pair.fr, SITE.url).href} />}
     {pair?.ar && <link rel="alternate" hreflang="x-default" href={new URL(pair.ar, SITE.url).href} />}
+    {!pair?.ar && pair?.en && pair?.fr && <link rel="alternate" hreflang="x-default" href={new URL(pair.en, SITE.url).href} />}
     {SITE.googleVerification && <meta name="google-site-verification" content={SITE.googleVerification} />}
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#f5f7fb" />

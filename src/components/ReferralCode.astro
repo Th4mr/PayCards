@@ -36,7 +36,7 @@ const guide = text(lang, {
   {ref.bonus && (
     <p class="mt-2 text-sm leading-7 text-muted">
       {lang === 'fr' ? (
-        <>Crédit de dépenses de <strong class="text-fg">{ref.bonus}</strong> pour les nouveaux comptes. Il n’est pas lié au code de parrainage.{ref.bonusTerms && <> {ref.bonusTerms}</>}</>
+        <>Crédit de dépenses de <strong class="text-fg">{ref.bonus}</strong> pour les nouveaux comptes. Il n’est pas lié au code de parrainage.{ref.bonusTerms && <> {ref.bonusTerms.charAt(0).toUpperCase() + ref.bonusTerms.slice(1)}</>}</>
       ) : lang === 'en' ? (
         <>A <strong class="text-fg">{ref.bonus}</strong> spending reward for new accounts. It is not tied to the referral code.{ref.bonusTerms && <> {ref.bonusTerms}</>}</>
       ) : (

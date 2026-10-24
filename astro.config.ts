@@ -80,6 +80,7 @@ export default defineConfig({
         if (pair.en) links.push({ lang: 'en', url: new URL(pair.en, SITE.url).href });
         if (pair.fr) links.push({ lang: 'fr', url: new URL(pair.fr, SITE.url).href });
         if (pair.ar) links.push({ lang: 'x-default', url: new URL(pair.ar, SITE.url).href });
+        else if (pair.en && pair.fr) links.push({ lang: 'x-default', url: new URL(pair.en, SITE.url).href });
         if (links.length < 2) return item;
         return { ...item, links };
       },

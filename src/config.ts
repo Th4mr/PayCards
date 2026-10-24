@@ -60,7 +60,7 @@ export const REFERRAL_FR = {
   goPath: '/go/redotpay-fr',
   code: REFERRAL.code,
   bonus: '5 USD' as string | null,
-  bonusTerms: 'Crédit de dépenses pendant 30 jours après réception. Il ne paie pas les frais d’émission ni de remplacement.' as string | null,
+  bonusTerms: 'crédit de dépenses pendant 30 jours après réception. Il ne paie pas les frais d’émission ni de remplacement.' as string | null,
   rel: REFERRAL.rel,
 } as const;
 

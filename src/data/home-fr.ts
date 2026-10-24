@@ -50,7 +50,7 @@ export const steps = [
 export const useCases = [
   { icon: 'card', title: 'Ce qu’est la carte', text: 'Virtuelle ou physique, programmes Visa, et l’affirmation des 130 millions de commerçants.', href: '/fr/articles/avis-redotpay' },
   { icon: 'coins', title: 'Les frais', text: 'Émission, DAB, change, et les lignes que RedotPay ne publie pas.', href: '/fr/articles/frais-redotpay' },
-  { icon: 'globe', title: 'Les pays', text: 'KYC, accès à l’app, et qui peut recevoir une carte. Les résidents au Maroc ne le peuvent pas.', href: '/fr/articles/pays-redotpay' },
+  { icon: 'globe', title: 'Les pays', text: 'KYC, accès à l’app, et qui peut recevoir une carte. Les résidents du Maroc ne le peuvent pas.', href: '/fr/articles/pays-redotpay' },
   { icon: 'cash', title: 'Retrait au DAB', text: 'Frais cash USD et HKD, et pourquoi la carte virtuelle ne retire pas.', href: '/fr/articles/retrait-dab-redotpay' },
 ];
 
@@ -61,7 +61,7 @@ export const homeFaq = [
   },
   {
     q: 'La carte RedotPay est-elle disponible dans mon pays ?',
-    a: 'Les résidents des États-Unis ne peuvent pas recevoir de carte virtuelle ni physique, les personnes qui s’y trouvent ne peuvent pas ouvrir l’app, et les citoyens américains ne peuvent pas finir le KYC. Ce sont trois pages d’aide, relues le 24 octobre 2026. Ce guide s’adresse aux lecteurs francophones ailleurs : Maghreb, Afrique de l’Ouest et du Centre, Europe hors États-Unis. Le Maroc est sur la liste d’émission : un résident au Maroc ne peut pas recevoir de carte. La Tunisie est sur la liste de livraison de la carte physique, pas sur les trois autres. L’Algérie, la France, la Belgique, la Suisse, le Sénégal, la Côte d’Ivoire et le Cameroun ne sont pas nommés. Une absence n’est pas un accord. Le Burkina Faso, le Mali, le Burundi, la République centrafricaine et la RDC sont bloqués. Voir le guide des pays.',
+    a: 'Les résidents des États-Unis ne peuvent pas recevoir de carte virtuelle ni physique, les personnes qui s’y trouvent ne peuvent pas ouvrir l’app, et les citoyens américains ne peuvent pas finir le KYC. Ce sont trois pages d’aide, relues le 24 octobre 2026. Ce guide s’adresse aux lecteurs francophones ailleurs : Maghreb, Afrique de l’Ouest et du Centre, et Europe. Ces pages ne visent pas les États-Unis, exclus par RedotPay. Le Maroc est sur la liste d’émission : un résident du Maroc ne peut pas recevoir de carte. La Tunisie est sur la liste de livraison de la carte physique, pas sur les trois autres. L’Algérie, la France, la Belgique, la Suisse, le Sénégal, la Côte d’Ivoire et le Cameroun ne sont pas nommés. Une absence n’est pas un accord. Le Burkina Faso, le Mali, le Burundi, la République centrafricaine et la RDC sont bloqués. Voir le guide des pays.',
   },
   {
     q: 'Quel est le code parrainage RedotPay ?',

@@ -8,7 +8,7 @@ import { REFERRAL_FR, SITE } from '../../config';
   <ul>
     <li>Si vous vous inscrivez via nos liens, <strong>nous pouvons toucher une commission ou une récompense</strong> de RedotPay dans le cadre de son programme de parrainage.</li>
     <li><strong>Vous ne payez pas plus</strong> à cause de cela. Vous payez les frais propres à RedotPay.</li>
-    <li>Les nouveaux comptes peuvent aussi recevoir une récompense de dépenses{REFERRAL_FR.bonus && ` (${REFERRAL_FR.bonus} au moment où cette page a été écrite)`}{REFERRAL_FR.bonusTerms && ` — ${REFERRAL_FR.bonusTerms}`}. Les conditions de la plateforme changent. Les pages de RedotPay font foi, pas ce site. La récompense est pour les nouveaux comptes. Le code de parrainage ne la débloque pas, et elle ne paie pas les frais d’émission de la carte.</li>
+    <li>Les nouveaux comptes peuvent aussi recevoir une récompense de dépenses{REFERRAL_FR.bonus && ` (${REFERRAL_FR.bonus} au moment où cette page a été écrite)`}{REFERRAL_FR.bonusTerms && ` — ${REFERRAL_FR.bonusTerms.charAt(0).toUpperCase()}${REFERRAL_FR.bonusTerms.slice(1)}`}. Les conditions de la plateforme changent. Les pages de RedotPay font foi, pas ce site. La récompense est pour les nouveaux comptes. Le code de parrainage ne la débloque pas, et elle ne paie pas les frais d’émission de la carte.</li>
   </ul>
   <h2>Comment nous gérons le conflit</h2>
   <ul>
