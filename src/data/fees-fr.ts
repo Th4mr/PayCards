@@ -26,6 +26,7 @@ export const SOURCE_META_FR: Record<SourceId, { title: string; pageDate: string 
   location: { title: 'Restrictions d’accès selon la localisation', pageDate: '28 août 2026' },
   issuanceBlock: { title: 'Restrictions d’émission de carte', pageDate: '28 août 2026' },
   depositHow: { title: 'Comment déposer des cryptos sur mon compte RedotPay ?', pageDate: '28 juillet 2026' },
+  limits: { title: 'Limites et frais de la carte RedotPay', pageDate: '24 juillet 2026' },
   sg: { title: 'Page du programme Singapour', pageDate: 'page produit' },
 };
 
@@ -42,8 +43,8 @@ const FR_ROWS: Record<string, { item: string; value: string; detail: string }> =
   },
   'شحن البطاقة المادية': {
     item: 'Livraison de la carte physique',
-    value: 'Pas publié comme ligne séparée',
-    detail: 'Les étapes de commande citent les 100 USD d’émission et ne listent pas de frais de port. L’absence de cette ligne ne signifie pas que la livraison est gratuite. Vérifiez le montant dans l’app avant de payer.',
+    value: 'Courrier standard offert sur le tableau ; DHL au paiement',
+    detail: 'L’article de commande (30 juillet 2026) cite les 100 USD et ne liste pas le port. Le tableau des limites (page du 24 juillet 2026) marque Standard Mail comme offert (Waived) et DHL Express comme variable selon le pays, calculé au paiement. L’article sur la durée (22 juillet 2026) dit : DHL en général 3 à 10 jours, courrier standard en général 5 à 30 jours. Le montant affiché au paiement est celui qui est pris.',
   },
   'رسوم شهرية أو سنوية للبطاقة العادية': {
     item: 'Frais mensuels ou annuels de la carte standard',
@@ -93,8 +94,8 @@ const FR_ROWS: Record<string, { item: string; value: string; detail: string }> =
   },
   'حدود الإنفاق والسحب العامة': {
     item: 'Plafonds généraux de dépense et de retrait',
-    value: 'Pas de chiffre unique publié pour tous les comptes',
-    detail: 'Les pages d’aide consultées ne publient pas un plafond quotidien ou mensuel valable pour chaque compte. La limite affichée dans l’app fait foi.',
+    value: '100 000 USD par opération, 1 000 000 USD par jour',
+    detail: 'Les deux colonnes du tableau des limites affichent ces plafonds de dépense, et le tableau les date du 1er décembre 2025. Les plafonds DAB sont à part : 3 750 USD ou 23 000 HKD par jour, et 50 000 USD ou 75 000 HKD par mois, avec une note que certaines cartes USD sont à 3 000 par jour et 10 000 par mois. Les retraits sont limités à 3 par jour et 30 par mois. La limite que vous fixez dans l’app peut être plus basse.',
   },
   'مكافأة التسجيل': {
     item: 'Récompense d’inscription',
