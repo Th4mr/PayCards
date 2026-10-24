@@ -36,7 +36,7 @@ const reviewed = text(lang, {
 ---
 <BaseLayout lang={lang} title={title} description={description} page={page} schema={[breadcrumbSchema(crumbs)]}>
   <section class="container-x max-w-3xl pt-8 sm:pt-12">
-    <Breadcrumbs items={crumbs} />
+    <Breadcrumbs items={crumbs} lang={lang} />
     <h1 class="mt-5 text-3xl font-extrabold sm:text-4xl">{heading}</h1>
     {showUpdated && <p class="mt-2 text-sm text-muted">{text(lang, { ar: 'آخر تحديث', en: 'Last updated', fr: 'Dernière mise à jour', es: 'Última actualización', pt: 'Última atualização' })}: {reviewed}</p>}
     <div class="prose prose-pc prose-lg mt-8 max-w-none prose-headings:font-extrabold prose-p:leading-[1.95]">
