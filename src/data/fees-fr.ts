@@ -44,7 +44,7 @@ const FR_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'شحن البطاقة المادية': {
     item: 'Livraison de la carte physique',
     value: 'Courrier standard offert sur le tableau ; DHL au paiement',
-    detail: 'L’article de commande (30 juillet 2026) cite les 100 USD et ne liste pas le port. Le tableau des limites (page du 24 juillet 2026) marque Standard Mail comme offert (Waived) et DHL Express comme variable selon le pays, calculé au paiement. L’article sur la durée (22 juillet 2026) dit : DHL en général 3 à 10 jours, courrier standard en général 5 à 30 jours. Le montant affiché au paiement est celui qui est pris.',
+    detail: 'L’article de commande (30 juillet 2026) cite les 100 USD et ne liste pas le port. Le tableau des frais sur la page des limites (mise à jour le 24 juillet 2026) marque Standard Mail comme offert (Waived) et DHL Express comme variable selon le pays, calculé au paiement, et ce tableau des frais est daté du 1er décembre 2025. Le tableau des limites sur la même page n’a pas de date propre. L’article sur la durée (22 juillet 2026) dit : DHL en général 3 à 10 jours, courrier standard en général 5 à 30 jours. Le montant affiché au paiement est celui qui est pris.',
   },
   'رسوم شهرية أو سنوية للبطاقة العادية': {
     item: 'Frais mensuels ou annuels de la carte standard',
@@ -95,7 +95,7 @@ const FR_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'حدود الإنفاق والسحب العامة': {
     item: 'Plafonds généraux de dépense et de retrait',
     value: '100 000 USD par opération, 1 000 000 USD par jour',
-    detail: 'Les deux colonnes du tableau des limites affichent ces plafonds de dépense, et le tableau les date du 1er décembre 2025. Les plafonds DAB sont à part : 3 750 USD ou 23 000 HKD par jour, et 50 000 USD ou 75 000 HKD par mois, avec une note que certaines cartes USD sont à 3 000 par jour et 10 000 par mois. Les retraits sont limités à 3 par jour et 30 par mois. La limite que vous fixez dans l’app peut être plus basse.',
+    detail: 'Les deux colonnes du tableau des limites affichent ces plafonds de dépense. Ce tableau de limites n’a pas de date propre ; la page a été mise à jour le 24 juillet 2026. La ligne « en vigueur depuis le 1er décembre 2025 » appartient au tableau des frais, pas à ces plafonds. Les plafonds DAB sont à part : 3 750 USD ou 23 000 HKD par jour, et 50 000 USD ou 75 000 HKD par mois, avec une note que certaines cartes USD sont à 3 000 par jour et 10 000 par mois. Les retraits sont limités à 3 par jour et 30 par mois. La limite que vous fixez dans l’app peut être plus basse.',
   },
   'مكافأة التسجيل': {
     item: 'Récompense d’inscription',

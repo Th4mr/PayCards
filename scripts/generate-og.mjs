@@ -34,24 +34,57 @@ function esc(s) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+function charLength(text) {
+  return [...text].length;
+}
+
 function wrap(text, max) {
-  const words = text.trim().split(/\s+/);
+  const words = text.trim().split(/\s+/).filter(Boolean);
   const lines = [];
   let cur = '';
   for (const w of words) {
     const next = cur ? `${cur} ${w}` : w;
-    if ([...next].length > max && cur) {
+    if (charLength(next) > max && cur) {
       lines.push(cur);
       cur = w;
     } else cur = next;
   }
   if (cur) lines.push(cur);
-  return lines.slice(0, 4);
+  return lines;
+}
+
+/** If the text needs more lines than fit, end the last visible line on a word and add an ellipsis. */
+function fitLines(text, max, maxLines) {
+  const lines = wrap(text, max);
+  if (lines.length <= maxLines) return lines;
+  const ellipsis = '…';
+  const budget = max - charLength(ellipsis);
+  let last = lines[maxLines - 1] ?? '';
+  const parts = last.split(/\s+/).filter(Boolean);
+  while (parts.length > 1 && charLength(parts.join(' ')) > budget) parts.pop();
+  last = parts.join(' ');
+  if (charLength(last) > budget) {
+    const earlier = lines[maxLines - 2];
+    if (earlier) {
+      lines[maxLines - 2] = `${earlier.replace(/[\s,،;:؛.!?؟\-–—/|]+$/u, '')}${ellipsis}`;
+      return lines.slice(0, maxLines - 1);
+    }
+    last = [...last].slice(0, Math.max(0, budget)).join('').trimEnd();
+  }
+  last = last.replace(/[\s,،;:؛\-–—/|]+$/u, '');
+  const marks = [...last.matchAll(/[,،;؛.!?؟]/g)];
+  const lastMark = marks.length ? marks[marks.length - 1] : null;
+  if (lastMark && lastMark.index >= 12) {
+    const phrase = last.slice(0, lastMark.index).replace(/[\s\-–—/|]+$/u, '');
+    if (charLength(phrase) >= 12 && charLength(phrase) <= budget) last = phrase;
+  }
+  lines[maxLines - 1] = `${last}${ellipsis}`;
+  return lines.slice(0, maxLines);
 }
 
 /** مسافة أو علامة محايدة. إلصاقها بمقطع عربي يجعل بدايتها المنطقية على يسار الرسم. */
 function isSeparator(ch) {
-  return /[\s\u00a0:·،؛,.!;?؟«»"'()[\]{}<>\-–—/\\|@#%&*+=~^]/.test(ch);
+  return /[\s\u00a0\u2026:·،؛,.!;?؟«»"'()[\]{}<>\-–—/\\|@#%&*+=~^]/.test(ch);
 }
 
 /**
@@ -160,8 +193,8 @@ async function lineMarkup(text, y, size, weight, fill, right) {
 }
 
 async function svg({ kicker, title, description }) {
-  const titleLines = wrap(title, 28);
-  const descLines = wrap(description, 42).slice(0, 2);
+  const titleLines = fitLines(title, 28, 4);
+  const descLines = fitLines(description, 42, 2);
   const titleStart = 210;
   let body = await lineMarkup(kicker, 110, 28, 700, '#2ee6a8', 1080);
   for (let i = 0; i < titleLines.length; i++) {
@@ -223,8 +256,8 @@ for (const name of readdirSync(join(ROOT, 'src/content/articles'))) {
 }
 
 function svgLtr({ kicker, title, description, path }) {
-  const titleLines = wrap(title, 34);
-  const descLines = wrap(description, 58).slice(0, 3);
+  const titleLines = fitLines(title, 34, 4);
+  const descLines = fitLines(description, 58, 3);
   const titleStart = 210;
   let body = `<text x="72" y="110" text-anchor="start" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="700" font-size="28" fill="#2ee6a8">${esc(kicker)}</text>`;
   for (let i = 0; i < titleLines.length; i++) {

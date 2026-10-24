@@ -56,11 +56,18 @@ const body = {
   urlList,
 };
 
-const res = await fetch(ENDPOINT, {
-  method: 'POST',
-  headers: { 'content-type': 'application/json; charset=utf-8' },
-  body: JSON.stringify(body),
-});
+let res;
+try {
+  res = await fetch(ENDPOINT, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json; charset=utf-8' },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(10000),
+  });
+} catch (error) {
+  console.warn(`indexnow: ping failed: ${error instanceof Error ? error.message : error}`);
+  process.exit(0);
+}
 const text = await res.text();
 console.log(`indexnow: ${res.status} ${urlList.length} urls ${text.slice(0, 200)}`);
 if (res.status !== 200 && res.status !== 202) {
