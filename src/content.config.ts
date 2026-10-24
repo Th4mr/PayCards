@@ -42,4 +42,9 @@ const articlesFr = defineCollection({
   schema: articleSchema,
 });
 
-export const collections = { articles, articlesEn, articlesFr };
+const articlesEs = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/es' }),
+  schema: articleSchema,
+});
+
+export const collections = { articles, articlesEn, articlesFr, articlesEs };

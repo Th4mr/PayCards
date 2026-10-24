@@ -4,6 +4,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { breadcrumbSchema, formatDate } from '../lib/articles';
 import { formatDate as formatDateEn } from '../lib/en-articles';
 import { formatDate as formatDateFr } from '../lib/fr-articles';
+import { formatDate as formatDateEs } from '../lib/es-articles';
 import { SITE } from '../config';
 import { text, type Lang } from '../i18n/lang';
 
@@ -21,18 +22,20 @@ const crumbs = text(lang, {
   ar: [{ name: 'الرئيسية', url: '/' }, { name: heading, url: path }],
   en: [{ name: 'Home', url: '/en' }, { name: heading, url: path }],
   fr: [{ name: 'Accueil', url: '/fr' }, { name: heading, url: path }],
+  es: [{ name: 'Inicio', url: '/es' }, { name: heading, url: path }],
 });
 const reviewed = text(lang, {
   ar: formatDate(new Date(SITE.lastReviewed)),
   en: formatDateEn(new Date(SITE.lastReviewed)),
   fr: formatDateFr(new Date(SITE.lastReviewed)),
+  es: formatDateEs(new Date(SITE.lastReviewed)),
 });
 ---
 <BaseLayout lang={lang} title={title} description={description} page={page} schema={[breadcrumbSchema(crumbs)]}>
   <section class="container-x max-w-3xl pt-8 sm:pt-12">
     <Breadcrumbs items={crumbs} />
     <h1 class="mt-5 text-3xl font-extrabold sm:text-4xl">{heading}</h1>
-    {showUpdated && <p class="mt-2 text-sm text-muted">{text(lang, { ar: 'آخر تحديث', en: 'Last updated', fr: 'Dernière mise à jour' })}: {reviewed}</p>}
+    {showUpdated && <p class="mt-2 text-sm text-muted">{text(lang, { ar: 'آخر تحديث', en: 'Last updated', fr: 'Dernière mise à jour', es: 'Última actualización' })}: {reviewed}</p>}
     <div class="prose prose-pc prose-lg mt-8 max-w-none prose-headings:font-extrabold prose-p:leading-[1.95]">
       <slot />
     </div>

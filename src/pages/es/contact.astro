@@ -1,0 +1,19 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="es" title="Contacto" heading="Contacto" description="Escribe al equipo PayCards para corregir un dato de RedotPay, proponer una guía o preguntar por el sitio. No podemos acceder a tu cuenta de RedotPay." page="contact-es" path="/es/contact">
+  <p>El correo es la forma de contactarnos:</p>
+  <p class="not-prose">
+    <a href={`mailto:${SITE.email}`} class="btn-primary text-lg">{SITE.email}</a>
+  </p>
+  <h2>Escríbenos para</h2>
+  <ul>
+    <li>Un dato de una página que haya cambiado o que sea falso.</li>
+    <li>Una pregunta sobre RedotPay para la que quieras una guía.</li>
+    <li>Colaboraciones y publicidad.</li>
+  </ul>
+  <h2>Lo que no podemos hacer</h2>
+  <p>PayCards no es RedotPay. <strong>No podemos abrir tu cuenta</strong> ni reparar un depósito, un KYC rechazado o una transacción. Para eso, usa el soporte de RedotPay en la app.</p>
+  <p><strong>Seguridad:</strong> nunca te pediremos tu contraseña, un código de un solo uso ni una frase de recuperación de monedero. Un mensaje que lo haga no viene de nosotros.</p>
+</PageLayout>

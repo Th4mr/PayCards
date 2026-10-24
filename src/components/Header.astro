@@ -20,15 +20,20 @@ const nav = text(lang, {
     { href: '/fr#frais', label: 'Frais' },
     { href: '/fr#faq', label: 'FAQ' },
   ],
+  es: [
+    { href: '/es/articles', label: 'Guías' },
+    { href: '/es#comisiones', label: 'Comisiones' },
+    { href: '/es#faq', label: 'FAQ' },
+  ],
 });
-const cta = text(lang, { ar: 'احصل على بطاقتك', en: 'Get your card', fr: 'Obtenir la carte' });
-const homeHref = text(lang, { ar: '/', en: '/en', fr: '/fr' });
-const homeLabel = text(lang, { ar: 'PayCards — الرئيسية', en: 'PayCards — Home', fr: 'PayCards — Accueil' });
-const primary = text(lang, { ar: 'القائمة الرئيسية', en: 'Primary', fr: 'Principal' });
-const themeLabel = text(lang, { ar: 'تبديل الوضع الداكن والفاتح', en: 'Toggle dark mode', fr: 'Changer le thème' });
-const menuLabel = text(lang, { ar: 'فتح القائمة', en: 'Open menu', fr: 'Ouvrir le menu' });
-const mobileLabel = text(lang, { ar: 'قائمة الجوال', en: 'Mobile', fr: 'Menu mobile' });
-const langLabel = text(lang, { ar: 'اللغة', en: 'Language', fr: 'Langue' });
+const cta = text(lang, { ar: 'احصل على بطاقتك', en: 'Get your card', fr: 'Obtenir la carte', es: 'Pedir la tarjeta' });
+const homeHref = text(lang, { ar: '/', en: '/en', fr: '/fr', es: '/es' });
+const homeLabel = text(lang, { ar: 'PayCards — الرئيسية', en: 'PayCards — Home', fr: 'PayCards — Accueil', es: 'PayCards — Inicio' });
+const primary = text(lang, { ar: 'القائمة الرئيسية', en: 'Primary', fr: 'Principal', es: 'Principal' });
+const themeLabel = text(lang, { ar: 'تبديل الوضع الداكن والفاتح', en: 'Toggle dark mode', fr: 'Changer le thème', es: 'Cambiar el tema' });
+const menuLabel = text(lang, { ar: 'فتح القائمة', en: 'Open menu', fr: 'Ouvrir le menu', es: 'Abrir el menú' });
+const mobileLabel = text(lang, { ar: 'قائمة الجوال', en: 'Mobile', fr: 'Menu mobile', es: 'Menú móvil' });
+const langLabel = text(lang, { ar: 'اللغة', en: 'Language', fr: 'Langue', es: 'Idioma' });
 ---
 <header class="sticky top-0 z-40 border-b border-line/70 bg-bg/80 backdrop-blur-md">
   <div class="container-x flex h-16 items-center justify-between gap-2">

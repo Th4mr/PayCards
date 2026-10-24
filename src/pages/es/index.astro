@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card3D from '../../components/Card3D.astro';
+import CTAButton from '../../components/CTAButton.astro';
+import Icon from '../../components/Icon.astro';
+import FAQ from '../../components/FAQ.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import FeeTable from '../../components/FeeTable.astro';
+import ReferralCode from '../../components/ReferralCode.astro';
+import AvailabilityNote from '../../components/AvailabilityNote.astro';
+import RedotHub from '../../components/RedotHub.astro';
+import { SITE_ES, REFERRAL_ES } from '../../config';
+import { trustItems, features, steps, useCases, homeFaq } from '../../data/home-es';
+import { getArticles, webPageSchema } from '../../lib/es-articles';
+import { faqSchema } from '../../lib/articles';
+
+const latest = (await getArticles()).slice(0, 6);
+const schema = [
+  webPageSchema('Opiniones RedotPay, comisiones y guía de la tarjeta', SITE_ES.description, '/es'),
+  faqSchema(homeFaq),
+];
+---
+<BaseLayout
+  lang="es"
+  title="PayCards — Opiniones RedotPay y comisiones"
+  description={SITE_ES.description}
+  page="home-es"
+  image="/og/es-home.png"
+  schema={schema}
+>
+  <section class="relative overflow-hidden">
+    <div class="container-x grid items-center gap-8 pb-8 pt-8 sm:pt-12 lg:grid-cols-[1.1fr_0.9fr] lg:pb-10">
+      <div>
+        <span class="eyebrow"><span class="h-1.5 w-1.5 rounded-full bg-accent"></span> Guía independiente de RedotPay</span>
+        <h1 class="mt-5 text-[2rem] font-extrabold leading-[1.25] sm:text-5xl sm:leading-[1.2]">
+          Opiniones RedotPay: <span class="bg-gradient-to-r from-accent-fg to-[#4c6ef5] bg-clip-text text-transparent">comisiones, países y tarjeta</span>
+        </h1>
+        <p class="mt-5 max-w-xl text-lg text-muted">
+          Gasta USDT y otros activos donde se aceptan las grandes redes de tarjetas. Esta guía cita las páginas de RedotPay para las comisiones, el código de referido, los países, la recarga y el efectivo en cajero, y dice cuándo una cifra no está publicada.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <CTAButton lang="es" position="hero" label="Pedir la tarjeta" size="lg" />
+          <a href="#como" class="btn-ghost px-7 py-4 text-lg">Cómo funciona</a>
+        </div>
+        <ul class="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+          {['Tarjeta virtual: 10 USD una vez', 'Apple Pay y Google Pay, donde se acepte', 'Código de referido solo al registrarte'].map((t) => (
+            <li class="flex items-center gap-1.5"><Icon name="check" class="h-4 w-4 text-accent-fg" />{t}</li>
+          ))}
+        </ul>
+        <div class="mt-6 max-w-xl"><ReferralCode lang="es" placement="hero" /></div>
+        <AvailabilityNote lang="es" class="mt-3 max-w-xl" />
+      </div>
+      <Card3D lang="es" />
+    </div>
+  </section>
+
+  <section aria-label="Puntos clave" class="border-y border-line bg-surface/60">
+    <ul class="container-x grid grid-cols-2 gap-x-4 gap-y-5 py-6 text-sm font-semibold lg:grid-cols-4">
+      {trustItems.map((t) => (
+        <li class="flex items-center gap-3">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-surface-2 text-accent-fg"><Icon name={t.icon} class="h-5 w-5" /></span>
+          <span>{t.text}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section" id="para-que">
+    <div class="container-x">
+      <h2 class="section-title reveal">Para qué sirve la tarjeta</h2>
+      <p class="section-lead reveal">Un saldo cripto se convierte en un pago con tarjeta. El comercio cobra por una red de tarjetas. Aun así hay que comprobar si RedotPay abrirá una cuenta para tu nacionalidad y tu país de residencia.</p>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {features.map((f) => (
+          <div class="card reveal flex gap-4 p-5 transition hover:border-accent/60 sm:block sm:p-6">
+            <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-accent/15 text-accent-fg"><Icon name={f.icon} /></span>
+            <div>
+              <h3 class="text-lg font-bold sm:mt-4">{f.title}</h3>
+              <p class="mt-1.5 text-[15px] text-muted sm:mt-2 sm:text-base">{f.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-bg-2" id="como">
+    <div class="container-x">
+      <h2 class="section-title reveal">Empezar en cuatro pasos</h2>
+      <p class="section-lead reveal">De la página de invitación al primer pago. La secuencia completa está en la <a class="text-accent-fg underline" href="/es/articles/codigo-referido-redotpay">guía del código de referido</a>.</p>
+      <ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((s, i) => (
+          <li class="card reveal relative p-6">
+            <span class="absolute end-5 top-5 text-5xl font-extrabold text-line">{i + 1}</span>
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-accent text-on-accent"><Icon name={s.icon} /></span>
+            <h3 class="mt-4 text-lg font-bold">{s.title}</h3>
+            <p class="mt-2 text-sm text-muted">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <CTAButton lang="es" position="steps" label="Empezar el registro" size="lg" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="usos">
+    <div class="container-x">
+      <h2 class="section-title reveal">Empieza por la pregunta que tienes</h2>
+      <p class="section-lead reveal">Estas son las búsquedas a las que responde esta guía: tarjeta RedotPay, opiniones, comisiones y código de referido.</p>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {useCases.map((u) => (
+          <a href={u.href} class="card group reveal flex flex-col p-6 transition hover:-translate-y-1 hover:border-accent/60">
+            <Icon name={u.icon} class="h-8 w-8 text-accent-fg" />
+            <h3 class="mt-4 text-lg font-bold">{u.title}</h3>
+            <p class="mt-1 text-sm text-muted">{u.text}</p>
+            <span class="mt-4 text-sm font-bold text-accent-fg">Leer la guía →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section !pt-12" id="comisiones">
+    <div class="container-x">
+      <h2 class="section-title reveal">Comisiones RedotPay que hemos revisado</h2>
+      <p class="section-lead reveal">Las cifras principales. Cada línea, con su fuente, está en la <a class="text-accent-fg underline" href="/es/articles/comisiones-redotpay">guía de comisiones RedotPay</a>.</p>
+      <div class="mt-8 reveal"><FeeTable lang="es" variant="compact" /></div>
+    </div>
+  </section>
+
+  <section class="section bg-bg-2" id="guias">
+    <div class="container-x">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h2 class="section-title reveal">Guías</h2>
+          <p class="section-lead reveal">Comisiones, países, recarga, cajero y código de referido.</p>
+        </div>
+        <a href="/es/articles" class="hidden shrink-0 font-bold text-accent-fg sm:inline">Todas las guías →</a>
+      </div>
+      <div class="mt-8 reveal"><RedotHub lang="es" /></div>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {latest.map((a) => <ArticleCard lang="es" article={a} />)}
+      </div>
+      <a href="/es/articles" class="btn-ghost mt-8 w-full sm:hidden">Todas las guías</a>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container-x max-w-3xl">
+      <h2 class="section-title reveal text-center">Preguntas frecuentes</h2>
+      <p class="section-lead reveal mx-auto text-center">Respuestas cortas antes de crear una cuenta.</p>
+      <div class="mt-10 reveal"><FAQ items={homeFaq} /></div>
+    </div>
+  </section>
+
+  <section class="pb-8">
+    <div class="container-x">
+      <div class="reveal relative overflow-hidden rounded-3xl border border-line bg-surface px-6 py-12 text-center sm:px-12 sm:py-16">
+        <div aria-hidden="true" class="pointer-events-none absolute -top-32 start-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-accent/25 blur-3xl"></div>
+        <h2 class="relative text-2xl font-extrabold leading-snug sm:text-4xl">Revisa la lista de países y abre la cuenta.</h2>
+        <p class="relative mx-auto mt-4 max-w-xl text-muted">Crea la cuenta, termina la verificación y emite la tarjeta virtual.{REFERRAL_ES.bonus && <> La recompensa de gasto actual es de <strong class="text-fg">{REFERRAL_ES.bonus}</strong>{REFERRAL_ES.bonusTerms ? <>: {REFERRAL_ES.bonusTerms}</> : '.'}</>}</p>
+        <div class="relative mx-auto mt-8 max-w-md text-start">
+          <ReferralCode lang="es" placement="end" compact />
+          <CTAButton lang="es" position="end" label="Pedir la tarjeta" size="lg" full class="mt-4" />
+          <AvailabilityNote lang="es" class="mt-3 text-center" />
+        </div>
+        <p class="relative mt-4 text-xs text-muted">El registro se hace en RedotPay · las criptos pueden perder valor · no es un consejo financiero</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

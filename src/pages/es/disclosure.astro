@@ -1,0 +1,25 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { REFERRAL_ES, SITE } from '../../config';
+---
+<PageLayout lang="es" title="Aviso de referidos" heading="Aviso de referidos" description="Cómo funcionan los enlaces de referido de PayCards, qué podemos cobrar si te registras y por qué eso no cambia las comisiones que pagas a RedotPay." page="disclosure-es" path="/es/disclosure" showUpdated>
+  <p><strong>En breve:</strong> PayCards es independiente y no forma parte de RedotPay. Los botones que abren el registro de RedotPay son <strong>nuestros enlaces de referido</strong>.</p>
+  <h2>Qué significa para ti</h2>
+  <ul>
+    <li>Si te registras a través de nuestros enlaces, <strong>podemos cobrar una comisión o una recompensa</strong> de RedotPay dentro de su programa de referidos.</li>
+    <li><strong>No pagas más</strong> por eso. Pagas las comisiones propias de RedotPay.</li>
+    <li>Las cuentas nuevas también pueden recibir una recompensa de gasto{REFERRAL_ES.bonus && ` (${REFERRAL_ES.bonus} cuando se escribió esta página)`}{REFERRAL_ES.bonusTerms && ` — ${REFERRAL_ES.bonusTerms.charAt(0).toUpperCase()}${REFERRAL_ES.bonusTerms.slice(1)}`}. Las condiciones de la plataforma cambian. Las páginas de RedotPay mandan, no este sitio. La recompensa es para cuentas nuevas. El código de referido no la desbloquea y no paga las comisiones de emisión de la tarjeta.</li>
+  </ul>
+  <h2>Cómo tratamos el conflicto</h2>
+  <ul>
+    <li>Indicamos los límites en las guías, incluidas las nacionalidades que no pueden terminar la verificación.</li>
+    <li>No publicamos una comisión ni un límite sin fuente, y te pedimos que confirmes el importe en la app oficial.</li>
+    <li>Los enlaces de referido usan <code>rel="sponsored"</code>, como recomiendan los buscadores.</li>
+  </ul>
+  <h2>El camino técnico</h2>
+  <p>Los botones de registro en español pasan por <code>{SITE.domain}{REFERRAL_ES.goPath}</code>, que redirige a la página de invitación en español de RedotPay. Las páginas en inglés, francés y árabe usan otros caminos y se quedan en su invitación. Usamos estos caminos para que el destino viva en un solo archivo de configuración y para que los clics sigan agregados. <code>/go/</code> está prohibido en robots.txt.</p>
+  <h2>Si puedes registrarte</h2>
+  <p>RedotPay, y las tarjetas cripto en general, pueden no estar disponibles o estar restringidas donde vives. Las listas publicadas de nacionalidad, localización, emisión y envío están en <a href="/es/articles/paises-redotpay">esta guía</a>. Una cuenta que la empresa acepta no prueba que el derecho local autorice la tarjeta.</p>
+  <h2>Preguntas</h2>
+  <p>Escribe a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>
