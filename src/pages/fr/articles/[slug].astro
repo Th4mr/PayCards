@@ -45,6 +45,7 @@ if (data.faq.length) toc.push({ depth: 2, slug: 'faq', text: 'FAQ' });
 const crumbs = [
   { name: 'Accueil', url: '/fr' },
   { name: 'Guides', url: '/fr/articles' },
+  { name: categoryLabel(data.category), url: `/fr/articles/category/${data.category}` },
   { name: data.h1 ?? data.title, url: articleUrl(article) },
 ];
 const schema = [articleSchema(article), breadcrumbSchema(crumbs)];
@@ -66,7 +67,7 @@ if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.desc
     <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_16rem]">
       <div class="min-w-0 mx-auto w-full max-w-3xl">
         <header>
-          <Breadcrumbs items={crumbs} />
+          <Breadcrumbs items={crumbs} lang="fr" />
           <a href={`/fr/articles/category/${data.category}`} class="eyebrow mt-6">{categoryLabel(data.category)}</a>
           <h1 class="mt-4 text-3xl font-extrabold leading-[1.25] sm:text-[2.6rem]">{data.h1 ?? data.title}</h1>
           <p class="mt-4 text-lg text-muted">{data.description}</p>

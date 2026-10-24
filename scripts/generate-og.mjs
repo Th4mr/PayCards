@@ -221,9 +221,14 @@ async function lineMarkup(text, y, size, weight, fill, right) {
   return parts.join('');
 }
 
+/** A 4-line title already fills the card, so the description gives up a line and stays above the footer. */
+function descLimit(titleLineCount, maxDesc) {
+  return titleLineCount >= 4 ? Math.max(1, maxDesc - 1) : maxDesc;
+}
+
 async function svg({ kicker, title, description }) {
   const titleLines = fitLines(title, 28, 4);
-  const descLines = fitLines(description, 42, 2);
+  const descLines = fitLines(description, 42, descLimit(titleLines.length, 2));
   const titleStart = 210;
   let body = await lineMarkup(kicker, 110, 28, 700, '#2ee6a8', 1080);
   for (let i = 0; i < titleLines.length; i++) {
@@ -286,7 +291,7 @@ for (const name of readdirSync(join(ROOT, 'src/content/articles'))) {
 
 function svgLtr({ kicker, title, description, path }) {
   const titleLines = fitLines(title, 34, 4);
-  const descLines = fitLines(description, 58, 3);
+  const descLines = fitLines(description, 58, descLimit(titleLines.length, 3));
   const titleStart = 210;
   let body = `<text x="72" y="110" text-anchor="start" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="700" font-size="28" fill="#2ee6a8">${esc(kicker)}</text>`;
   for (let i = 0; i < titleLines.length; i++) {

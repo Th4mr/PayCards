@@ -1,8 +1,17 @@
 ---
-interface Props { items: { name: string; url?: string }[]; }
-const { items } = Astro.props;
+import { text, type Lang } from '../i18n/lang';
+
+interface Props { items: { name: string; url?: string }[]; lang?: Lang; }
+const { items, lang = 'ar' } = Astro.props;
+const label = text(lang, {
+  ar: 'مسار التنقل',
+  en: 'Breadcrumb',
+  fr: 'Fil d’Ariane',
+  es: 'Ruta de navegación',
+  pt: 'Caminho de navegação',
+});
 ---
-<nav aria-label="مسار التنقل" class="text-sm text-muted">
+<nav aria-label={label} class="text-sm text-muted">
   <ol class="flex flex-wrap items-center gap-1.5">
     {items.map((it, i) => (
       <li class="flex items-center gap-1.5">
