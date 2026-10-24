@@ -1,0 +1,91 @@
+---
+import ArticleCard from './ArticleCard.astro';
+import type { Lang } from '../i18n/lang';
+import type { Article } from '../lib/articles';
+import type { ArticleEn } from '../lib/en-articles';
+import type { ArticleFr } from '../lib/fr-articles';
+import type { ArticleEs } from '../lib/es-articles';
+import type { ArticlePt } from '../lib/pt-articles';
+
+interface Props {
+  lang?: Lang;
+  articles: Array<Article | ArticleEn | ArticleFr | ArticleEs | ArticlePt>;
+}
+
+const { lang = 'ar', articles } = Astro.props;
+
+const COPY: Record<Lang, { see: string; groups: Record<string, { label: string; blurb: string }> }> = {
+  ar: {
+    see: 'كل مقالات القسم',
+    groups: {
+      guides: { label: 'أدلة', blurb: 'شروحات عملية للتسجيل والشحن والسحب والرسوم.' },
+      'use-cases': { label: 'استخدامات', blurb: 'كيف يُنفق الرصيد في التسوق والاشتراكات والسفر.' },
+      comparisons: { label: 'مقارنات', blurb: 'مقارنات تُبقي أرقام المنافسين على مواقعهم.' },
+      troubleshooting: { label: 'حلول مشاكل', blurb: 'ماذا تفعل عند الرفض أو خطأ الشبكة أو تعثّر التوثيق.' },
+    },
+  },
+  en: {
+    see: 'All in this category',
+    groups: {
+      guides: { label: 'Guides', blurb: 'Practical pages on fees, countries, top-ups, cards, and cash.' },
+      'use-cases': { label: 'Use cases', blurb: 'Spending crypto on everyday payments, without promising a merchant will accept the card.' },
+      comparisons: { label: 'Comparisons', blurb: 'Side-by-side choices that leave other companies’ prices on their own sites.' },
+      troubleshooting: { label: 'Fixes', blurb: 'What to check when a payment is declined or a transfer goes wrong.' },
+    },
+  },
+  fr: {
+    see: 'Tout voir',
+    groups: {
+      guides: { label: 'Guides', blurb: 'Pages pratiques sur les frais, les pays, la recharge, la carte et le cash.' },
+      'use-cases': { label: 'Usages', blurb: 'Dépenser de la crypto au quotidien, sans promettre qu’un commerçant acceptera la carte.' },
+      comparisons: { label: 'Comparatifs', blurb: 'Des choix côte à côte qui laissent les prix des autres sociétés sur leurs sites.' },
+      troubleshooting: { label: 'Dépannage', blurb: 'Quoi vérifier quand un paiement est refusé ou qu’un transfert se trompe.' },
+    },
+  },
+  es: {
+    see: 'Ver todas',
+    groups: {
+      guides: { label: 'Guías', blurb: 'Páginas prácticas sobre comisiones, países, recarga, tarjeta y efectivo.' },
+      'use-cases': { label: 'Usos', blurb: 'Gastar cripto en pagos cotidianos, sin prometer que un comercio aceptará la tarjeta.' },
+      comparisons: { label: 'Comparativas', blurb: 'Opciones en paralelo que dejan los precios de otras empresas en sus sitios.' },
+      troubleshooting: { label: 'Solución de problemas', blurb: 'Qué revisar cuando un pago es rechazado o una transferencia sale mal.' },
+    },
+  },
+  pt: {
+    see: 'Ver todos',
+    groups: {
+      guides: { label: 'Guias', blurb: 'Páginas práticas sobre taxas, países, recarga, cartão e dinheiro.' },
+      'use-cases': { label: 'Usos', blurb: 'Gastar cripto em pagamentos do dia a dia, sem prometer que uma loja vai aceitar o cartão.' },
+      comparisons: { label: 'Comparativos', blurb: 'Opções lado a lado que deixam os preços de outras empresas nos sites delas.' },
+      troubleshooting: { label: 'Solução de problemas', blurb: 'O que conferir quando um pagamento é recusado ou uma transferência dá errado.' },
+    },
+  },
+};
+
+const order = ['guides', 'use-cases', 'comparisons', 'troubleshooting'] as const;
+const copy = COPY[lang];
+const groups = order
+  .map((key) => ({
+    key,
+    ...copy.groups[key],
+    href: lang === 'ar' ? `/articles/category/${key}` : `/${lang}/articles/category/${key}`,
+    items: articles.filter((a) => a.data.category === key),
+  }))
+  .filter((g) => g.items.length > 0);
+---
+<div class="mt-12 space-y-14">
+  {groups.map((g) => (
+    <section aria-labelledby={`cat-${g.key}`}>
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <h2 id={`cat-${g.key}`} class="text-2xl font-extrabold">
+          <a href={g.href} class="hover:text-accent-fg">{g.label}</a>
+        </h2>
+        <a href={g.href} class="text-sm font-semibold text-accent-fg">{copy.see}</a>
+      </div>
+      <p class="mt-2 max-w-2xl text-sm leading-7 text-muted">{g.blurb}</p>
+      <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {g.items.map((a) => <ArticleCard lang={lang} article={a} />)}
+      </div>
+    </section>
+  ))}
+</div>
