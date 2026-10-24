@@ -1,0 +1,25 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { REFERRAL_EN, SITE } from '../../config';
+---
+<PageLayout lang="en" title="Referral disclosure" heading="Referral disclosure" description="How PayCards referral links work, what we may earn if you sign up, and why that does not change the fee you pay RedotPay." page="disclosure-en" path="/en/disclosure" showUpdated>
+  <p><strong>In short:</strong> PayCards is independent and is not part of RedotPay. Buttons that open RedotPay signup are <strong>our referral links</strong>.</p>
+  <h2>What that means for you</h2>
+  <ul>
+    <li>If you sign up through our links, <strong>we may earn a commission or reward</strong> from RedotPay under its referral programme.</li>
+    <li><strong>You do not pay extra</strong> because of that. You pay RedotPay’s own fees.</li>
+    <li>New accounts may also receive a spending reward{REFERRAL_EN.bonus && ` (${REFERRAL_EN.bonus} when this page was written)`}{REFERRAL_EN.bonusTerms && ` — ${REFERRAL_EN.bonusTerms}`}. Platform terms change. RedotPay’s pages are the reference, not this site. The reward is for new accounts. It is not something the referral code unlocks, and it cannot pay the card issuance fee.</li>
+  </ul>
+  <h2>How we handle the conflict</h2>
+  <ul>
+    <li>We state limits in the guides, including citizenships that cannot finish verification.</li>
+    <li>We do not publish a fee or a limit without a source, and we ask you to confirm the amount in the official app.</li>
+    <li>Referral links use <code>rel="sponsored"</code>, as search engines recommend.</li>
+  </ul>
+  <h2>The technical path</h2>
+  <p>English signup buttons go through <code>{SITE.domain}{REFERRAL_EN.goPath}</code>, which redirects to RedotPay’s English invite page. Arabic pages use a different path and stay on the Arabic invite. We use these paths so the destination lives in one config file and so click counts stay aggregated. <code>/go/</code> is disallowed in robots.txt.</p>
+  <h2>Whether you can sign up</h2>
+  <p>RedotPay, and crypto cards in general, may be unavailable or restricted where you live. The company’s published citizenship block list and physical-card delivery list are in <a href="/en/articles/redotpay-supported-countries">this guide</a>. An account the company accepts is not proof that local law allows the card.</p>
+  <h2>Questions</h2>
+  <p>Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>

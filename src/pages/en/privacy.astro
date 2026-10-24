@@ -1,0 +1,22 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="en" title="Privacy policy" heading="Privacy policy" description="How PayCards handles visitor data: what we collect, what we do not collect, and the outside services the site uses." page="privacy-en" path="/en/privacy" showUpdated>
+  <p>PayCards is a static site. It has <strong>no signup form and no user accounts</strong>, and we do not ask you for personal data to read a guide.</p>
+  <h2>What can be collected?</h2>
+  <ul>
+    <li><strong>Analytics:</strong> Only after you accept, we load Google Analytics 4 to measure pages, signup-button clicks (page name and button placement), and referral-code copies. Those events include a <span dir="ltr">lang</span> parameter. Before you accept, the Google script is not requested and nothing is sent to Google. After it loads, Google may use cookies and process data such as IP address and device type under <a href="https://policies.google.com/privacy" rel="nofollow noopener" target="_blank">Google’s privacy policy</a>.</li>
+    <li><strong>Your choice:</strong> A bar at the bottom of the page offers Accept and Decline. Accept loads Google Analytics. Decline does not. The choice is stored in your browser’s <span dir="ltr">localStorage</span> under <span dir="ltr">pc-consent</span> as <span dir="ltr">granted</span> or <span dir="ltr">denied</span>. Clear site data and the bar returns.</li>
+    <li><strong>Hosting logs:</strong> The site is hosted on Vercel. Vercel may log technical data such as IP address for security and operations, under its own policy.</li>
+    <li><strong>Fonts:</strong> English pages load IBM Plex Sans from Google Fonts, so the browser contacts Google to fetch the font. Arabic pages load IBM Plex Sans Arabic the same way.</li>
+  </ul>
+  <h2>Local storage on your device</h2>
+  <p>We store a few preferences in the browser only: light or dark mode (<span dir="ltr">pc-theme</span>), dismissal of the top bar (<span dir="ltr">pc-topbar</span>), dismissal of the mobile button for the session (<span dir="ltr">pc-sticky</span>), and the analytics choice (<span dir="ltr">pc-consent</span>). That data stays on your device. Our server does not read it.</p>
+  <h2>External links</h2>
+  <p>A signup button sends you to RedotPay. From there, RedotPay’s privacy policy applies. We cannot see your RedotPay account.</p>
+  <h2>Email</h2>
+  <p>If you email us, we use the message to reply. We do not pass it on.</p>
+  <h2>Changes</h2>
+  <p>We update this policy when the tools on the site change, and we change the date above. Questions: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>

@@ -1,8 +1,12 @@
 ---
-interface Props { class?: string; }
-const { class: cls = '' } = Astro.props;
+interface Props { class?: string; lang?: 'ar' | 'en'; }
+const { class: cls = '', lang = 'ar' } = Astro.props;
+const href = lang === 'en' ? '/en/articles/redotpay-supported-countries' : '/articles/redotpay-supported-countries';
 ---
 <p class:list={['text-xs leading-6 text-muted', cls]}>
-  قد لا تكون RedotPay، أو بطاقات العملات الرقمية عموماً، متاحة أو مسموحة في بعض الدول. تحقق من القواعد المحلية ومن التطبيق قبل التسجيل.{' '}
-  <a href="/articles/redotpay-supported-countries" class="underline">قائمة الدول المنشورة</a>
+  {lang === 'en' ? (
+    <>RedotPay, and crypto cards in general, may be unavailable or illegal where you live. RedotPay’s citizenship list includes the United States. Check local rules and the app before you sign up.{' '}<a href={href} class="underline">Published country lists</a></>
+  ) : (
+    <>قد لا تكون RedotPay، أو بطاقات العملات الرقمية عموماً، متاحة أو مسموحة في بعض الدول. تحقق من القواعد المحلية ومن التطبيق قبل التسجيل.{' '}<a href={href} class="underline">قائمة الدول المنشورة</a></>
+  )}
 </p>
