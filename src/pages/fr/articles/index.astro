@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import CTABox from '../../../components/CTABox.astro';
+import RedotHub from '../../../components/RedotHub.astro';
+import { getArticles } from '../../../lib/fr-articles';
+import { breadcrumbSchema } from '../../../lib/articles';
+
+const all = await getArticles();
+const crumbs = [{ name: 'Accueil', url: '/fr' }, { name: 'Guides', url: '/fr/articles' }];
+---
+<BaseLayout lang="fr" title="Guides RedotPay : frais, pays, recharge, DAB" description="Guides RedotPay en français : avis, frais, code parrainage, pays, recharge, retraits au DAB, Apple Pay, et un comparatif qui n’invente pas les frais des autres cartes." page="articles-fr" schema={[breadcrumbSchema(crumbs)]}>
+  <section class="container-x pt-8 sm:pt-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-5 text-3xl font-extrabold sm:text-4xl">Guides RedotPay</h1>
+    <p class="mt-3 max-w-2xl text-muted">Des pages pratiques pour les recherches en français : frais, code parrainage, carte crypto en Algérie ou au Maroc, recharge et retrait au DAB. Les explications crypto générales restent sur le site arabe.</p>
+    <div class="mt-8"><RedotHub lang="fr" /></div>
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {all.map((a) => <ArticleCard lang="fr" article={a} />)}
+    </div>
+    <div class="mx-auto max-w-3xl"><CTABox lang="fr" position="end" /></div>
+  </section>
+</BaseLayout>

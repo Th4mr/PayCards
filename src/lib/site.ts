@@ -149,8 +149,7 @@ export function initSite() {
   );
 
   // 5) الزر الثابت على الجوال: يظهر بعد تمرير 30% من الصفحة
-  const sticky = document.getElementById('sticky-cta');
-  if (sticky) {
+  document.querySelectorAll<HTMLElement>('.sticky-cta').forEach((sticky) => {
     const focusables = sticky.querySelectorAll<HTMLElement>('a,button');
     let shown = false;
     const onScroll = () => {
@@ -165,7 +164,7 @@ export function initSite() {
     };
     addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-  }
+  });
 
   // 6) حركة الظهور عند التمرير
   const reveals = document.querySelectorAll('.reveal');

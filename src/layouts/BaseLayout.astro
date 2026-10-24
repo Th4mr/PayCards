@@ -5,8 +5,9 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickyCTA from '../components/StickyCTA.astro';
 import CookieConsent from '../components/CookieConsent.astro';
-import { SITE, SITE_EN, ANALYTICS } from '../config';
+import { SITE, SITE_EN, SITE_FR, ANALYTICS } from '../config';
 import { pairFor, normalizePath } from '../i18n/routes';
+import { isLtr, text, type Lang } from '../i18n/lang';
 
 interface Props {
   title: string;
@@ -18,20 +19,23 @@ interface Props {
   noindex?: boolean;
   published?: Date;
   modified?: Date;
-  lang?: 'ar' | 'en';
+  lang?: Lang;
+  /** صفحة 404: تختار اللغة من مسار المتصفح وتعرض الواجهة المناسبة. */
+  detectLang?: boolean;
 }
 
 const {
   title,
-  description = Astro.props.lang === 'en' ? SITE_EN.description : SITE.description,
+  description = text(Astro.props.lang ?? 'ar', { ar: SITE.description, en: SITE_EN.description, fr: SITE_FR.description }),
   page,
   lang = 'ar',
-  image = lang === 'en' ? '/og/en-site.png' : '/og/site.png',
+  image = text(lang, { ar: '/og/site.png', en: '/og/en-site.png', fr: '/og/fr-site.png' }),
   type = 'website',
   schema = [],
   noindex = false,
   published,
   modified,
+  detectLang = false,
 } = Astro.props;
 
 const fullTitle = title.includes('PayCards') ? title : `${title} | PayCards`;
@@ -39,23 +43,25 @@ const cleanPath = normalizePath(Astro.url.pathname);
 const canonical = new URL(cleanPath, SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
 const pair = pairFor(cleanPath);
-const fontHref = lang === 'en'
-  ? 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap'
-  : 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap';
-const locale = lang === 'en' ? SITE_EN.locale : SITE.locale;
-const altLocale = lang === 'en' ? SITE.locale : SITE_EN.locale;
+const fontSans = 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap';
+const fontArabic = 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap';
+const fontHref = isLtr(lang) ? fontSans : fontArabic;
+const locale = text(lang, { ar: SITE.locale, en: SITE_EN.locale, fr: SITE_FR.locale });
+const ogLocales = { ar: SITE.locale, en: SITE_EN.locale, fr: SITE_FR.locale } as const;
+const altLocales = (['ar', 'en', 'fr'] as const).filter((code) => code !== lang && pair?.[code]);
 ---
 <!doctype html>
-<html lang={lang} dir={lang === 'en' ? 'ltr' : 'rtl'}>
+<html lang={lang} dir={isLtr(lang) ? 'ltr' : 'rtl'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {pair && <link rel="alternate" hreflang="ar" href={new URL(pair.ar, SITE.url).href} />}
-    {pair && <link rel="alternate" hreflang="en" href={new URL(pair.en, SITE.url).href} />}
-    {pair && <link rel="alternate" hreflang="x-default" href={new URL(pair.ar, SITE.url).href} />}
+    {pair?.ar && <link rel="alternate" hreflang="ar" href={new URL(pair.ar, SITE.url).href} />}
+    {pair?.en && <link rel="alternate" hreflang="en" href={new URL(pair.en, SITE.url).href} />}
+    {pair?.fr && <link rel="alternate" hreflang="fr" href={new URL(pair.fr, SITE.url).href} />}
+    {pair?.ar && <link rel="alternate" hreflang="x-default" href={new URL(pair.ar, SITE.url).href} />}
     {SITE.googleVerification && <meta name="google-site-verification" content={SITE.googleVerification} />}
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#f5f7fb" />
@@ -69,7 +75,7 @@ const altLocale = lang === 'en' ? SITE.locale : SITE_EN.locale;
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:locale" content={locale} />
-    {pair && <meta property="og:locale:alternate" content={altLocale} />}
+    {altLocales.map((code) => <meta property="og:locale:alternate" content={ogLocales[code]} />)}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -83,11 +89,42 @@ const altLocale = lang === 'en' ? SITE.locale : SITE_EN.locale;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
+    {detectLang && (
+      <>
+        <script is:inline>
+          (function () {
+            var p = location.pathname;
+            var lang = (p === '/fr' || p.indexOf('/fr/') === 0) ? 'fr' : (p === '/en' || p.indexOf('/en/') === 0) ? 'en' : 'ar';
+            var d = document.documentElement;
+            d.lang = lang;
+            d.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            d.setAttribute('data-ui', lang);
+          })();
+        </script>
+        <style is:inline>
+          html[data-ui="ar"] [data-ui-block]:not([data-ui-block="ar"]),
+          html[data-ui="en"] [data-ui-block]:not([data-ui-block="en"]),
+          html[data-ui="fr"] [data-ui-block]:not([data-ui-block="fr"]) { display: none !important; }
+          html[data-ui="ar"] [data-ui-block="ar"],
+          html[data-ui="en"] [data-ui-block="en"],
+          html[data-ui="fr"] [data-ui-block="fr"] { display: contents; }
+        </style>
+      </>
+    )}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href={fontHref} />
-    <link rel="stylesheet" href={fontHref} media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href={fontHref} /></noscript>
+    {detectLang ? (
+      <>
+        <link rel="stylesheet" href={fontSans} />
+        <link rel="stylesheet" href={fontArabic} />
+      </>
+    ) : (
+      <>
+        <link rel="preload" as="style" href={fontHref} />
+        <link rel="stylesheet" href={fontHref} media="print" onload="this.media='all'" />
+        <noscript><link rel="stylesheet" href={fontHref} /></noscript>
+      </>
+    )}
 
     <script is:inline>
       (function () {
@@ -109,15 +146,39 @@ const altLocale = lang === 'en' ? SITE.locale : SITE_EN.locale;
     {ANALYTICS.headHtml && <Fragment set:html={ANALYTICS.headHtml} />}
   </head>
   <body data-page={page} class="bg-grid min-h-dvh bg-no-repeat">
-    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">{lang === 'en' ? 'Skip to content' : 'تخطَّ إلى المحتوى'}</a>
-    <TopBar lang={lang} />
-    <Header lang={lang} />
+    {detectLang ? (
+      (['ar', 'en', 'fr'] as const).map((ui) => (
+        <div data-ui-block={ui}>
+          <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">{text(ui, { ar: 'تخطَّ إلى المحتوى', en: 'Skip to content', fr: 'Aller au contenu' })}</a>
+          <TopBar lang={ui} />
+          <Header lang={ui} />
+        </div>
+      ))
+    ) : (
+      <>
+        <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">{text(lang, { ar: 'تخطَّ إلى المحتوى', en: 'Skip to content', fr: 'Aller au contenu' })}</a>
+        <TopBar lang={lang} />
+        <Header lang={lang} />
+      </>
+    )}
     <main id="main">
       <slot />
     </main>
-    <Footer lang={lang} />
-    <StickyCTA lang={lang} />
-    <CookieConsent lang={lang} />
+    {detectLang ? (
+      (['ar', 'en', 'fr'] as const).map((ui) => (
+        <div data-ui-block={ui}>
+          <Footer lang={ui} />
+          <StickyCTA lang={ui} />
+          <CookieConsent lang={ui} />
+        </div>
+      ))
+    ) : (
+      <>
+        <Footer lang={lang} />
+        <StickyCTA lang={lang} />
+        <CookieConsent lang={lang} />
+      </>
+    )}
 
     <script is:inline>
       (function () {

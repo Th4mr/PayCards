@@ -222,7 +222,7 @@ for (const name of readdirSync(join(ROOT, 'src/content/articles'))) {
   });
 }
 
-function svgEn({ kicker, title, description }) {
+function svgLtr({ kicker, title, description, path }) {
   const titleLines = wrap(title, 34);
   const descLines = wrap(description, 58).slice(0, 3);
   const titleStart = 210;
@@ -234,7 +234,7 @@ function svgEn({ kicker, title, description }) {
   for (let i = 0; i < descLines.length; i++) {
     body += `<text x="72" y="${descStart + i * 36}" text-anchor="start" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="400" font-size="26" fill="#b7c3d6">${esc(descLines[i])}</text>`;
   }
-  body += `<text x="72" y="580" text-anchor="start" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="400" font-size="24" fill="#8ea0b8">paycards.io/en</text>`;
+  body += `<text x="72" y="580" text-anchor="start" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="400" font-size="24" fill="#8ea0b8">${esc(path)}</text>`;
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
@@ -287,6 +287,41 @@ for (const page of pages) {
   writeFileSync(join(OUT, page.file), png(await svg(page)));
 }
 for (const page of english) {
-  writeFileSync(join(OUT, page.file), png(svgEn(page)));
+  writeFileSync(join(OUT, page.file), png(svgLtr({ ...page, path: 'paycards.io/en' })));
 }
-console.log(`og: ${pages.length + english.length} images → public/og`);
+
+const frDir = join(ROOT, 'src/content/fr');
+const french = [
+  {
+    file: 'fr-home.png',
+    kicker: 'Guide indépendant',
+    title: 'Avis RedotPay, frais et pays',
+    description: 'Chiffres publiés seulement. Code parrainage yj8cq à l’inscription.',
+  },
+  {
+    file: 'fr-site.png',
+    kicker: 'PayCards',
+    title: 'Guide indépendant de la carte RedotPay',
+    description: 'Frais, pays, recharge et retraits au DAB.',
+  },
+];
+try {
+  for (const name of readdirSync(frDir)) {
+    if (!/\.mdx?$/.test(name)) continue;
+    const raw = readFileSync(join(frDir, name), 'utf8');
+    const fm = raw.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
+    const id = name.replace(/\.mdx?$/, '');
+    french.push({
+      file: `fr-${id}.png`,
+      kicker: 'Guide · PayCards',
+      title: field(fm, 'h1') || field(fm, 'title') || id,
+      description: field(fm, 'description'),
+    });
+  }
+} catch {
+  /* French collection is optional during a partial checkout */
+}
+for (const page of french) {
+  writeFileSync(join(OUT, page.file), png(svgLtr({ ...page, path: 'paycards.io/fr' })));
+}
+console.log(`og: ${pages.length + english.length + french.length} images → public/og`);

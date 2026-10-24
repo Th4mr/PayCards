@@ -1,24 +1,34 @@
-/** أزواج الصفحات العربية والإنجليزية. المسارات التي لا تظهر هنا بلا بديل لغوي. */
+/** أزواج الصفحات. المسار الغائب عن الزوج بلا بديل لهذه اللغة. */
 
-export type Locale = 'ar' | 'en';
+import type { Lang } from './lang';
 
-export const PAIRS: ReadonlyArray<{ ar: string; en: string }> = [
-  { ar: '/', en: '/en' },
-  { ar: '/articles', en: '/en/articles' },
-  { ar: '/articles/what-is-redotpay', en: '/en/articles/redotpay-review' },
-  { ar: '/articles/redotpay-fees', en: '/en/articles/redotpay-fees' },
-  { ar: '/articles/redotpay-signup-kyc', en: '/en/articles/redotpay-referral-code' },
-  { ar: '/articles/redotpay-supported-countries', en: '/en/articles/redotpay-supported-countries' },
-  { ar: '/articles/redotpay-top-up-usdt', en: '/en/articles/how-to-top-up-redotpay' },
-  { ar: '/articles/redotpay-atm-withdrawal', en: '/en/articles/redotpay-atm-withdrawal' },
-  { ar: '/articles/redotpay-vs-other-crypto-cards', en: '/en/articles/redotpay-vs-other-crypto-cards' },
-  { ar: '/articles/redotpay-apple-pay-google-pay', en: '/en/articles/redotpay-apple-pay-google-pay' },
-  { ar: '/privacy', en: '/en/privacy' },
-  { ar: '/terms', en: '/en/terms' },
-  { ar: '/disclosure', en: '/en/disclosure' },
-  { ar: '/about', en: '/en/about' },
-  { ar: '/contact', en: '/en/contact' },
+export type Locale = Lang;
+
+export type Pair = { ar?: string; en?: string; fr?: string };
+
+export const PAIRS: ReadonlyArray<Pair> = [
+  { ar: '/', en: '/en', fr: '/fr' },
+  { ar: '/articles', en: '/en/articles', fr: '/fr/articles' },
+  { ar: '/articles/what-is-redotpay', en: '/en/articles/redotpay-review', fr: '/fr/articles/avis-redotpay' },
+  { ar: '/articles/redotpay-fees', en: '/en/articles/redotpay-fees', fr: '/fr/articles/frais-redotpay' },
+  { ar: '/articles/redotpay-signup-kyc', en: '/en/articles/redotpay-referral-code', fr: '/fr/articles/code-parrainage-redotpay' },
+  { ar: '/articles/redotpay-supported-countries', en: '/en/articles/redotpay-supported-countries', fr: '/fr/articles/pays-redotpay' },
+  { ar: '/articles/redotpay-top-up-usdt', en: '/en/articles/how-to-top-up-redotpay', fr: '/fr/articles/recharger-redotpay' },
+  { ar: '/articles/redotpay-atm-withdrawal', en: '/en/articles/redotpay-atm-withdrawal', fr: '/fr/articles/retrait-dab-redotpay' },
+  { ar: '/articles/redotpay-vs-other-crypto-cards', en: '/en/articles/redotpay-vs-other-crypto-cards', fr: '/fr/articles/redotpay-vs-autres-cartes' },
+  { ar: '/articles/redotpay-apple-pay-google-pay', en: '/en/articles/redotpay-apple-pay-google-pay', fr: '/fr/articles/apple-pay-redotpay' },
+  { en: '/en/articles/is-redotpay-safe', fr: '/fr/articles/redotpay-fiable' },
+  { ar: '/privacy', en: '/en/privacy', fr: '/fr/privacy' },
+  { ar: '/terms', en: '/en/terms', fr: '/fr/terms' },
+  { ar: '/disclosure', en: '/en/disclosure', fr: '/fr/disclosure' },
+  { ar: '/about', en: '/en/about', fr: '/fr/about' },
+  { ar: '/contact', en: '/en/contact', fr: '/fr/contact' },
 ];
+
+const HOME: Record<Locale, string> = { ar: '/', en: '/en', fr: '/fr' };
+
+export const LOCALE_SHORT: Record<Locale, string> = { ar: 'عربي', en: 'EN', fr: 'FR' };
+export const LOCALE_LABEL: Record<Locale, string> = { ar: 'العربية', en: 'English', fr: 'Français' };
 
 export function normalizePath(input: string): string {
   let path = input.split('?')[0]?.split('#')[0] ?? '/';
@@ -32,15 +42,25 @@ export function normalizePath(input: string): string {
   return path || '/';
 }
 
-export function pairFor(pathname: string): { ar: string; en: string } | null {
+export function localeOf(pathname: string): Locale {
   const path = normalizePath(pathname);
-  return PAIRS.find((pair) => pair.ar === path || pair.en === path) ?? null;
+  if (path === '/fr' || path.startsWith('/fr/')) return 'fr';
+  if (path === '/en' || path.startsWith('/en/')) return 'en';
+  return 'ar';
 }
 
-/** صفحة اللغة الأخرى، أو الرئيسية الإنجليزية/العربية إن لم يوجد زوج. */
-export function counterpart(pathname: string): string {
+export function pairFor(pathname: string): Pair | null {
   const path = normalizePath(pathname);
-  const pair = pairFor(path);
-  if (pair) return pair.ar === path ? pair.en : pair.ar;
-  return path.startsWith('/en') ? '/' : '/en';
+  return PAIRS.find((pair) => pair.ar === path || pair.en === path || pair.fr === path) ?? null;
+}
+
+/** رابط اللغة المطلوبة: التوأم إن وُجد، وإلا رئيسية تلك اللغة. */
+export function hrefFor(pathname: string, locale: Locale): string {
+  return pairFor(pathname)?.[locale] ?? HOME[locale];
+}
+
+export function switchLocales(pathname: string, current: Locale = localeOf(pathname)): Array<{ lang: Locale; href: string; short: string; label: string }> {
+  return (['ar', 'en', 'fr'] as const)
+    .filter((lang) => lang !== current)
+    .map((lang) => ({ lang, href: hrefFor(pathname, lang), short: LOCALE_SHORT[lang], label: LOCALE_LABEL[lang] }));
 }

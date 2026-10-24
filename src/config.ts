@@ -54,6 +54,30 @@ export const SITE_EN = {
     'Independent English guide to the RedotPay card: published fees, supported countries, referral code yj8cq, top-ups, and ATM withdrawals. Figures come from RedotPay’s own pages.',
 } as const;
 
+/** دعوة الواجهة الفرنسية. رُاجعت في 24 أكتوبر 2026 بمتصفح: الصفحة تُحمَّل و lang=fr. */
+export const REFERRAL_FR = {
+  url: 'https://wap.redotpay.com/fr/invite/?referralId=yj8cq',
+  goPath: '/go/redotpay-fr',
+  code: REFERRAL.code,
+  bonus: '5 USD' as string | null,
+  bonusTerms: 'Crédit de dépenses pendant 30 jours après réception. Il ne paie pas les frais d’émission ni de remplacement.' as string | null,
+  rel: REFERRAL.rel,
+} as const;
+
+export const SITE_FR = {
+  /** hreflang هو fr بلا منطقة. og:locale هو fr_FR. */
+  locale: 'fr_FR',
+  tagline: 'Guide indépendant de la carte RedotPay',
+  description:
+    'Guide français indépendant de la carte RedotPay : frais publiés, pays, code yj8cq, recharge et retraits DAB. Chiffres issus des pages RedotPay.',
+} as const;
+
+export function referralFor(lang: 'ar' | 'en' | 'fr') {
+  if (lang === 'en') return REFERRAL_EN;
+  if (lang === 'fr') return REFERRAL_FR;
+  return REFERRAL;
+}
+
 /**
  * علامات {{تحقق}} داخلية للمراجعة فقط (npm run verify).
  * false → لا تظهر للزائر. خلية لا تحوي سوى العلامة تُعرض بعبارة محايدة من V.astro.

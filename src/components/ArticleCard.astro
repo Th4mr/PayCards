@@ -2,14 +2,20 @@
 import Cover from './Cover.astro';
 import { articleUrl, categoryLabel, readingMinutes, readingLabel, formatDate, type Article } from '../lib/articles';
 import { articleUrl as enUrl, categoryLabel as enCategory, readingMinutes as enMinutes, readingLabel as enReading, formatDate as enDate, type ArticleEn } from '../lib/en-articles';
+import { articleUrl as frUrl, categoryLabel as frCategory, readingMinutes as frMinutes, readingLabel as frReading, formatDate as frDate, type ArticleFr } from '../lib/fr-articles';
+import type { Lang } from '../i18n/lang';
 
-interface Props { article: Article | ArticleEn; lang?: 'ar' | 'en'; }
+interface Props { article: Article | ArticleEn | ArticleFr; lang?: Lang; }
 const { article: a, lang = 'ar' } = Astro.props;
-const href = lang === 'en' ? enUrl(a as ArticleEn) : articleUrl(a as Article);
-const cat = lang === 'en' ? enCategory(a.data.category) : categoryLabel(a.data.category);
-const reading = lang === 'en' ? enReading(enMinutes(a.body ?? '')) : `${readingLabel(readingMinutes(a.body ?? ''))} قراءة`;
+const href = lang === 'fr' ? frUrl(a as ArticleFr) : lang === 'en' ? enUrl(a as ArticleEn) : articleUrl(a as Article);
+const cat = lang === 'fr' ? frCategory(a.data.category) : lang === 'en' ? enCategory(a.data.category) : categoryLabel(a.data.category);
+const reading = lang === 'fr'
+  ? frReading(frMinutes(a.body ?? ''))
+  : lang === 'en'
+    ? enReading(enMinutes(a.body ?? ''))
+    : `${readingLabel(readingMinutes(a.body ?? ''))} قراءة`;
 const when = a.data.updatedDate ?? a.data.pubDate;
-const date = lang === 'en' ? enDate(when) : formatDate(when);
+const date = lang === 'fr' ? frDate(when) : lang === 'en' ? enDate(when) : formatDate(when);
 ---
 <article class="card group reveal flex flex-col overflow-hidden transition hover:-translate-y-1 hover:border-accent/60">
   <a href={href} class="flex h-full flex-col" aria-label={a.data.h1 ?? a.data.title}>

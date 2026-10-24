@@ -2,45 +2,56 @@
 import CTAButton from './CTAButton.astro';
 import ReferralCode from './ReferralCode.astro';
 import AvailabilityNote from './AvailabilityNote.astro';
-import { REFERRAL, REFERRAL_EN } from '../config';
+import { REFERRAL, referralFor } from '../config';
+import { text, type Lang } from '../i18n/lang';
 
 interface Props {
   position?: 'inline' | 'end' | string;
   title?: string;
   text?: string;
   button?: string;
-  lang?: 'ar' | 'en';
+  lang?: Lang;
 }
 const { position = 'inline', lang = 'ar' } = Astro.props;
-const ref = lang === 'en' ? REFERRAL_EN : REFERRAL;
-const title = Astro.props.title ?? (lang === 'en'
-  ? (position === 'end' ? 'Ready to open the account?' : 'Open the RedotPay account')
-  : (position === 'end' ? 'جاهز لتجربتها بنفسك؟' : 'جرّب البطاقة بنفسك'));
-const text = Astro.props.text ?? (lang === 'en'
-  ? (ref.bonus
-      ? `Create the account on RedotPay and enter the referral code during signup if you want to. The ${ref.bonus} spending reward for new accounts does not cover the card issuance fee, and it is not tied to the code.`
-      : 'Create a RedotPay account, issue the virtual card, and pay from the crypto balance.')
-  : (REFERRAL.bonus
-      ? `أنشئ الحساب على RedotPay، وأدخل رمز الإحالة أثناء التسجيل إن أردت. مكافأة الإنفاق ${REFERRAL.bonus} للحسابات الجديدة لا تغطي رسم إصدار البطاقة، وليست مربوطة بالرمز.`
-      : 'أنشئ حسابك في RedotPay خلال دقائق، ثم أصدر بطاقتك الافتراضية وابدأ الدفع من رصيدك الرقمي.'));
-const button = Astro.props.button ?? (lang === 'en'
-  ? (position === 'end' ? 'Get your card' : 'Start signup')
-  : (position === 'end' ? 'احصل على بطاقتك الآن' : 'ابدأ التسجيل'));
-const disclosure = lang === 'en' ? '/en/disclosure' : '/disclosure';
+const ref = referralFor(lang);
+const title = Astro.props.title ?? text(lang, {
+  ar: position === 'end' ? 'جاهز لتجربتها بنفسك؟' : 'جرّب البطاقة بنفسك',
+  en: position === 'end' ? 'Ready to open the account?' : 'Open the RedotPay account',
+  fr: position === 'end' ? 'Prêt à ouvrir le compte ?' : 'Ouvrir le compte RedotPay',
+});
+const body = Astro.props.text ?? text(lang, {
+  ar: REFERRAL.bonus
+    ? `أنشئ الحساب على RedotPay، وأدخل رمز الإحالة أثناء التسجيل إن أردت. مكافأة الإنفاق ${REFERRAL.bonus} للحسابات الجديدة لا تغطي رسم إصدار البطاقة، وليست مربوطة بالرمز.`
+    : 'أنشئ حسابك في RedotPay خلال دقائق، ثم أصدر بطاقتك الافتراضية وابدأ الدفع من رصيدك الرقمي.',
+  en: ref.bonus
+    ? `Create the account on RedotPay and enter the referral code during signup if you want to. The ${ref.bonus} spending reward for new accounts does not cover the card issuance fee, and it is not tied to the code.`
+    : 'Create a RedotPay account, issue the virtual card, and pay from the crypto balance.',
+  fr: ref.bonus
+    ? `Créez le compte chez RedotPay et saisissez le code de parrainage pendant l’inscription si vous le souhaitez. Le crédit de dépenses de ${ref.bonus} pour les nouveaux comptes ne couvre pas les frais d’émission, et il n’est pas lié au code.`
+    : 'Créez un compte RedotPay, émettez la carte virtuelle et payez depuis le solde crypto.',
+});
+const button = Astro.props.button ?? text(lang, {
+  ar: position === 'end' ? 'احصل على بطاقتك الآن' : 'ابدأ التسجيل',
+  en: position === 'end' ? 'Get your card' : 'Start signup',
+  fr: position === 'end' ? 'Obtenir la carte' : 'Commencer l’inscription',
+});
+const disclosure = text(lang, { ar: '/disclosure', en: '/en/disclosure', fr: '/fr/disclosure' });
 ---
-<aside class="not-prose relative my-10 overflow-hidden rounded-2xl border border-line bg-surface p-5 sm:p-7" aria-label={lang === 'en' ? 'Signup' : 'دعوة للتسجيل'}>
+<aside class="not-prose relative my-10 overflow-hidden rounded-2xl border border-line bg-surface p-5 sm:p-7" aria-label={text(lang, { ar: 'دعوة للتسجيل', en: 'Signup', fr: 'Inscription' })}>
   <div aria-hidden="true" class="pointer-events-none absolute -top-24 -start-24 h-56 w-56 rounded-full bg-accent/20 blur-3xl"></div>
   <div class="relative grid gap-5 sm:grid-cols-[1fr_auto] sm:items-center">
     <div>
       <p class="text-lg font-extrabold">{title}</p>
-      <p class="mt-1 text-muted">{text}</p>
+      <p class="mt-1 text-muted">{body}</p>
     </div>
     <CTAButton lang={lang} position={position} label={button} size="lg" class="w-full sm:w-auto" />
   </div>
   <div class="relative mt-4"><ReferralCode lang={lang} placement={position} compact /></div>
   <AvailabilityNote lang={lang} class="relative mt-3" />
   <p class="relative mt-2 text-xs text-muted">
-    {lang === 'en' ? (
+    {lang === 'fr' ? (
+      <>L’inscription s’ouvre chez RedotPay. <a href={disclosure} class="underline">Avertissement de parrainage</a></>
+    ) : lang === 'en' ? (
       <>Signup opens on RedotPay. <a href={disclosure} class="underline">Referral disclosure</a></>
     ) : (
       <>يفتح التسجيل على منصة RedotPay الرسمية. <a href={disclosure} class="underline">إفصاح الإحالة</a></>

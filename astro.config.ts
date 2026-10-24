@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { readdirSync, readFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
-import { SITE, REFERRAL, REFERRAL_EN } from './src/config';
+import { SITE, REFERRAL, REFERRAL_EN, REFERRAL_FR } from './src/config';
 import { pairFor } from './src/i18n/routes';
 
 /**
@@ -22,7 +22,7 @@ function paycardsBuild() {
         } catch {
           return;
         }
-        for (const ref of [REFERRAL, REFERRAL_EN]) {
+        for (const ref of [REFERRAL, REFERRAL_EN, REFERRAL_FR]) {
           const r = (vercel.redirects || []).find((x: { source?: string }) => x.source === ref.goPath);
           if (!r || r.destination !== ref.url) {
             throw new Error(
@@ -56,7 +56,7 @@ export default defineConfig({
   build: { format: 'file' },
   i18n: {
     defaultLocale: 'ar',
-    locales: ['ar', 'en'],
+    locales: ['ar', 'en', 'fr'],
     routing: {
       prefixDefaultLocale: false,
       redirectToDefaultLocale: false,
@@ -75,16 +75,13 @@ export default defineConfig({
         const path = new URL(item.url).pathname;
         const pair = pairFor(path);
         if (!pair) return item;
-        const ar = new URL(pair.ar, SITE.url).href;
-        const en = new URL(pair.en, SITE.url).href;
-        return {
-          ...item,
-          links: [
-            { lang: 'ar', url: ar },
-            { lang: 'en', url: en },
-            { lang: 'x-default', url: ar },
-          ],
-        };
+        const links: { lang: string; url: string }[] = [];
+        if (pair.ar) links.push({ lang: 'ar', url: new URL(pair.ar, SITE.url).href });
+        if (pair.en) links.push({ lang: 'en', url: new URL(pair.en, SITE.url).href });
+        if (pair.fr) links.push({ lang: 'fr', url: new URL(pair.fr, SITE.url).href });
+        if (pair.ar) links.push({ lang: 'x-default', url: new URL(pair.ar, SITE.url).href });
+        if (links.length < 2) return item;
+        return { ...item, links };
       },
     }),
     paycardsBuild(),

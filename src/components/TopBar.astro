@@ -1,19 +1,23 @@
 ---
-import { REFERRAL, REFERRAL_EN } from '../config';
-interface Props { lang?: 'ar' | 'en'; }
+import { REFERRAL, referralFor } from '../config';
+import { text, isLtr, type Lang } from '../i18n/lang';
+interface Props { lang?: Lang; }
 const { lang = 'ar' } = Astro.props;
-const ref = lang === 'en' ? REFERRAL_EN : REFERRAL;
+const ref = referralFor(lang);
+const message = text(lang, {
+  ar: REFERRAL.bonus ? `مكافأة إنفاق ${REFERRAL.bonus} للحسابات الجديدة — لا تغطي رسم البطاقة` : 'بطاقة RedotPay حيث تقبل شبكات الدفع الرئيسية',
+  en: ref.bonus ? `${ref.bonus} spending reward for new accounts — it does not cover the card fee` : 'RedotPay where major card networks are accepted',
+  fr: ref.bonus ? `Récompense de dépenses de ${ref.bonus} pour les nouveaux comptes — elle ne couvre pas les frais de carte` : 'RedotPay là où les grands réseaux de cartes sont acceptés',
+});
+const cta = text(lang, { ar: 'ابدأ الآن ←', en: 'Get started →', fr: 'Commencer →' });
+const closeLabel = text(lang, { ar: 'إغلاق الشريط', en: 'Dismiss banner', fr: 'Fermer le bandeau' });
 ---
-<div id="topbar" class:list={['topbar relative z-50 hidden text-on-accent md:block', lang === 'en' ? 'bg-gradient-to-r from-accent to-[#4cd3e0]' : 'bg-gradient-to-l from-accent to-[#4cd3e0]']}>
+<div id="topbar" class:list={['topbar relative z-50 hidden text-on-accent md:block', isLtr(lang) ? 'bg-gradient-to-r from-accent to-[#4cd3e0]' : 'bg-gradient-to-l from-accent to-[#4cd3e0]']}>
   <div class="container-x flex min-h-10 items-center justify-center gap-2 py-1.5 pe-10 text-center text-[13px] font-semibold sm:text-sm">
-    <span>
-      {lang === 'en'
-        ? <>{ref.bonus ? <>{ref.bonus} spending reward for new accounts — it does not cover the card fee</> : <>RedotPay where major card networks are accepted</>}</>
-        : <>{REFERRAL.bonus ? <>مكافأة إنفاق {REFERRAL.bonus} للحسابات الجديدة — لا تغطي رسم البطاقة</> : <>بطاقة RedotPay حيث تقبل شبكات الدفع الرئيسية</>}</>}
-    </span>
-    <a href={ref.goPath} rel={ref.rel} target="_blank" data-cta data-cta-position="topbar" class="underline underline-offset-4 whitespace-nowrap">{lang === 'en' ? 'Get started →' : 'ابدأ الآن ←'}</a>
+    <span>{message}</span>
+    <a href={ref.goPath} rel={ref.rel} target="_blank" data-cta data-cta-position="topbar" class="underline underline-offset-4 whitespace-nowrap">{cta}</a>
   </div>
-  <button type="button" data-dismiss="topbar" class="absolute end-2 top-1/2 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-lg hover:bg-black/10" aria-label={lang === 'en' ? 'Dismiss banner' : 'إغلاق الشريط'}>
+  <button type="button" data-dismiss="topbar" class="absolute end-2 top-1/2 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-lg hover:bg-black/10" aria-label={closeLabel}>
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
   </button>
 </div>

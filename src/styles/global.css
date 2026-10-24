@@ -149,7 +149,7 @@
 .reveal.is-in { opacity: 1; transform: none; }
 
 /* شريط الموافقة أسفل الشاشة. الزر الثابت يبقى مخفياً حتى يختار الزائر حتى لا يتكدس شريطان. */
-html:not(.consent-set) #sticky-cta.sticky-cta { display: none; }
+html:not(.consent-set) .sticky-cta { display: none; }
 html:not(.consent-set) body { padding-bottom: 3.25rem; }
 html.consent-set .cookie-consent { display: none; }
 
@@ -244,7 +244,8 @@ html.consent-set .cookie-consent { display: none; }
 .prose-pc blockquote { font-style: normal; background: var(--surface-2); border-radius: 0 12px 12px 0; padding: 0.5rem 1rem; }
 html[dir="ltr"] .prose-pc blockquote { border-radius: 12px 0 0 12px; }
 html[dir="ltr"] .cta-arrow { transform: scaleX(-1); }
-html[lang="en"] body {
+html[lang="en"] body,
+html[lang="fr"] body {
   font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
 }
 .crumb-sep::before { content: '‹'; }

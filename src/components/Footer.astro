@@ -1,16 +1,53 @@
 ---
 import Logo from './Logo.astro';
 import { SITE, CATEGORIES } from '../config';
-import { counterpart } from '../i18n/routes';
+import { switchLocales } from '../i18n/routes';
+import type { Lang } from '../i18n/lang';
 
-interface Props { lang?: 'ar' | 'en'; }
+interface Props { lang?: Lang; }
 const { lang = 'ar' } = Astro.props;
 const year = new Date().getFullYear();
-const otherHref = counterpart(Astro.url.pathname);
-const otherLang = lang === 'en' ? 'ar' : 'en';
+const others = switchLocales(Astro.url.pathname, lang);
 ---
 <footer class="mt-20 border-t border-line bg-bg-2 pb-28 md:pb-10">
-  {lang === 'en' ? (
+  {lang === 'fr' ? (
+    <div class="container-x grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="lg:col-span-2">
+        <Logo href="/fr" label="PayCards — Accueil" />
+        <p class="mt-3 max-w-md text-sm text-muted">Guide français indépendant de la carte RedotPay, avec les chiffres que RedotPay publie.</p>
+        <div class="mt-5 rounded-xl border border-line bg-surface p-4 text-sm leading-7">
+          <p><strong>PayCards est indépendant et ne fait pas partie de RedotPay.</strong> Les noms et les marques appartiennent à leurs propriétaires.</p>
+          <p class="mt-2 text-muted">Certains liens sont des <strong class="text-fg">liens de parrainage</strong>. Si vous vous inscrivez via eux, nous pouvons toucher une commission, sans surcoût pour vous. <a href="/fr/disclosure" class="text-accent-fg underline">Lire l’avertissement</a>.</p>
+          <p class="mt-2 text-muted">Les cryptomonnaies peuvent perdre de la valeur. Ceci est un guide, pas un conseil financier.</p>
+          <p class="mt-2 text-muted">Pas de carte pour les résidents des États-Unis ni pour les résidents au Maroc. La carte physique n’est pas livrée en Tunisie. D’autres pays sont bloqués. <a href="/fr/articles/pays-redotpay" class="text-accent-fg underline">Lire les listes avant de vous inscrire</a>.</p>
+        </div>
+      </div>
+      <nav aria-label="Guides">
+        <p class="font-bold">Guides</p>
+        <ul class="mt-3 space-y-2 text-sm text-muted">
+          <li><a class="hover:text-fg" href="/fr/articles">Tous les guides</a></li>
+          <li><a class="hover:text-fg" href="/fr/articles/avis-redotpay">Avis RedotPay</a></li>
+          <li><a class="hover:text-fg" href="/fr/articles/frais-redotpay">Frais RedotPay</a></li>
+          <li><a class="hover:text-fg" href="/fr/articles/code-parrainage-redotpay">Code parrainage</a></li>
+          <li><a class="hover:text-fg" href="/fr/articles/redotpay-fiable">RedotPay est-elle fiable ?</a></li>
+          <li><a class="hover:text-fg" href="/fr/articles/pays-redotpay">Pays et livraison</a></li>
+          <li><a class="hover:text-fg" href="/fr/articles/recharger-redotpay">Recharger</a></li>
+          <li><a class="hover:text-fg" href="/fr/articles/retrait-dab-redotpay">Retrait au DAB</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <p class="font-bold">Site</p>
+        <ul class="mt-3 space-y-2 text-sm text-muted">
+          <li><a class="hover:text-fg" href="/fr/about">À propos</a></li>
+          <li><a class="hover:text-fg" href="/fr/disclosure">Liens de parrainage</a></li>
+          <li><a class="hover:text-fg" href="/fr/privacy">Confidentialité</a></li>
+          <li><a class="hover:text-fg" href="/fr/terms">Conditions d’utilisation</a></li>
+          <li><a class="hover:text-fg" href="/fr/contact">Contact</a></li>
+          {others.map((o) => <li><a class="hover:text-fg" href={o.href} hreflang={o.lang} lang={o.lang}>{o.label}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+  ) : lang === 'en' ? (
     <div class="container-x grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
       <div class="lg:col-span-2">
         <Logo href="/en" label="PayCards — Home" />
@@ -43,7 +80,7 @@ const otherLang = lang === 'en' ? 'ar' : 'en';
           <li><a class="hover:text-fg" href="/en/privacy">Privacy policy</a></li>
           <li><a class="hover:text-fg" href="/en/terms">Terms of use</a></li>
           <li><a class="hover:text-fg" href="/en/contact">Contact</a></li>
-          <li><a class="hover:text-fg" href={otherHref} hreflang={otherLang} lang={otherLang}>العربية</a></li>
+          {others.map((o) => <li><a class="hover:text-fg" href={o.href} hreflang={o.lang} lang={o.lang}>{o.label}</a></li>)}
         </ul>
       </nav>
     </div>
@@ -74,12 +111,12 @@ const otherLang = lang === 'en' ? 'ar' : 'en';
           <li><a class="hover:text-fg" href="/privacy">سياسة الخصوصية</a></li>
           <li><a class="hover:text-fg" href="/terms">شروط الاستخدام</a></li>
           <li><a class="hover:text-fg" href="/contact">تواصل معنا</a></li>
-          <li><a class="hover:text-fg" href={otherHref} hreflang={otherLang} lang={otherLang}>English</a></li>
+          {others.map((o) => <li><a class="hover:text-fg" href={o.href} hreflang={o.lang} lang={o.lang}>{o.label}</a></li>)}
         </ul>
       </nav>
     </div>
   )}
   <div class="container-x border-t border-line pt-6 text-xs text-muted">
-    <p>© {year} PayCards · <span dir="ltr">{SITE.domain}</span>{lang === 'en' ? '' : ' — جميع الحقوق محفوظة.'}</p>
+    <p>© {year} PayCards · <span dir="ltr">{SITE.domain}</span>{lang === 'ar' ? ' — جميع الحقوق محفوظة.' : ''}</p>
   </div>
 </footer>

@@ -1,0 +1,30 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import CTABox from '../../components/CTABox.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="fr" title="À propos de PayCards" heading="À propos de PayCards" description="PayCards est un guide indépendant de la carte RedotPay. Les pages françaises citent des sources officielles et signent l’équipe PayCards, pas un auteur personnel." page="about-fr" path="/fr/about">
+  <p><strong>PayCards</strong> explique comment une carte RedotPay sert dans les dépenses ordinaires : caisse en ligne, portefeuille du téléphone et cash au DAB. Le site arabe est l’original. Ces pages françaises couvrent le même produit pour les recherches en français, au Maghreb, en Afrique de l’Ouest et du Centre, et en Europe hors des États-Unis.</p>
+  <p>Nous ne sommes pas RedotPay. L’inscription se fait toujours sur le site de RedotPay.</p>
+  <h2>Qui écrit</h2>
+  <p>La signature est l’<strong>équipe PayCards</strong>. Nous n’inventons pas d’auteur personnel, et nous ne publions pas d’avis, de notes ou de témoignages que nous n’avons pas documentés. Si une ligne est fausse, écrivez-nous.</p>
+  <h2>Comment nous vérifions</h2>
+  <ul>
+    <li>Les chiffres RedotPay — frais, récompense d’inscription, listes de pays, programmes de carte — viennent du centre d’aide RedotPay ou de redotpay.com. La source est liée sous le tableau ou dans le guide.</li>
+    <li>Chaque page de chiffres montre la date à laquelle <strong>nous l’avons vérifiée</strong>, et la date sur la page RedotPay quand elle est visible. Si l’app a changé depuis, le montant affiché avant confirmation est celui qui compte.</li>
+    <li>Si nous ne trouvons pas un chiffre fixe, nous ne devinons pas. Nous disons que le chiffre est dans l’app, ou qu’il n’était pas sur les pages lues.</li>
+    <li>La date « mis à jour » d’un article ne change que quand cet article change.</li>
+    <li>Certains liens sont des liens de parrainage. Cela ne change pas vos frais. Voir l’<a href="/fr/disclosure">avertissement</a>.</li>
+  </ul>
+  <h2>Ce que nous ne ferons pas</h2>
+  <ul>
+    <li>Appeler la carte Mastercard. Les conditions lues nomment Visa pour les programmes de Hong Kong et de Singapour, et les pages d’aide plus récentes disent « grands réseaux de cartes ».</li>
+    <li>Publier les frais d’un concurrent que nous n’avons pas vérifiés le même jour.</li>
+    <li>Traiter un pays absent comme une permission d’utiliser la carte.</li>
+  </ul>
+  <h2>Une limite à lire</h2>
+  <p>Les prix des cryptomonnaies bougent, et ce site n’est pas un conseil financier, d’investissement ou juridique. Les pages françaises s’adressent aux lecteurs hors des États-Unis : RedotPay n’émet pas de carte aux résidents des États-Unis, et l’app ne s’ouvre pas si vous vous y trouvez. Les résidents au Maroc ne peuvent pas recevoir de carte. La carte physique n’est pas livrée en Tunisie. D’autres pays sont bloqués. Lisez les <a href="/fr/articles/pays-redotpay">listes de pays</a> et l’app avant de payer des frais d’émission.</p>
+  <h2>Contact</h2>
+  <p>Corrections et idées de sujets : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  <CTABox lang="fr" position="end" />
+</PageLayout>
