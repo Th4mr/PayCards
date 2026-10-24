@@ -72,9 +72,28 @@ export const SITE_FR = {
     'Guide français indépendant de la carte RedotPay : frais publiés, pays, code yj8cq, recharge et retraits DAB. Chiffres issus des pages RedotPay.',
 } as const;
 
-export function referralFor(lang: 'ar' | 'en' | 'fr') {
+/** دعوة الواجهة الإسبانية. رُاجعت في 24 أكتوبر 2026: الصفحة تُحمَّل و lang=es، والوصف «Toca. Paga. Listo.» */
+export const REFERRAL_ES = {
+  url: 'https://wap.redotpay.com/es/invite/?referralId=yj8cq',
+  goPath: '/go/redotpay-es',
+  code: REFERRAL.code,
+  bonus: '5 USD' as string | null,
+  bonusTerms: 'crédito de gasto durante 30 días desde que lo recibes. No paga las comisiones de emisión ni de sustitución.' as string | null,
+  rel: REFERRAL.rel,
+} as const;
+
+export const SITE_ES = {
+  /** hreflang هو es بلا منطقة. og:locale هو es_ES. */
+  locale: 'es_ES',
+  tagline: 'Guía independiente de la tarjeta RedotPay',
+  description:
+    'Guía en español de la tarjeta RedotPay: comisiones publicadas, países, código yj8cq, recargas y cajeros. Cifras de las páginas de RedotPay.',
+} as const;
+
+export function referralFor(lang: 'ar' | 'en' | 'fr' | 'es') {
   if (lang === 'en') return REFERRAL_EN;
   if (lang === 'fr') return REFERRAL_FR;
+  if (lang === 'es') return REFERRAL_ES;
   return REFERRAL;
 }
 

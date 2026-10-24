@@ -1,0 +1,22 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="es" title="Política de privacidad" heading="Política de privacidad" description="Cómo PayCards trata los datos de quienes visitan el sitio: qué recogemos, qué no recogemos y los servicios externos que usa el sitio." page="privacy-es" path="/es/privacy" showUpdated>
+  <p>PayCards es un sitio estático. No tiene <strong>ni formulario de registro ni cuentas de usuario</strong>, y no te pedimos datos personales para leer una guía.</p>
+  <h2>¿Qué se puede recoger?</h2>
+  <ul>
+    <li><strong>Estadísticas:</strong> solo después de que aceptes, cargamos Google Analytics 4 para medir las páginas, los clics en los botones de registro (nombre de página y lugar del botón) y las copias del código de referido. Esos eventos incluyen un parámetro <span dir="ltr">lang</span>. Antes de que aceptes, el script de Google no se pide y no se envía nada a Google. Una vez cargado, Google puede usar cookies y tratar datos como la dirección IP y el tipo de dispositivo según la <a href="https://policies.google.com/privacy" rel="nofollow noopener" target="_blank">política de privacidad de Google</a>.</li>
+    <li><strong>Tu elección:</strong> un aviso al pie de la página ofrece Aceptar y Rechazar. Aceptar carga Google Analytics. Rechazar no lo carga. La elección se guarda en el <span dir="ltr">localStorage</span> del navegador bajo <span dir="ltr">pc-consent</span>, con el valor <span dir="ltr">granted</span> o <span dir="ltr">denied</span>. Borra los datos del sitio y el aviso vuelve.</li>
+    <li><strong>Registros de alojamiento:</strong> el sitio está alojado en Vercel. Vercel puede registrar datos técnicos como la dirección IP por seguridad y operación, según su propia política.</li>
+    <li><strong>Fuentes:</strong> las páginas en español, francés e inglés cargan IBM Plex Sans desde Google Fonts, así que el navegador contacta a Google para obtener la fuente. Las páginas en árabe cargan IBM Plex Sans Arabic del mismo modo.</li>
+  </ul>
+  <h2>Almacenamiento local en tu dispositivo</h2>
+  <p>Guardamos unas pocas preferencias solo en el navegador: modo claro u oscuro (<span dir="ltr">pc-theme</span>), cierre del aviso superior (<span dir="ltr">pc-topbar</span>), cierre del botón móvil durante la sesión (<span dir="ltr">pc-sticky</span>) y la elección de estadísticas (<span dir="ltr">pc-consent</span>). Esos datos se quedan en tu dispositivo. Nuestro servidor no los lee.</p>
+  <h2>Enlaces externos</h2>
+  <p>Un botón de registro te envía a RedotPay. A partir de ahí se aplica la política de privacidad de RedotPay. No podemos ver tu cuenta de RedotPay.</p>
+  <h2>Correo</h2>
+  <p>Si nos escribes, usamos el mensaje para responder. No lo reenviamos.</p>
+  <h2>Cambios</h2>
+  <p>Actualizamos esta política cuando cambian las herramientas del sitio, y cambiamos la fecha de arriba. Preguntas: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>

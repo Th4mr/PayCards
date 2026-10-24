@@ -5,7 +5,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickyCTA from '../components/StickyCTA.astro';
 import CookieConsent from '../components/CookieConsent.astro';
-import { SITE, SITE_EN, SITE_FR, ANALYTICS } from '../config';
+import { SITE, SITE_EN, SITE_FR, SITE_ES, ANALYTICS } from '../config';
 import { pairFor, normalizePath } from '../i18n/routes';
 import { isLtr, text, type Lang } from '../i18n/lang';
 
@@ -26,10 +26,10 @@ interface Props {
 
 const {
   title,
-  description = text(Astro.props.lang ?? 'ar', { ar: SITE.description, en: SITE_EN.description, fr: SITE_FR.description }),
+  description = text(Astro.props.lang ?? 'ar', { ar: SITE.description, en: SITE_EN.description, fr: SITE_FR.description, es: SITE_ES.description }),
   page,
   lang = 'ar',
-  image = text(lang, { ar: '/og/site.png', en: '/og/en-site.png', fr: '/og/fr-site.png' }),
+  image = text(lang, { ar: '/og/site.png', en: '/og/en-site.png', fr: '/og/fr-site.png', es: '/og/es-site.png' }),
   type = 'website',
   schema = [],
   noindex = false,
@@ -46,9 +46,9 @@ const pair = pairFor(cleanPath);
 const fontSans = 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap';
 const fontArabic = 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap';
 const fontHref = isLtr(lang) ? fontSans : fontArabic;
-const locale = text(lang, { ar: SITE.locale, en: SITE_EN.locale, fr: SITE_FR.locale });
-const ogLocales = { ar: SITE.locale, en: SITE_EN.locale, fr: SITE_FR.locale } as const;
-const altLocales = (['ar', 'en', 'fr'] as const).filter((code) => code !== lang && pair?.[code]);
+const locale = text(lang, { ar: SITE.locale, en: SITE_EN.locale, fr: SITE_FR.locale, es: SITE_ES.locale });
+const ogLocales = { ar: SITE.locale, en: SITE_EN.locale, fr: SITE_FR.locale, es: SITE_ES.locale } as const;
+const altLocales = (['ar', 'en', 'fr', 'es'] as const).filter((code) => code !== lang && pair?.[code]);
 ---
 <!doctype html>
 <html lang={lang} dir={isLtr(lang) ? 'ltr' : 'rtl'}>
@@ -61,6 +61,7 @@ const altLocales = (['ar', 'en', 'fr'] as const).filter((code) => code !== lang 
     {pair?.ar && <link rel="alternate" hreflang="ar" href={new URL(pair.ar, SITE.url).href} />}
     {pair?.en && <link rel="alternate" hreflang="en" href={new URL(pair.en, SITE.url).href} />}
     {pair?.fr && <link rel="alternate" hreflang="fr" href={new URL(pair.fr, SITE.url).href} />}
+    {pair?.es && <link rel="alternate" hreflang="es" href={new URL(pair.es, SITE.url).href} />}
     {pair?.ar && <link rel="alternate" hreflang="x-default" href={new URL(pair.ar, SITE.url).href} />}
     {!pair?.ar && pair?.en && pair?.fr && <link rel="alternate" hreflang="x-default" href={new URL(pair.en, SITE.url).href} />}
     {SITE.googleVerification && <meta name="google-site-verification" content={SITE.googleVerification} />}
@@ -95,7 +96,7 @@ const altLocales = (['ar', 'en', 'fr'] as const).filter((code) => code !== lang 
         <script is:inline>
           (function () {
             var p = location.pathname;
-            var lang = (p === '/fr' || p.indexOf('/fr/') === 0) ? 'fr' : (p === '/en' || p.indexOf('/en/') === 0) ? 'en' : 'ar';
+            var lang = (p === '/es' || p.indexOf('/es/') === 0) ? 'es' : (p === '/fr' || p.indexOf('/fr/') === 0) ? 'fr' : (p === '/en' || p.indexOf('/en/') === 0) ? 'en' : 'ar';
             var d = document.documentElement;
             d.lang = lang;
             d.dir = lang === 'ar' ? 'rtl' : 'ltr';
@@ -105,10 +106,12 @@ const altLocales = (['ar', 'en', 'fr'] as const).filter((code) => code !== lang 
         <style is:inline>
           html[data-ui="ar"] [data-ui-block]:not([data-ui-block="ar"]),
           html[data-ui="en"] [data-ui-block]:not([data-ui-block="en"]),
-          html[data-ui="fr"] [data-ui-block]:not([data-ui-block="fr"]) { display: none !important; }
+          html[data-ui="fr"] [data-ui-block]:not([data-ui-block="fr"]),
+          html[data-ui="es"] [data-ui-block]:not([data-ui-block="es"]) { display: none !important; }
           html[data-ui="ar"] [data-ui-block="ar"],
           html[data-ui="en"] [data-ui-block="en"],
-          html[data-ui="fr"] [data-ui-block="fr"] { display: contents; }
+          html[data-ui="fr"] [data-ui-block="fr"],
+          html[data-ui="es"] [data-ui-block="es"] { display: contents; }
         </style>
       </>
     )}
@@ -148,16 +151,16 @@ const altLocales = (['ar', 'en', 'fr'] as const).filter((code) => code !== lang 
   </head>
   <body data-page={page} class="bg-grid min-h-dvh bg-no-repeat">
     {detectLang ? (
-      (['ar', 'en', 'fr'] as const).map((ui) => (
+      (['ar', 'en', 'fr', 'es'] as const).map((ui) => (
         <div data-ui-block={ui}>
-          <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">{text(ui, { ar: 'تخطَّ إلى المحتوى', en: 'Skip to content', fr: 'Aller au contenu' })}</a>
+          <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">{text(ui, { ar: 'تخطَّ إلى المحتوى', en: 'Skip to content', fr: 'Aller au contenu', es: 'Saltar al contenido' })}</a>
           <TopBar lang={ui} />
           <Header lang={ui} />
         </div>
       ))
     ) : (
       <>
-        <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">{text(lang, { ar: 'تخطَّ إلى المحتوى', en: 'Skip to content', fr: 'Aller au contenu' })}</a>
+        <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">{text(lang, { ar: 'تخطَّ إلى المحتوى', en: 'Skip to content', fr: 'Aller au contenu', es: 'Saltar al contenido' })}</a>
         <TopBar lang={lang} />
         <Header lang={lang} />
       </>
@@ -166,7 +169,7 @@ const altLocales = (['ar', 'en', 'fr'] as const).filter((code) => code !== lang 
       <slot />
     </main>
     {detectLang ? (
-      (['ar', 'en', 'fr'] as const).map((ui) => (
+      (['ar', 'en', 'fr', 'es'] as const).map((ui) => (
         <div data-ui-block={ui}>
           <Footer lang={ui} />
           <StickyCTA lang={ui} />

@@ -2,12 +2,14 @@
 import { text, type Lang } from '../i18n/lang';
 interface Props { lang?: Lang; }
 const { lang = 'ar' } = Astro.props;
-const privacy = text(lang, { ar: '/privacy', en: '/en/privacy', fr: '/fr/privacy' });
+const privacy = text(lang, { ar: '/privacy', en: '/en/privacy', fr: '/fr/privacy', es: '/es/privacy' });
 ---
-<div id="cookie-consent" class="cookie-consent fixed inset-x-0 bottom-0 z-50 border-t border-line bg-surface/95 px-3 py-2 backdrop-blur" role="dialog" aria-label={text(lang, { ar: 'ملفات تعريف الارتباط', en: 'Cookies', fr: 'Cookies' })}>
+<div id="cookie-consent" class="cookie-consent fixed inset-x-0 bottom-0 z-50 border-t border-line bg-surface/95 px-3 py-2 backdrop-blur" role="dialog" aria-label={text(lang, { ar: 'ملفات تعريف الارتباط', en: 'Cookies', fr: 'Cookies', es: 'Cookies' })}>
   <div class="container-x flex items-center gap-2">
     <p class="min-w-0 flex-1 text-xs leading-5 text-muted">
-      {lang === 'fr' ? (
+      {lang === 'es' ? (
+        <>Las estadísticas siguen apagadas hasta que aceptes. <a href={privacy} class="text-accent-fg underline">Privacidad</a></>
+      ) : lang === 'fr' ? (
         <>Les statistiques restent coupées tant que vous n’acceptez pas. <a href={privacy} class="text-accent-fg underline">Confidentialité</a></>
       ) : lang === 'en' ? (
         <>Analytics stay off until you accept. <a href={privacy} class="text-accent-fg underline">Privacy policy</a></>
@@ -16,8 +18,8 @@ const privacy = text(lang, { ar: '/privacy', en: '/en/privacy', fr: '/fr/privacy
       )}
     </p>
     <div class="flex shrink-0 gap-1.5">
-      <button type="button" data-consent="denied" class="btn-ghost px-2.5 py-1.5 text-xs">{text(lang, { ar: 'رفض', en: 'Decline', fr: 'Refuser' })}</button>
-      <button type="button" data-consent="granted" class="btn-primary px-2.5 py-1.5 text-xs">{text(lang, { ar: 'موافقة', en: 'Accept', fr: 'Accepter' })}</button>
+      <button type="button" data-consent="denied" class="btn-ghost px-2.5 py-1.5 text-xs">{text(lang, { ar: 'رفض', en: 'Decline', fr: 'Refuser', es: 'Rechazar' })}</button>
+      <button type="button" data-consent="granted" class="btn-primary px-2.5 py-1.5 text-xs">{text(lang, { ar: 'موافقة', en: 'Accept', fr: 'Accepter', es: 'Aceptar' })}</button>
     </div>
   </div>
 </div>
