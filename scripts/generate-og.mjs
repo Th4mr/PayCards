@@ -49,7 +49,15 @@ function wrap(text, max) {
   return lines.slice(0, 4);
 }
 
-/** مقاطع مرتبة من اليسار إلى اليمين، ونص كل مقطع بالترتيب المنطقي حتى يشكّله الخط صح. */
+/** مسافة أو علامة محايدة. إلصاقها بمقطع عربي يجعل بدايتها المنطقية على يسار الرسم. */
+function isSeparator(ch) {
+  return /[\s\u00a0:·،؛,.!;?؟«»"'()[\]{}<>\-–—/\\|@#%&*+=~^]/.test(ch);
+}
+
+/**
+ * مقاطع مرتبة من اليسار إلى اليمين، ونص كل مقطع بالترتيب المنطقي حتى يشكّله الخط صح.
+ * المسافات وعلامات الترقيم مقاطع مستقلة في موضعها البصري، حتى لا تُبتلع داخل المقطع العربي.
+ */
 function visualRuns(text) {
   const embedding = bidi.getEmbeddingLevels(text, 'rtl');
   const indices = bidi.getReorderedIndices(text, embedding);
@@ -58,8 +66,10 @@ function visualRuns(text) {
   for (const i of indices) {
     const ch = mirrored.get(i) ?? text[i];
     const dir = embedding.levels[i] % 2 === 1 ? 'rtl' : 'ltr';
+    const sep = isSeparator(text[i]);
     const prev = runs[runs.length - 1];
-    if (prev && prev.dir === dir && (prev.end + 1 === i || prev.start - 1 === i)) {
+    const adjacent = prev && (prev.end + 1 === i || prev.start - 1 === i);
+    if (prev && !sep && !prev.sep && prev.dir === dir && adjacent) {
       if (prev.end + 1 === i) {
         prev.text += ch;
         prev.end = i;
@@ -67,7 +77,7 @@ function visualRuns(text) {
         prev.text = ch + prev.text;
         prev.start = i;
       }
-    } else runs.push({ dir, text: ch, start: i, end: i });
+    } else runs.push({ dir, text: ch, start: i, end: i, sep });
   }
   return runs;
 }
@@ -116,10 +126,15 @@ async function spaceWidth(size, weight) {
 }
 
 async function measureRun(run, size, weight) {
-  const lead = run.text.match(/^\s*/)?.[0].length ?? 0;
-  const trail = run.text.match(/\s*$/)?.[0].length ?? 0;
-  const core = run.text.trim();
   const sp = await spaceWidth(size, weight);
+  if (/^\s+$/.test(run.text)) {
+    return { core: '', advance: [...run.text].length * sp, lead: 0, trail: 0, ink: 0, bearing: 0 };
+  }
+  let lead = run.text.match(/^\s*/)?.[0].length ?? 0;
+  let trail = run.text.match(/\s*$/)?.[0].length ?? 0;
+  /* بداية المقطع العربي المنطقية هي يمينه البصري، فمسافته الطرفية تُرسم على ذلك الجانب. */
+  if (run.dir === 'rtl') [lead, trail] = [trail, lead];
+  const core = run.text.trim();
   if (!core) return { core: '', advance: (lead + trail) * sp, lead, trail, ink: 0, bearing: 0 };
   const span = await inkSpan(core, size, weight, run.dir);
   return { core, advance: lead * sp + span.width + trail * sp, lead, trail, ink: span.width, bearing: span.minX - 8 };

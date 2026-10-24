@@ -162,7 +162,7 @@ const schema = [orgSchema, websiteSchema, faqSchema(homeFaq)];
       <div class="reveal relative overflow-hidden rounded-3xl border border-line bg-surface px-6 py-12 text-center sm:px-12 sm:py-16">
         <div aria-hidden="true" class="pointer-events-none absolute -top-32 start-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-accent/25 blur-3xl"></div>
         <h2 class="relative text-2xl font-extrabold leading-snug sm:text-4xl">رصيدك الرقمي جاهز للإنفاق.<br class="hidden sm:block" /> ابدأ في دقائق.</h2>
-        <p class="relative mx-auto mt-4 max-w-xl text-muted">أنشئ حسابك، وثّق هويتك، وأصدر البطاقة الافتراضية.{REFERRAL.bonus && <> مكافأة الإنفاق الحالية <strong class="text-fg">{REFERRAL.bonus}</strong>{REFERRAL.bonusTerms && <>: {REFERRAL.bonusTerms}</>}.</>}</p>
+        <p class="relative mx-auto mt-4 max-w-xl text-muted">أنشئ حسابك، وثّق هويتك، وأصدر البطاقة الافتراضية.{REFERRAL.bonus && <> مكافأة الإنفاق الحالية <strong class="text-fg"><bdi>{REFERRAL.bonus}:</bdi></strong>{REFERRAL.bonusTerms && <> {REFERRAL.bonusTerms}</>}.</>}</p>
         <div class="relative mx-auto mt-8 max-w-md text-start">
           <ReferralCode placement="end" compact />
           <CTAButton position="end" label="احصل على بطاقتك الآن" size="lg" full class="mt-4" />

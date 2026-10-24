@@ -51,7 +51,7 @@ const used = new Set(rows.map((r) => r.sourceId).filter(Boolean) as SourceId[]);
       return (
         <li>
           <a href={s.url} rel="noopener" target="_blank" class="text-accent-fg underline">{s.title}</a>
-          <span> — تحديث الصفحة لدى RedotPay: {s.pageDate}</span>
+          <span> — آخر تحديث في المصدر: <bdi dir="rtl">{s.pageDate}</bdi></span>
         </li>
       );
     })}
