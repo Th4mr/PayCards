@@ -24,6 +24,9 @@ export const SOURCE_META_EN: Record<SourceId, { title: string; pageDate: string 
   payments: { title: 'How do I use my RedotPay card for payments?', pageDate: 'help center page' },
   unsupported: { title: 'Unsupported countries and regions', pageDate: '28 August 2026' },
   delivery: { title: 'Card delivery restrictions', pageDate: '21 July 2026' },
+  location: { title: 'Location-based access restrictions', pageDate: '28 August 2026' },
+  issuanceBlock: { title: 'Card issuance restrictions', pageDate: '28 August 2026' },
+  depositHow: { title: 'How do I deposit crypto to my RedotPay account?', pageDate: '28 July 2026' },
   sg: { title: 'Singapore programme page', pageDate: 'product page' },
 };
 
