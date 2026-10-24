@@ -21,5 +21,6 @@ export function renderVerify(s: string): string {
       const n = String(note).trim() || 'قيمة قابلة للتغيّر';
       return `<span class="verify" data-verify="${n}" title="تحقق: ${n}">{{تحقق}}</span>`;
     })
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-fg">$1</strong>');
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-fg">$1</strong>')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" rel="noopener" target="_blank" class="text-accent-fg underline">$1</a>');
 }

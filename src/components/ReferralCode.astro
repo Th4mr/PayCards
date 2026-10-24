@@ -27,8 +27,8 @@ const { placement = 'referral', compact = false } = Astro.props;
   </div>
   {REFERRAL.bonus && (
     <p class="mt-2 text-sm leading-7 text-muted">
-      مكافأة إنفاق <strong class="text-fg">{REFERRAL.bonus}</strong>
-      {REFERRAL.bonusTerms && <> — {REFERRAL.bonusTerms}</>}
+      مكافأة إنفاق <strong class="text-fg">{REFERRAL.bonus}</strong> للحسابات الجديدة، وليست مربوطة برمز الإحالة.
+      {REFERRAL.bonusTerms && <> {REFERRAL.bonusTerms}.</>}
     </p>
   )}
   {!compact && (
@@ -39,7 +39,7 @@ const { placement = 'referral', compact = false } = Astro.props;
     </ol>
   )}
   <p class="mt-2 text-xs text-muted">
-    خطوات الرمز من
+    خطوات الرمز من{' '}
     <a href={SOURCES.referral.url} rel="noopener" target="_blank" class="underline">مركز مساعدة RedotPay</a>
     {compact && <> · <a href="/articles/redotpay-signup-kyc#referral" class="underline">شرح التسجيل</a></>}
   </p>

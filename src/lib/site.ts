@@ -6,9 +6,29 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
+    __pcGa?: number;
     plausible?: (event: string, opts?: { props?: Props }) => void;
     umami?: { track: (event: string, data?: Props) => void };
   }
+}
+
+const GA_ID = 'G-XW4F5GBPLM';
+
+/** يحمّل gtag مرة واحدة. لا يُستدعى إلا بعد موافقة الزائر. */
+function loadAnalytics() {
+  if (window.__pcGa) return;
+  window.__pcGa = 1;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer?.push(arguments);
+  };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_ID);
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  document.head.appendChild(s);
 }
 
 /** يرسل الحدث لأي أداة إحصائيات موجودة في الصفحة */
@@ -97,9 +117,7 @@ export function initSite() {
         const choice = consent.dataset.consent === 'granted' ? 'granted' : 'denied';
         store('local', 'pc-consent', choice);
         root.classList.add('consent-set');
-        if (choice === 'granted') {
-          window.gtag?.('consent', 'update', { analytics_storage: 'granted' });
-        }
+        if (choice === 'granted') loadAnalytics();
       }
     },
     { capture: true },

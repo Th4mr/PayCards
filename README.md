@@ -90,7 +90,7 @@ faq:
 
 كل زر إحالة يرسل حدث `referral_click` يحمل `page` و`placement` (موضع الزر). نسخ رمز الإحالة يرسل `referral_code_copy`.
 
-Google Analytics 4 يعمل مع Consent Mode: `analytics_storage` مرفوض إلى أن يوافق الزائر. الحدث يُرسل أيضاً إلى `dataLayer`، وإلى Plausible أو Umami إن وُجدا.
+Google Analytics 4 لا يُحمَّل إلا إذا كانت `localStorage.pc-consent` تساوي `granted`، أو بعد ضغط «موافقة». «رفض» لا يرسل طلباً إلى Google. الحدث يُرسل أيضاً إلى `dataLayer`، وإلى Plausible أو Umami إن وُجدا.
 
 ## بنية المشروع
 

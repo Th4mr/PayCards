@@ -1,15 +1,27 @@
 /**
- * يولّد صور مشاركة 1200×630 لكل مقال وللصفحة الرئيسية وقت البناء.
- * النص العربي يُشكَّل عبر resvg (HarfBuzz) وخط IBM Plex Sans Arabic.
+ * صور مشاركة 1200×630. resvg يشكّل العربية، لكنه يعكس ترتيب الكلمات
+ * حين يختلط النص اللاتيني بالعربي داخل عنصر text واحد.
+ * نحل مستويات الاتجاه بـ bidi-js، ثم نرسم كل مقطع باتجاهه في موضعه.
  */
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
+import sharp from 'sharp';
+import bidiFactory from 'bidi-js';
 
+const bidi = bidiFactory();
 const ROOT = new URL('..', import.meta.url).pathname;
 const OUT = join(ROOT, 'public/og');
 const FONT_BOLD = join(ROOT, 'assets/fonts/IBMPlexSansArabic-Bold.ttf');
 const FONT_REG = join(ROOT, 'assets/fonts/IBMPlexSansArabic-Regular.ttf');
+const FONT = {
+  font: {
+    fontFiles: [FONT_BOLD, FONT_REG],
+    loadSystemFonts: false,
+    defaultFontFamily: 'IBM Plex Sans Arabic',
+  },
+  background: 'rgba(0,0,0,0)',
+};
 
 function field(fm, key) {
   const quoted = fm.match(new RegExp(`^${key}:\\s*"(.*)"\\s*$`, 'm'));
@@ -37,17 +49,114 @@ function wrap(text, max) {
   return lines.slice(0, 4);
 }
 
-function svg({ kicker, title, description }) {
+/** مقاطع مرتبة من اليسار إلى اليمين، ونص كل مقطع بالترتيب المنطقي حتى يشكّله الخط صح. */
+function visualRuns(text) {
+  const embedding = bidi.getEmbeddingLevels(text, 'rtl');
+  const indices = bidi.getReorderedIndices(text, embedding);
+  const mirrored = bidi.getMirroredCharactersMap(text, embedding.levels);
+  const runs = [];
+  for (const i of indices) {
+    const ch = mirrored.get(i) ?? text[i];
+    const dir = embedding.levels[i] % 2 === 1 ? 'rtl' : 'ltr';
+    const prev = runs[runs.length - 1];
+    if (prev && prev.dir === dir && (prev.end + 1 === i || prev.start - 1 === i)) {
+      if (prev.end + 1 === i) {
+        prev.text += ch;
+        prev.end = i;
+      } else {
+        prev.text = ch + prev.text;
+        prev.start = i;
+      }
+    } else runs.push({ dir, text: ch, start: i, end: i });
+  }
+  return runs;
+}
+
+const inkCache = new Map();
+
+function renderTextPng(text, size, weight, dir) {
+  const width = 2400;
+  const height = size + 80;
+  const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+  <text x="8" y="${size + 16}" text-anchor="start" direction="${dir}" font-family="IBM Plex Sans Arabic" font-weight="${weight}" font-size="${size}" fill="#ffffff">${esc(text)}</text>
+</svg>`;
+  return new Resvg(svg, FONT).render().asPng();
+}
+
+async function inkSpan(text, size, weight, dir) {
+  const key = `${size}|${weight}|${dir}|${text}`;
+  if (inkCache.has(key)) return inkCache.get(key);
+  const png = renderTextPng(text, size, weight, dir);
+  const { data, info } = await sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  let minX = info.width;
+  let maxX = -1;
+  for (let y = 0; y < info.height; y++) {
+    for (let x = 0; x < info.width; x++) {
+      if (data[(y * info.width + x) * 4 + 3] > 8) {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+      }
+    }
+  }
+  const span = { width: maxX >= minX ? maxX - minX + 1 : 0, minX: maxX >= minX ? minX : 8 };
+  inkCache.set(key, span);
+  return span;
+}
+
+const spaceCache = new Map();
+async function spaceWidth(size, weight) {
+  const key = `${size}|${weight}`;
+  if (spaceCache.has(key)) return spaceCache.get(key);
+  const tight = await inkSpan('مم', size, weight, 'rtl');
+  const spaced = await inkSpan('م م', size, weight, 'rtl');
+  const w = Math.max(size * 0.2, spaced.width - tight.width);
+  spaceCache.set(key, w);
+  return w;
+}
+
+async function measureRun(run, size, weight) {
+  const lead = run.text.match(/^\s*/)?.[0].length ?? 0;
+  const trail = run.text.match(/\s*$/)?.[0].length ?? 0;
+  const core = run.text.trim();
+  const sp = await spaceWidth(size, weight);
+  if (!core) return { core: '', advance: (lead + trail) * sp, lead, trail, ink: 0, bearing: 0 };
+  const span = await inkSpan(core, size, weight, run.dir);
+  return { core, advance: lead * sp + span.width + trail * sp, lead, trail, ink: span.width, bearing: span.minX - 8 };
+}
+
+async function lineMarkup(text, y, size, weight, fill, right) {
+  const sp = await spaceWidth(size, weight);
+  const measured = [];
+  for (const run of visualRuns(text)) measured.push({ run, ...(await measureRun(run, size, weight)) });
+  const total = measured.reduce((sum, m) => sum + m.advance, 0);
+  let cursor = right - total;
+  const parts = [];
+  for (const m of measured) {
+    if (m.core) {
+      const x = cursor + m.lead * sp - m.bearing;
+      parts.push(
+        `<text x="${x.toFixed(1)}" y="${y}" text-anchor="start" direction="${m.run.dir}" font-family="IBM Plex Sans Arabic" font-weight="${weight}" font-size="${size}" fill="${fill}">${esc(m.core)}</text>`,
+      );
+    }
+    cursor += m.advance;
+  }
+  return parts.join('');
+}
+
+async function svg({ kicker, title, description }) {
   const titleLines = wrap(title, 28);
   const descLines = wrap(description, 42).slice(0, 2);
   const titleStart = 210;
-  const titleSvg = titleLines
-    .map((line, i) => `<text x="1080" y="${titleStart + i * 78}" text-anchor="end" direction="rtl" font-family="IBM Plex Sans Arabic" font-weight="700" font-size="60" fill="#f4f7fb">${esc(line)}</text>`)
-    .join('');
+  let body = await lineMarkup(kicker, 110, 28, 700, '#2ee6a8', 1080);
+  for (let i = 0; i < titleLines.length; i++) {
+    body += await lineMarkup(titleLines[i], titleStart + i * 78, 60, 700, '#f4f7fb', 1080);
+  }
   const descStart = titleStart + titleLines.length * 78 + 16;
-  const descSvg = descLines
-    .map((line, i) => `<text x="1080" y="${descStart + i * 40}" text-anchor="end" direction="rtl" font-family="IBM Plex Sans Arabic" font-weight="400" font-size="28" fill="#b7c3d6">${esc(line)}</text>`)
-    .join('');
+  for (let i = 0; i < descLines.length; i++) {
+    body += await lineMarkup(descLines[i], descStart + i * 40, 28, 400, '#b7c3d6', 1080);
+  }
+  body += `<text x="1080" y="580" text-anchor="end" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="400" font-size="24" fill="#8ea0b8">paycards.io</text>`;
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
@@ -59,25 +168,16 @@ function svg({ kicker, title, description }) {
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect x="0" y="0" width="14" height="630" fill="#2ee6a8"/>
   <circle cx="180" cy="520" r="180" fill="#2ee6a8" fill-opacity="0.08"/>
-  <text x="1080" y="110" text-anchor="end" direction="rtl" font-family="IBM Plex Sans Arabic" font-weight="700" font-size="28" fill="#2ee6a8">${esc(kicker)}</text>
-  ${titleSvg}
-  ${descSvg}
-  <text x="1080" y="580" text-anchor="end" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="400" font-size="24" fill="#8ea0b8">paycards.io</text>
+  ${body}
 </svg>`;
 }
 
 function png(markup) {
-  const resvg = new Resvg(markup, {
-    font: {
-      fontFiles: [FONT_BOLD, FONT_REG],
-      loadSystemFonts: false,
-      defaultFontFamily: 'IBM Plex Sans Arabic',
-    },
-  });
-  return resvg.render().asPng();
+  return new Resvg(markup, {
+    font: FONT.font,
+    background: '#07111f',
+  }).render().asPng();
 }
-
-mkdirSync(OUT, { recursive: true });
 
 const pages = [
   {
@@ -107,7 +207,8 @@ for (const name of readdirSync(join(ROOT, 'src/content/articles'))) {
   });
 }
 
+mkdirSync(OUT, { recursive: true });
 for (const page of pages) {
-  writeFileSync(join(OUT, page.file), png(svg(page)));
+  writeFileSync(join(OUT, page.file), png(await svg(page)));
 }
 console.log(`og: ${pages.length} images → public/og`);

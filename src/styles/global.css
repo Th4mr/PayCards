@@ -150,6 +150,7 @@
 
 /* شريط الموافقة أسفل الشاشة. الزر الثابت يبقى مخفياً حتى يختار الزائر حتى لا يتكدس شريطان. */
 html:not(.consent-set) #sticky-cta.sticky-cta { display: none; }
+html:not(.consent-set) body { padding-bottom: 3.25rem; }
 html.consent-set .cookie-consent { display: none; }
 
 /* ---------- نصوص المقالات ---------- */

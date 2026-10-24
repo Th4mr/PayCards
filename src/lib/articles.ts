@@ -144,5 +144,6 @@ export function articleSchema(a: Article) {
 /** يحوّل {{تحقق: ...}} في نصوص الأسئلة الشائعة إلى نص مقروء في الـ Schema */
 export function stripVerify(s: string): string {
   return s
-    .replace(/\s*\{\{تحقق(?::[^}]*)?\}\}/g, '');
+    .replace(/\s*\{\{تحقق(?::[^}]*)?\}\}/g, '')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '$1');
 }

@@ -47,30 +47,25 @@ export const ANALYTICS = {
   eventName: 'referral_click',
   codeCopyEvent: 'referral_code_copy',
   /**
-   * Consent Mode v2: التحليلات مرفوضة إلى أن يختار الزائر.
-   * أوامر الموافقة تُصفَّ قبل تحميل gtag حتى تُطبَّق على أول طلب.
+   * سكربت Google Analytics لا يُحمَّل إلا بعد موافقة محفوظة.
+   * الزائر الجديد لا يُرسل أي طلب إلى Google إلى أن يضغط «موافقة».
    */
   headHtml: `<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    analytics_storage: 'denied',
-    functionality_storage: 'granted',
-    security_storage: 'granted',
-    wait_for_update: 500
-  });
   try {
     if (localStorage.getItem('pc-consent') === 'granted') {
-      gtag('consent', 'update', { analytics_storage: 'granted' });
+      window.__pcGa = 1;
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-XW4F5GBPLM');
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XW4F5GBPLM';
+      document.head.appendChild(s);
     }
   } catch (e) {}
-  gtag('js', new Date());
-  gtag('config', 'G-XW4F5GBPLM');
-</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XW4F5GBPLM"></script>`,
+</script>`,
 } as const;
 
 export const NAV = [
