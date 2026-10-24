@@ -37,6 +37,14 @@ function paycardsBuild() {
           const out = execSync('node scripts/list-verify.mjs', { encoding: 'utf8' }).trim().split('\n').pop();
           logger.warn(`${out} شغّل "npm run verify" لعرض القائمة قبل الإطلاق.`);
         } catch {}
+        if (process.env.INDEXNOW === '1' || process.env.VERCEL_ENV === 'production') {
+          try {
+            const out = execSync('node scripts/indexnow.mjs', { encoding: 'utf8' }).trim();
+            logger.info(out);
+          } catch (error) {
+            logger.warn(`IndexNow لم يُرسل: ${error instanceof Error ? error.message : error}`);
+          }
+        }
       },
     },
   };

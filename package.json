@@ -9,7 +9,8 @@
     "prebuild": "node scripts/generate-og.mjs",
     "build": "astro build",
     "preview": "astro preview",
-    "verify": "node scripts/list-verify.mjs"
+    "verify": "node scripts/list-verify.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",

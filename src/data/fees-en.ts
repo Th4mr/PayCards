@@ -27,6 +27,7 @@ export const SOURCE_META_EN: Record<SourceId, { title: string; pageDate: string 
   location: { title: 'Location-based access restrictions', pageDate: '28 August 2026' },
   issuanceBlock: { title: 'Card issuance restrictions', pageDate: '28 August 2026' },
   depositHow: { title: 'How do I deposit crypto to my RedotPay account?', pageDate: '28 July 2026' },
+  limits: { title: 'RedotPay card limitations and fees', pageDate: '24 July 2026' },
   sg: { title: 'Singapore programme page', pageDate: 'product page' },
 };
 
@@ -43,8 +44,8 @@ const EN_ROWS: Record<string, { item: string; value: string; detail: string }> =
   },
   'شحن البطاقة المادية': {
     item: 'Physical card shipping',
-    value: 'Not published as a separate line',
-    detail: 'The order steps name the 100 USD issuance fee and do not list a postage line. That is not confirmation that shipping is free. Check the amount in the app before you pay.',
+    value: 'Standard mail waived on the chart; DHL at checkout',
+    detail: 'The order article (30 July 2026) names the 100 USD fee and does not list postage. The limitations chart (page dated 24 July 2026) labels Standard Mail as waived and DHL Express as varying by country, calculated at checkout. The delivery-time article (22 July 2026) says DHL is usually 3–10 days and StandardMail usually 5–30 days. The checkout amount is the one charged.',
   },
   'رسوم شهرية أو سنوية للبطاقة العادية': {
     item: 'Monthly or annual fee on the standard card',
@@ -94,8 +95,8 @@ const EN_ROWS: Record<string, { item: string; value: string; detail: string }> =
   },
   'حدود الإنفاق والسحب العامة': {
     item: 'General spend and withdrawal caps',
-    value: 'No single figure published for every account',
-    detail: 'The help pages we checked do not publish one daily or monthly cap for every account. The limit shown in the app is the reference.',
+    value: '100,000 USD per transaction, 1,000,000 USD a day',
+    detail: 'Both columns on the limitations chart show those spend caps, and the chart says they are effective from 1 December 2025. ATM caps are separate: 3,750 USD or 23,000 HKD a day, and 50,000 USD or 75,000 HKD a month, with a note that some USD cards are 3,000 a day and 10,000 a month. Withdrawals are limited to 3 a day and 30 a month. The limit you set in the app can be lower.',
   },
   'مكافأة التسجيل': {
     item: 'Sign-up reward',
