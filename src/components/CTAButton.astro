@@ -1,8 +1,9 @@
 ---
-import { REFERRAL, REFERRAL_EN } from '../config';
+import { referralFor } from '../config';
+import { text, type Lang } from '../i18n/lang';
 
 /**
- * زر الإحالة الموحّد. كل الأزرار تشير إلى /go/redotpay ولا تحتوي الرابط الأصلي.
+ * زر الإحالة الموحّد. كل الأزرار تشير إلى مسار /go/ ولا تحتوي الرابط الأصلي.
  * position: موضع الزر ويُرسل مع حدث التتبع (hero / inline / sticky / end / header / topbar / ...)
  */
 interface Props {
@@ -12,18 +13,18 @@ interface Props {
   size?: 'md' | 'lg' | 'sm';
   class?: string;
   full?: boolean;
-  lang?: 'ar' | 'en';
+  lang?: Lang;
 }
 const {
   position,
   lang = 'ar',
-  label = lang === 'en' ? 'Get your card' : 'احصل على بطاقتك الآن',
+  label = text(lang, { ar: 'احصل على بطاقتك الآن', en: 'Get your card', fr: 'Obtenir la carte' }),
   variant = 'primary',
   size = 'md',
   class: cls = '',
   full = false,
 } = Astro.props;
-const ref = lang === 'en' ? REFERRAL_EN : REFERRAL;
+const ref = referralFor(lang);
 
 const sizes = { sm: 'px-4 py-2 text-sm', md: '', lg: 'px-7 py-4 text-lg' };
 const base =

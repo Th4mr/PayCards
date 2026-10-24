@@ -1,42 +1,56 @@
 ---
 import { getArticles } from '../lib/articles';
 import { getArticles as getEnglish } from '../lib/en-articles';
+import { getArticles as getFrench } from '../lib/fr-articles';
+import { text, type Lang } from '../i18n/lang';
 
-interface Props { lang?: 'ar' | 'en'; }
+interface Props { lang?: Lang; }
 const { lang = 'ar' } = Astro.props;
 
-const order = lang === 'en'
-  ? [
-      'redotpay-review',
-      'is-redotpay-safe',
-      'redotpay-supported-countries',
-      'redotpay-referral-code',
-      'redotpay-fees',
-      'how-to-top-up-redotpay',
-      'redotpay-atm-withdrawal',
-      'redotpay-apple-pay-google-pay',
-      'redotpay-vs-other-crypto-cards',
-    ]
-  : [
-      'what-is-redotpay',
-      'redotpay-supported-countries',
-      'redotpay-signup-kyc',
-      'redotpay-fees',
-      'redotpay-top-up-usdt',
-      'redotpay-atm-withdrawal',
-      'redotpay-apple-pay-google-pay',
-      'redotpay-vs-other-crypto-cards',
-    ];
-const all = lang === 'en' ? await getEnglish() : await getArticles();
+const order = text(lang, {
+  ar: [
+    'what-is-redotpay',
+    'redotpay-supported-countries',
+    'redotpay-signup-kyc',
+    'redotpay-fees',
+    'redotpay-top-up-usdt',
+    'redotpay-atm-withdrawal',
+    'redotpay-apple-pay-google-pay',
+    'redotpay-vs-other-crypto-cards',
+  ],
+  en: [
+    'redotpay-review',
+    'is-redotpay-safe',
+    'redotpay-supported-countries',
+    'redotpay-referral-code',
+    'redotpay-fees',
+    'how-to-top-up-redotpay',
+    'redotpay-atm-withdrawal',
+    'redotpay-apple-pay-google-pay',
+    'redotpay-vs-other-crypto-cards',
+  ],
+  fr: [
+    'avis-redotpay',
+    'redotpay-fiable',
+    'pays-redotpay',
+    'code-parrainage-redotpay',
+    'frais-redotpay',
+    'recharger-redotpay',
+    'retrait-dab-redotpay',
+    'apple-pay-redotpay',
+    'redotpay-vs-autres-cartes',
+  ],
+});
+const all = lang === 'fr' ? await getFrench() : lang === 'en' ? await getEnglish() : await getArticles();
 const items = order.flatMap((id) => {
   const a = all.find((x) => x.id === id);
   return a ? [a] : [];
 });
-const prefix = lang === 'en' ? '/en/articles' : '/articles';
+const prefix = text(lang, { ar: '/articles', en: '/en/articles', fr: '/fr/articles' });
 ---
-<nav aria-label={lang === 'en' ? 'RedotPay guides' : 'أدلة RedotPay'} class="not-prose rounded-2xl border border-line bg-surface p-5 sm:p-6">
-  <p class="text-lg font-extrabold">{lang === 'en' ? 'RedotPay guides' : 'أدلة RedotPay في مكان واحد'}</p>
-  <p class="mt-1 text-sm text-muted">{lang === 'en' ? 'From country availability to fees, top-ups, and ATM cash.' : 'من التوفر في بلدك إلى الرسوم والسحب. كل دليل يربط بالذي بعده.'}</p>
+<nav aria-label={text(lang, { ar: 'أدلة RedotPay', en: 'RedotPay guides', fr: 'Guides RedotPay' })} class="not-prose rounded-2xl border border-line bg-surface p-5 sm:p-6">
+  <p class="text-lg font-extrabold">{text(lang, { ar: 'أدلة RedotPay في مكان واحد', en: 'RedotPay guides', fr: 'Guides RedotPay' })}</p>
+  <p class="mt-1 text-sm text-muted">{text(lang, { ar: 'من التوفر في بلدك إلى الرسوم والسحب. كل دليل يربط بالذي بعده.', en: 'From country availability to fees, top-ups, and ATM cash.', fr: 'Des pays aux frais, à la recharge et au cash au DAB.' })}</p>
   <ul class="mt-4 grid gap-2 sm:grid-cols-2">
     {items.map((a) => (
       <li>

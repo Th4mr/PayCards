@@ -1,0 +1,22 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="fr" title="Politique de confidentialité" heading="Politique de confidentialité" description="Comment PayCards traite les données des visiteurs : ce que nous collectons, ce que nous ne collectons pas, et les services extérieurs utilisés par le site." page="privacy-fr" path="/fr/privacy" showUpdated>
+  <p>PayCards est un site statique. Il n’a <strong>ni formulaire d’inscription ni comptes utilisateurs</strong>, et nous ne vous demandons pas de données personnelles pour lire un guide.</p>
+  <h2>Que peut-on collecter ?</h2>
+  <ul>
+    <li><strong>Statistiques :</strong> seulement après votre acceptation, nous chargeons Google Analytics 4 pour mesurer les pages, les clics sur les boutons d’inscription (nom de page et emplacement du bouton) et les copies du code de parrainage. Ces événements incluent un paramètre <span dir="ltr">lang</span>. Avant votre acceptation, le script Google n’est pas demandé et rien n’est envoyé à Google. Une fois chargé, Google peut utiliser des cookies et traiter des données comme l’adresse IP et le type d’appareil selon la <a href="https://policies.google.com/privacy" rel="nofollow noopener" target="_blank">politique de confidentialité de Google</a>.</li>
+    <li><strong>Votre choix :</strong> un bandeau en bas de page propose Accepter et Refuser. Accepter charge Google Analytics. Refuser ne le charge pas. Le choix est stocké dans le <span dir="ltr">localStorage</span> du navigateur sous <span dir="ltr">pc-consent</span>, avec la valeur <span dir="ltr">granted</span> ou <span dir="ltr">denied</span>. Effacez les données du site et le bandeau revient.</li>
+    <li><strong>Journaux d’hébergement :</strong> le site est hébergé sur Vercel. Vercel peut journaliser des données techniques comme l’adresse IP pour la sécurité et l’exploitation, selon sa propre politique.</li>
+    <li><strong>Polices :</strong> les pages françaises et anglaises chargent IBM Plex Sans depuis Google Fonts, donc le navigateur contacte Google pour récupérer la police. Les pages arabes chargent IBM Plex Sans Arabic de la même façon.</li>
+  </ul>
+  <h2>Stockage local sur votre appareil</h2>
+  <p>Nous stockons quelques préférences dans le navigateur seulement : mode clair ou sombre (<span dir="ltr">pc-theme</span>), fermeture du bandeau du haut (<span dir="ltr">pc-topbar</span>), fermeture du bouton mobile pour la session (<span dir="ltr">pc-sticky</span>), et le choix de statistiques (<span dir="ltr">pc-consent</span>). Ces données restent sur votre appareil. Notre serveur ne les lit pas.</p>
+  <h2>Liens externes</h2>
+  <p>Un bouton d’inscription vous envoie chez RedotPay. À partir de là, la politique de confidentialité de RedotPay s’applique. Nous ne pouvons pas voir votre compte RedotPay.</p>
+  <h2>E-mail</h2>
+  <p>Si vous nous écrivez, nous utilisons le message pour répondre. Nous ne le transmettons pas.</p>
+  <h2>Modifications</h2>
+  <p>Nous mettons cette politique à jour quand les outils du site changent, et nous changeons la date ci-dessus. Questions : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>

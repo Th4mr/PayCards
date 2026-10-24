@@ -1,0 +1,21 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="fr" title="Conditions d’utilisation" heading="Conditions d’utilisation" description="Conditions d’utilisation de PayCards : ce qu’est le contenu, la limite de notre responsabilité, et le fonctionnement des liens de parrainage et des sites extérieurs." page="terms-fr" path="/fr/terms" showUpdated>
+  <p>Utiliser PayCards ({SITE.domain}) signifie que vous acceptez les conditions ci-dessous.</p>
+  <h2>1. Ce qu’est le contenu</h2>
+  <p>Le contenu est une information générale. Ce n’est <strong>pas un conseil financier, d’investissement, juridique ou fiscal</strong>. Les cryptomonnaies peuvent perdre de la valeur, y compris jusqu’à zéro. Vérifiez les faits vous-même avant d’agir.</p>
+  <h2>2. Indépendance</h2>
+  <p>PayCards est indépendant. Ce n’est pas RedotPay et ce n’est aucune autre entreprise nommée sur le site. Les noms et les marques appartiennent à leurs propriétaires et sont utilisés ici pour que vous puissiez identifier le produit.</p>
+  <h2>3. Exactitude</h2>
+  <p>Nous essayons de garder les pages à jour, mais les frais, les limites, les règles de pays et les conditions du produit changent sans préavis. L’app officielle et les pages de l’entreprise font foi.</p>
+  <h2>4. Liens de parrainage et autres sites</h2>
+  <p>Le site contient des liens de parrainage et des liens vers des sites que nous ne contrôlons pas. Ces sites ont leurs propres conditions. Le détail est sur la <a href="/fr/disclosure">page d’avertissement</a>.</p>
+  <h2>5. Responsabilité</h2>
+  <p>Nous ne sommes pas responsables d’une perte qui vient du fait de s’appuyer sur ce site ou d’utiliser un service tiers. Confirmez qu’un service est autorisé là où vous vivez.</p>
+  <h2>6. Droits d’auteur</h2>
+  <p>Le texte et la conception de ce site appartiennent à PayCards. Une courte citation est acceptable si vous nommez PayCards et liez la page.</p>
+  <h2>7. Modifications et contact</h2>
+  <p>Nous pouvons modifier ces conditions. Questions : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>

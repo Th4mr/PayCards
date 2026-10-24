@@ -1,0 +1,25 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { REFERRAL_FR, SITE } from '../../config';
+---
+<PageLayout lang="fr" title="Avertissement de parrainage" heading="Avertissement de parrainage" description="Comment fonctionnent les liens de parrainage PayCards, ce que nous pouvons toucher si vous vous inscrivez, et pourquoi cela ne change pas les frais que vous payez à RedotPay." page="disclosure-fr" path="/fr/disclosure" showUpdated>
+  <p><strong>En bref :</strong> PayCards est indépendant et ne fait pas partie de RedotPay. Les boutons qui ouvrent l’inscription RedotPay sont <strong>nos liens de parrainage</strong>.</p>
+  <h2>Ce que cela veut dire pour vous</h2>
+  <ul>
+    <li>Si vous vous inscrivez via nos liens, <strong>nous pouvons toucher une commission ou une récompense</strong> de RedotPay dans le cadre de son programme de parrainage.</li>
+    <li><strong>Vous ne payez pas plus</strong> à cause de cela. Vous payez les frais propres à RedotPay.</li>
+    <li>Les nouveaux comptes peuvent aussi recevoir une récompense de dépenses{REFERRAL_FR.bonus && ` (${REFERRAL_FR.bonus} au moment où cette page a été écrite)`}{REFERRAL_FR.bonusTerms && ` — ${REFERRAL_FR.bonusTerms.charAt(0).toUpperCase()}${REFERRAL_FR.bonusTerms.slice(1)}`}. Les conditions de la plateforme changent. Les pages de RedotPay font foi, pas ce site. La récompense est pour les nouveaux comptes. Le code de parrainage ne la débloque pas, et elle ne paie pas les frais d’émission de la carte.</li>
+  </ul>
+  <h2>Comment nous gérons le conflit</h2>
+  <ul>
+    <li>Nous indiquons les limites dans les guides, y compris les nationalités qui ne peuvent pas finir la vérification.</li>
+    <li>Nous ne publions pas de frais ni de limite sans source, et nous vous demandons de confirmer le montant dans l’app officielle.</li>
+    <li>Les liens de parrainage utilisent <code>rel="sponsored"</code>, comme les moteurs de recherche le recommandent.</li>
+  </ul>
+  <h2>Le chemin technique</h2>
+  <p>Les boutons d’inscription en français passent par <code>{SITE.domain}{REFERRAL_FR.goPath}</code>, qui redirige vers la page d’invitation française de RedotPay. Les pages anglaises et arabes utilisent d’autres chemins et restent sur leur invitation. Nous utilisons ces chemins pour que la destination vive dans un seul fichier de configuration et pour que les clics restent agrégés. <code>/go/</code> est interdit dans robots.txt.</p>
+  <h2>Si vous pouvez vous inscrire</h2>
+  <p>RedotPay, et les cartes crypto en général, peuvent être indisponibles ou restreintes là où vous vivez. Les listes publiées de nationalité, de localisation, d’émission et de livraison sont dans <a href="/fr/articles/pays-redotpay">ce guide</a>. Un compte que l’entreprise accepte n’est pas la preuve que le droit local autorise la carte.</p>
+  <h2>Questions</h2>
+  <p>Écrivez à <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>

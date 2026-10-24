@@ -1,19 +1,23 @@
 ---
 import { REVIEWED_LABEL, SOURCES, feeRows, type SourceId } from '../data/redotpay';
 import { REVIEWED_LABEL_EN, feeRowsEn, sourceEn } from '../data/fees-en';
+import { REVIEWED_LABEL_FR, feeRowsFr, sourceFr } from '../data/fees-fr';
+import { text, type Lang } from '../i18n/lang';
 
 interface Props {
   variant?: 'full' | 'compact';
-  lang?: 'ar' | 'en';
+  lang?: Lang;
 }
 const { variant = 'full', lang = 'ar' } = Astro.props;
-const rows = (lang === 'en' ? feeRowsEn : feeRows).filter((r) => variant === 'compact' ? r.compact : true);
+const rows = text(lang, { ar: feeRows, en: feeRowsEn, fr: feeRowsFr }).filter((r) => variant === 'compact' ? r.compact : true);
 const used = new Set(rows.map((r) => r.sourceId).filter(Boolean) as SourceId[]);
-const reviewed = lang === 'en' ? REVIEWED_LABEL_EN : REVIEWED_LABEL;
+const reviewed = text(lang, { ar: REVIEWED_LABEL, en: REVIEWED_LABEL_EN, fr: REVIEWED_LABEL_FR });
 ---
 <div class="not-prose">
   <p class="mb-3 text-sm leading-7 text-muted">
-    {lang === 'en' ? (
+    {lang === 'fr' ? (
+      <>Chiffres vérifiés le <time datetime="2026-10-24">{reviewed}</time> sur les pages officielles RedotPay liées sous le tableau. Le montant affiché dans l’app avant confirmation fait foi, parce que les frais changent.</>
+    ) : lang === 'en' ? (
       <>Figures checked on <time datetime="2026-10-24">{reviewed}</time> against the official RedotPay pages linked under the table. The amount shown in the app before you confirm is the final reference, because fees change.</>
     ) : (
       <>رُوجعت الأرقام في <time datetime="2026-10-24">{reviewed}</time> من صفحات RedotPay الرسمية المرتبطة أسفل الجدول. المبلغ الذي يظهر في التطبيق قبل التأكيد هو المرجع الأخير، لأن الرسوم تتغيّر.</>
@@ -34,9 +38,9 @@ const reviewed = lang === 'en' ? REVIEWED_LABEL_EN : REVIEWED_LABEL;
     <table class="w-full table-fixed border-collapse text-sm">
       <thead class="bg-surface-2 text-start">
         <tr>
-          <th class:list={['px-3 py-3 text-start font-bold', variant === 'full' ? 'w-[28%]' : 'w-[56%]']}>{lang === 'en' ? 'Item' : 'البند'}</th>
-          <th class:list={['px-3 py-3 text-start font-bold', variant === 'full' ? 'w-[22%]' : 'w-[44%]']}>{lang === 'en' ? 'Published value' : 'القيمة المنشورة'}</th>
-          {variant === 'full' && <th class="w-[50%] px-3 py-3 text-start font-bold">{lang === 'en' ? 'Detail' : 'التفاصيل'}</th>}
+          <th class:list={['px-3 py-3 text-start font-bold', variant === 'full' ? 'w-[28%]' : 'w-[56%]']}>{text(lang, { ar: 'البند', en: 'Item', fr: 'Poste' })}</th>
+          <th class:list={['px-3 py-3 text-start font-bold', variant === 'full' ? 'w-[22%]' : 'w-[44%]']}>{text(lang, { ar: 'القيمة المنشورة', en: 'Published value', fr: 'Valeur publiée' })}</th>
+          {variant === 'full' && <th class="w-[50%] px-3 py-3 text-start font-bold">{text(lang, { ar: 'التفاصيل', en: 'Detail', fr: 'Détail' })}</th>}
         </tr>
       </thead>
       <tbody>
@@ -52,6 +56,15 @@ const reviewed = lang === 'en' ? REVIEWED_LABEL_EN : REVIEWED_LABEL;
   </div>
   <ul class="mt-3 space-y-1 text-xs leading-6 text-muted">
     {[...used].map((id) => {
+      if (lang === 'fr') {
+        const s = sourceFr(id);
+        return (
+          <li>
+            <a href={s.url} rel="noopener" target="_blank" class="text-accent-fg underline">{s.title}</a>
+            <span> — date de la page RedotPay : {s.pageDate}</span>
+          </li>
+        );
+      }
       if (lang === 'en') {
         const s = sourceEn(id);
         return (
