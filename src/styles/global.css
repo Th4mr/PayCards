@@ -139,16 +139,19 @@
   background-size: auto, auto, 44px 44px, 44px 44px;
 }
 
-/* ---------- حركة الظهور عند التمرير (تعمل فقط مع JS) ---------- */
-.js .reveal {
+/* ---------- حركة الظهور عند التمرير ---------- */
+/* المحتوى الظاهر في أول شاشة يبقى مرئياً. الإخفاء يبدأ بعد وسم ما تحت الطيّة فقط. */
+.reveal { transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal-arm .reveal:not(.is-in) {
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.js .reveal.is-in {
-  opacity: 1;
-  transform: none;
-}
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* شريط الموافقة أسفل الشاشة. الزر الثابت يبقى مخفياً حتى يختار الزائر حتى لا يتكدس شريطان. */
+html:not(.consent-set) #sticky-cta.sticky-cta { display: none; }
+html:not(.consent-set) body { padding-bottom: 3.25rem; }
+html.consent-set .cookie-consent { display: none; }
 
 /* ---------- نصوص المقالات ---------- */
 .prose-pc {
@@ -169,15 +172,75 @@
 }
 .prose-pc h2 { scroll-margin-top: 5rem; }
 .prose-pc h3 { scroll-margin-top: 5rem; }
+.prose-pc { min-width: 0; max-width: 100%; }
 .prose-pc table {
-  display: block;
-  overflow-x: auto;
   white-space: normal;
   border: 1px solid var(--line);
   border-radius: 12px;
 }
 .prose-pc thead { background: var(--surface-2); }
-.prose-pc th, .prose-pc td { padding: 0.6rem 0.8rem !important; text-align: start; }
+.prose-pc th, .prose-pc td {
+  padding: 0.6rem 0.8rem !important;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 768px) {
+  .prose-pc table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+/* جداول المقارنة ذات الأعمدة الكثيرة تتحول إلى بطاقات على الجوال، مثل جدول الرسوم. */
+@media (max-width: 767px) {
+  .prose-pc table {
+    display: block;
+    max-width: 100%;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+  .prose-pc thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .prose-pc tbody { display: block; }
+  .prose-pc tr {
+    display: block;
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .prose-pc td, .prose-pc tbody th {
+    display: block;
+    width: auto !important;
+    max-width: 100%;
+    border: 0;
+  }
+  .prose-pc td + td,
+  .prose-pc tbody th + td,
+  .prose-pc td + th {
+    border-top: 1px solid var(--line);
+  }
+  .prose-pc td::before,
+  .prose-pc tbody th::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.15rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+}
 .prose-pc blockquote { font-style: normal; background: var(--surface-2); border-radius: 0 12px 12px 0; padding: 0.5rem 1rem; }
 .prose-pc blockquote p::before, .prose-pc blockquote p::after { content: none; }
 .prose-pc a { text-underline-offset: 4px; }

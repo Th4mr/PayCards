@@ -1,10 +1,10 @@
 ---
 import { REFERRAL } from '../config';
 ---
-<div id="topbar" class="topbar relative z-50 bg-gradient-to-l from-accent to-[#4cd3e0] text-on-accent">
+<div id="topbar" class="topbar relative z-50 hidden bg-gradient-to-l from-accent to-[#4cd3e0] text-on-accent md:block">
   <div class="container-x flex min-h-10 items-center justify-center gap-2 py-1.5 pe-10 text-center text-[13px] font-semibold sm:text-sm">
     <span>
-      {REFERRAL.bonus ? <>مكافأة ترحيبية {REFERRAL.bonus} للمستخدمين الجدد عند فتح حساب RedotPay</> : <>بطاقة RedotPay: ادفع بعملاتك الرقمية أونلاين وعبر هاتفك</>}
+      {REFERRAL.bonus ? <>مكافأة إنفاق {REFERRAL.bonus} للحسابات الجديدة — لا تغطي رسم البطاقة</> : <>بطاقة RedotPay حيث تقبل شبكات الدفع الرئيسية</>}
     </span>
     <a href={REFERRAL.goPath} rel={REFERRAL.rel} target="_blank" data-cta data-cta-position="topbar" class="underline underline-offset-4 whitespace-nowrap">ابدأ الآن ←</a>
   </div>

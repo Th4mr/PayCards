@@ -5,7 +5,7 @@
  * داخل خلية جدول لا تحتوي غيرها أضف cell:   <V n="..." cell />
  *
  * SHOW_VERIFY_MARKERS في src/config.ts:
- *   false → لا يظهر شيء، وخلية الجدول تظهر "حسب التطبيق"
+ *   false → لا يظهر شيء، وخلية الجدول الفارغة تظهر عبارة محايدة
  *   true  → تظهر العلامة الصفراء {{تحقق}} للمراجعة
  * لعرض كل العلامات: npm run verify — وبعد التحقق اكتب القيمة الصحيحة مكان المكوّن.
  */
@@ -19,5 +19,5 @@ const { n, cell = false } = Astro.props;
 {SHOW_VERIFY_MARKERS ? (
   <>{' '}<span class="verify" data-verify={n} title={`تحقق: ${n}`} aria-label={`قيمة بانتظار التحقق: ${n}`}>{'{{تحقق}}'}</span></>
 ) : cell ? (
-  <span class="whitespace-nowrap text-muted" data-verify-hidden>حسب التطبيق</span>
+  <span class="text-muted" data-verify-hidden>يظهر في التطبيق قبل التأكيد</span>
 ) : null}

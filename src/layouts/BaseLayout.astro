@@ -4,6 +4,7 @@ import TopBar from '../components/TopBar.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickyCTA from '../components/StickyCTA.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import { SITE, ANALYTICS } from '../config';
 
 interface Props {
@@ -23,7 +24,7 @@ const {
   title,
   description = SITE.description,
   page,
-  image = '/og-default.png',
+  image = '/og/site.png',
   type = 'website',
   schema = [],
   noindex = false,
@@ -90,6 +91,7 @@ const fontHref =
           if (localStorage.getItem('pc-theme') === 'dark') d.classList.add('dark');
           if (localStorage.getItem('pc-topbar') === '1') d.classList.add('topbar-off');
           if (sessionStorage.getItem('pc-sticky') === '1') d.classList.add('sticky-off');
+          if (localStorage.getItem('pc-consent')) d.classList.add('consent-set');
         } catch (e) {}
       })();
     </script>
@@ -109,7 +111,34 @@ const fontHref =
     </main>
     <Footer />
     <StickyCTA />
+    <CookieConsent />
 
+    <script is:inline>
+      (function () {
+        document.querySelectorAll('.prose-pc table').forEach(function (table) {
+          var heads = Array.prototype.map.call(table.querySelectorAll('thead th'), function (th) {
+            return (th.textContent || '').replace(/\s+/g, ' ').trim();
+          });
+          table.querySelectorAll('tbody tr').forEach(function (tr) {
+            Array.prototype.forEach.call(tr.children, function (cell, i) {
+              if (heads[i]) cell.setAttribute('data-label', heads[i]);
+            });
+          });
+        });
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var nodes = document.querySelectorAll('.reveal');
+        if (reduce) {
+          nodes.forEach(function (el) { el.classList.add('is-in'); });
+          return;
+        }
+        var h = window.innerHeight * 0.96;
+        nodes.forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.top < h && r.bottom > 0) el.classList.add('is-in');
+        });
+        document.documentElement.classList.add('reveal-arm');
+      })();
+    </script>
     <script>
       import { initSite } from '../lib/site';
       initSite();

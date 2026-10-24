@@ -21,6 +21,8 @@ const articles = defineCollection({
     summary: z.string(),
     cover: z.object({ icon: z.string(), hue: z.number().default(160) }),
     faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+    /** خطوات ظاهرة في المقال، وتُخرِج HowTo فقط عندما تكون تعليمات حقيقية */
+    howto: z.array(z.object({ name: z.string(), text: z.string() })).optional(),
     related: z.array(z.string()).default([]),
     /** ترتيب العرض عند تساوي التاريخ (الأصغر أولاً) */
     order: z.number().default(99),

@@ -93,6 +93,22 @@ export function faqSchema(items: { q: string; a: string }[]) {
   };
 }
 
+export function howToSchema(name: string, description: string, steps: { name: string; text: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    description,
+    inLanguage: 'ar',
+    step: steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: stripVerify(s.text),
+    })),
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; url: string }[]) {
   return {
     '@context': 'https://schema.org',
@@ -116,7 +132,7 @@ export function articleSchema(a: Article) {
     inLanguage: 'ar',
     mainEntityOfPage: url,
     url,
-    image: `${SITE.url}/og-default.png`,
+    image: `${SITE.url}/og/${a.id}.png`,
     datePublished: a.data.pubDate.toISOString(),
     dateModified: (a.data.updatedDate ?? a.data.pubDate).toISOString(),
     keywords: a.data.keyword,
@@ -128,5 +144,6 @@ export function articleSchema(a: Article) {
 /** يحوّل {{تحقق: ...}} في نصوص الأسئلة الشائعة إلى نص مقروء في الـ Schema */
 export function stripVerify(s: string): string {
   return s
-    .replace(/\s*\{\{تحقق(?::[^}]*)?\}\}/g, '');
+    .replace(/\s*\{\{تحقق(?::[^}]*)?\}\}/g, '')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '$1');
 }

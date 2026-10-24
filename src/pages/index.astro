@@ -4,9 +4,12 @@ import Card3D from '../components/Card3D.astro';
 import CTAButton from '../components/CTAButton.astro';
 import Icon from '../components/Icon.astro';
 import VText from '../components/VText.astro';
-import V from '../components/V.astro';
 import FAQ from '../components/FAQ.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import FeeTable from '../components/FeeTable.astro';
+import ReferralCode from '../components/ReferralCode.astro';
+import AvailabilityNote from '../components/AvailabilityNote.astro';
+import RedotHub from '../components/RedotHub.astro';
 import { SITE, REFERRAL } from '../config';
 import { trustItems, features, steps, useCases, homeFaq } from '../data/home';
 import { getArticles, orgSchema, websiteSchema, faqSchema } from '../lib/articles';
@@ -18,11 +21,12 @@ const schema = [orgSchema, websiteSchema, faqSchema(homeFaq)];
   title="PayCards — ادفع بعملاتك الرقمية في أي مكان بالعالم"
   description={SITE.description}
   page="home"
+  image="/og/home.png"
   schema={schema}
 >
   <!-- 1) Hero -->
   <section class="relative overflow-hidden">
-    <div class="container-x grid items-center gap-12 pb-16 pt-10 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:pb-24">
+    <div class="container-x grid items-center gap-8 pb-8 pt-8 sm:pt-12 lg:grid-cols-[1.1fr_0.9fr] lg:pb-10">
       <div>
         <span class="eyebrow"><span class="h-1.5 w-1.5 rounded-full bg-accent"></span> دليل عربي مستقل لبطاقة RedotPay</span>
         <h1 class="mt-5 text-[2rem] font-extrabold leading-[1.3] sm:text-5xl sm:leading-[1.25]">
@@ -36,10 +40,12 @@ const schema = [orgSchema, websiteSchema, faqSchema(homeFaq)];
           <a href="#how" class="btn-ghost px-7 py-4 text-lg">كيف تعمل؟</a>
         </div>
         <ul class="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
-          {['بطاقة افتراضية بعد التوثيق', 'Apple Pay و Google Pay', 'لا يلزم حساب بنكي'].map((t) => (
+          {['افتراضية بـ 10 دولارات بعد التوثيق', 'Apple Pay و Google Pay', 'لا يلزم حساب بنكي'].map((t) => (
             <li class="flex items-center gap-1.5"><Icon name="check" class="h-4 w-4 text-accent-fg" />{t}</li>
           ))}
         </ul>
+        <div class="mt-6 max-w-xl"><ReferralCode placement="hero" /></div>
+        <AvailabilityNote class="mt-3 max-w-xl" />
       </div>
       <Card3D />
     </div>
@@ -115,6 +121,14 @@ const schema = [orgSchema, websiteSchema, faqSchema(homeFaq)];
     </div>
   </section>
 
+  <section class="section !pt-12" id="fees">
+    <div class="container-x">
+      <h2 class="section-title reveal">رسوم راجعناها من RedotPay</h2>
+      <p class="section-lead reveal">أبرز الأرقام المنشورة. الجدول الكامل مع مصدر كل بند في <a class="text-accent-fg underline" href="/articles/redotpay-fees">مقال الرسوم</a>.</p>
+      <div class="mt-8 reveal"><FeeTable variant="compact" /></div>
+    </div>
+  </section>
+
   <!-- 8) أحدث المقالات -->
   <section class="section bg-bg-2" id="articles">
     <div class="container-x">
@@ -125,6 +139,7 @@ const schema = [orgSchema, websiteSchema, faqSchema(homeFaq)];
         </div>
         <a href="/articles" class="hidden shrink-0 font-bold text-accent-fg sm:inline">كل المقالات ←</a>
       </div>
+      <div class="mt-8 reveal"><RedotHub /></div>
       <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {latest.map((a) => <ArticleCard article={a} />)}
       </div>
@@ -147,11 +162,13 @@ const schema = [orgSchema, websiteSchema, faqSchema(homeFaq)];
       <div class="reveal relative overflow-hidden rounded-3xl border border-line bg-surface px-6 py-12 text-center sm:px-12 sm:py-16">
         <div aria-hidden="true" class="pointer-events-none absolute -top-32 start-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-accent/25 blur-3xl"></div>
         <h2 class="relative text-2xl font-extrabold leading-snug sm:text-4xl">رصيدك الرقمي جاهز للإنفاق.<br class="hidden sm:block" /> ابدأ في دقائق.</h2>
-        <p class="relative mx-auto mt-4 max-w-xl text-muted">أنشئ حسابك، وثّق هويتك، وأصدر بطاقتك الافتراضية لتبدأ الدفع أونلاين وعبر هاتفك.{REFERRAL.bonus && <> المستخدمون الجدد يحصلون حالياً على مكافأة ترحيبية <strong class="text-fg">{REFERRAL.bonus}</strong><V n="شروط مكافأة المستخدم الجديد" />.</>}</p>
-        <div class="relative mx-auto mt-8 flex max-w-md flex-col gap-4">
-          <CTAButton position="end" label="احصل على بطاقتك الآن" size="lg" full />
+        <p class="relative mx-auto mt-4 max-w-xl text-muted">أنشئ حسابك، وثّق هويتك، وأصدر البطاقة الافتراضية.{REFERRAL.bonus && <> مكافأة الإنفاق الحالية <strong class="text-fg"><bdi>{REFERRAL.bonus}:</bdi></strong>{REFERRAL.bonusTerms && <> {REFERRAL.bonusTerms}</>}.</>}</p>
+        <div class="relative mx-auto mt-8 max-w-md text-start">
+          <ReferralCode placement="end" compact />
+          <CTAButton position="end" label="احصل على بطاقتك الآن" size="lg" full class="mt-4" />
+          <AvailabilityNote class="mt-3 text-center" />
         </div>
-        <p class="relative mt-6 text-xs text-muted">يتم التسجيل على منصة RedotPay الرسمية · العملات الرقمية تنطوي على مخاطر · ليس نصيحة مالية</p>
+        <p class="relative mt-4 text-xs text-muted">يتم التسجيل على منصة RedotPay الرسمية · العملات الرقمية تنطوي على مخاطر · ليس نصيحة مالية</p>
       </div>
     </div>
   </section>

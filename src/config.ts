@@ -1,9 +1,8 @@
 /**
  * ملف الإعدادات المركزي لموقع PayCards
  * ------------------------------------------------------------
- * غيّر رابط الإحالة أو المكافأة من هنا فقط.
- * ملف `_redirects` يُولَّد تلقائياً من هذه القيم عند كل بناء
- * (انظر astro.config.ts)، فلا حاجة لتعديله يدوياً.
+ * غيّر رابط الإحالة أو المكافأة من هنا، ووافق الوجهة نفسها في vercel.json.
+ * البناء يتوقف إذا اختلف الملفان.
  */
 
 export const SITE = {
@@ -18,48 +17,54 @@ export const SITE = {
   locale: 'ar_AR',
   /** رمز التحقق من Google Search Console */
   googleVerification: 'DbT6Rpij9Dgk_rT1RNENvi9AZY5ZTfEFEWNltgzcvxc',
-  /** تاريخ آخر مراجعة للمحتوى، يُعرض في صفحات الإفصاح والخصوصية والشروط */
-  lastReviewed: '2026-09-30',
+  /** تاريخ آخر مراجعة لصفحات السياسات، ويُعرض في الإفصاح والخصوصية والشروط */
+  lastReviewed: '2026-10-24',
 } as const;
 
 export const REFERRAL = {
-  /** رابط دعوة RedotPay المباشر — لا يُكتب في أي صفحة؛ يولّد _redirects ويجب أن يطابقه vercel.json */
+  /** رابط دعوة RedotPay المباشر — لا يُكتب في الصفحات؛ يجب أن يطابقه vercel.json */
   url: 'https://wap.redotpay.com/ar/invite/?referralId=yj8cq',
   /** المسار الداخلي الذي تشير إليه كل الأزرار */
   goPath: '/go/redotpay',
-  /** نص المكافأة كما يُعرض للزائر. ضع null لإخفائها من كل الموقع */
-  bonus: '5 دولار' as string | null,
-  /** كود حالة إعادة التوجيه في Cloudflare Pages */
-  redirectStatus: 302,
+  /** يُعرض مع زر النسخ. مضمّن في رابط الدعوة أعلاه */
+  code: 'yj8cq',
+  /** نص المكافأة المختصر. ضع null لإخفائها من كل الموقع */
+  bonus: '5 دولارات' as string | null,
+  /** شروط المكافأة كما نشرتها RedotPay. تختفي إذا كانت bonus تساوي null */
+  bonusTerms: 'رصيد إنفاق لمدة 30 يوماً من استلامه، ولا يُستخدم لرسوم إصدار البطاقة' as string | null,
   /** قيمة rel لكل روابط الإحالة */
   rel: 'nofollow sponsored noopener',
 } as const;
 
 /**
- * التتبع: كل زر إحالة يرسل حدثاً باسم `referral_click`
- * ويحمل: page (اسم الصفحة) و position (hero/inline/sticky/end/header/topbar).
- * يُرسَل تلقائياً إلى أي أداة موجودة: gtag (GA4) أو plausible أو umami أو dataLayer (GTM).
- * لإضافة أداة إحصائيات، ضع وسم السكربت في `analytics.headHtml`.
- */
-/**
- * علامات {{تحقق}}:
- * false (الافتراضي للنشر) → تختفي العلامات الصفراء، وتظهر خلايا الجداول الفارغة بعبارة "حسب التطبيق".
- * true → تظهر العلامات الصفراء في كل الصفحات لمراجعتها قبل الإطلاق.
- * القائمة الكاملة دائماً عبر: npm run verify
+ * علامات {{تحقق}} داخلية للمراجعة فقط (npm run verify).
+ * false → لا تظهر للزائر. خلية لا تحوي سوى العلامة تُعرض بعبارة محايدة من V.astro.
  */
 export const SHOW_VERIFY_MARKERS = false;
 
 export const ANALYTICS = {
+  /** نقرات روابط /go/redotpay. المعامل placement هو موضع الزر. */
   eventName: 'referral_click',
-  /** مثال Plausible:
-   * '<script defer data-domain="paycards.io" src="https://plausible.io/js/script.js"></script>'
+  codeCopyEvent: 'referral_code_copy',
+  /**
+   * سكربت Google Analytics لا يُحمَّل إلا بعد موافقة محفوظة.
+   * الزائر الجديد لا يُرسل أي طلب إلى Google إلى أن يضغط «موافقة».
    */
-  headHtml: `<script async src="https://www.googletagmanager.com/gtag/js?id=G-XW4F5GBPLM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XW4F5GBPLM');
+  headHtml: `<script>
+  try {
+    if (localStorage.getItem('pc-consent') === 'granted') {
+      window.__pcGa = 1;
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-XW4F5GBPLM');
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XW4F5GBPLM';
+      document.head.appendChild(s);
+    }
+  } catch (e) {}
 </script>`,
 } as const;
 

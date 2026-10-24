@@ -6,9 +6,29 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
+    __pcGa?: number;
     plausible?: (event: string, opts?: { props?: Props }) => void;
     umami?: { track: (event: string, data?: Props) => void };
   }
+}
+
+const GA_ID = 'G-XW4F5GBPLM';
+
+/** يحمّل gtag مرة واحدة. لا يُستدعى إلا بعد موافقة الزائر. */
+function loadAnalytics() {
+  if (window.__pcGa) return;
+  window.__pcGa = 1;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer?.push(arguments);
+  };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_ID);
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  document.head.appendChild(s);
 }
 
 /** يرسل الحدث لأي أداة إحصائيات موجودة في الصفحة */
@@ -20,6 +40,29 @@ export function track(event: string, props: Props) {
     window.umami?.track(event, props);
   } catch {
     /* لا نكسر الصفحة بسبب الإحصائيات */
+  }
+}
+
+async function copyText(value: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(value);
+    return true;
+  } catch {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = value;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.inset = '0';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return ok;
+    } catch {
+      return false;
+    }
   }
 }
 
@@ -44,11 +87,37 @@ export function initSite() {
     (e) => {
       const a = (e.target as Element).closest<HTMLElement>('[data-cta]');
       if (a) {
+        const placement = a.dataset.ctaPosition || 'unknown';
         track(ANALYTICS.eventName, {
           page,
-          position: a.dataset.ctaPosition || 'unknown',
+          placement,
+          position: placement,
           label: (a.textContent || '').trim().slice(0, 60),
         });
+      }
+      const copyBtn = (e.target as Element).closest<HTMLButtonElement>('[data-copy]');
+      if (copyBtn) {
+        e.preventDefault();
+        const value = copyBtn.dataset.copy || '';
+        void copyText(value).then((ok) => {
+          if (!ok) return;
+          const label = copyBtn.dataset.copyLabel || copyBtn.textContent || '';
+          copyBtn.textContent = 'تم النسخ';
+          window.setTimeout(() => {
+            copyBtn.textContent = label;
+          }, 1600);
+          track(ANALYTICS.codeCopyEvent, {
+            page,
+            placement: copyBtn.dataset.copyPlacement || 'unknown',
+          });
+        });
+      }
+      const consent = (e.target as Element).closest<HTMLElement>('[data-consent]');
+      if (consent) {
+        const choice = consent.dataset.consent === 'granted' ? 'granted' : 'denied';
+        store('local', 'pc-consent', choice);
+        root.classList.add('consent-set');
+        if (choice === 'granted') loadAnalytics();
       }
     },
     { capture: true },
