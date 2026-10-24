@@ -1,0 +1,30 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import CTABox from '../../components/CTABox.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="en" title="About PayCards" heading="About PayCards" description="PayCards is an independent guide to the RedotPay card. The English pages quote official sources and name the PayCards team, not a personal author." page="about-en" path="/en/about">
+  <p><strong>PayCards</strong> explains how a RedotPay card works in ordinary spending: online checkout, phone wallets, and ATM cash. The Arabic site is the original. These English pages cover the same product for readers searching in English.</p>
+  <p>We are not RedotPay. Signup always happens on RedotPay’s own site.</p>
+  <h2>Who writes</h2>
+  <p>The byline is the <strong>PayCards team</strong>. We do not invent a personal author, and we do not publish reviews, ratings, or user stories we did not document. If a line is wrong, email us.</p>
+  <h2>How we check facts</h2>
+  <ul>
+    <li>RedotPay figures — fees, the sign-up reward, country lists, card programmes — come from RedotPay’s help center or redotpay.com. The source is linked under the table or in the guide.</li>
+    <li>Each numbers page shows the date <strong>we checked</strong> it, and the date on RedotPay’s page when that date is visible. If the app has changed since then, the amount shown before you confirm is the one that counts.</li>
+    <li>If we cannot find a fixed number, we do not guess. We say the figure is in the app, or that it was not on the pages we read.</li>
+    <li>An article’s “updated” date changes only when that article changes.</li>
+    <li>Some links are referral links. That does not change your fee. See the <a href="/en/disclosure">disclosure</a>.</li>
+  </ul>
+  <h2>What we will not do</h2>
+  <ul>
+    <li>Call the card Mastercard. The card terms we read name Visa for the Hong Kong and Singapore programmes, and newer help pages say “major card networks”.</li>
+    <li>Publish a competitor’s fees we did not check on the same day.</li>
+    <li>Treat a missing country as permission to use the card.</li>
+  </ul>
+  <h2>A limit you should read</h2>
+  <p>Crypto prices move, and this site is not financial, investment, or legal advice. RedotPay’s citizenship list includes the United States. Other countries are blocked too, and local law can restrict the card even when the company does not. Read the <a href="/en/articles/redotpay-supported-countries">country lists</a> and the app before you pay an issuance fee.</p>
+  <h2>Contact</h2>
+  <p>Corrections and topic ideas: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  <CTABox lang="en" position="end" />
+</PageLayout>

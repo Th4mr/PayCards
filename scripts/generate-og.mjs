@@ -222,8 +222,71 @@ for (const name of readdirSync(join(ROOT, 'src/content/articles'))) {
   });
 }
 
+function svgEn({ kicker, title, description }) {
+  const titleLines = wrap(title, 34);
+  const descLines = wrap(description, 58).slice(0, 3);
+  const titleStart = 210;
+  let body = `<text x="72" y="110" text-anchor="start" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="700" font-size="28" fill="#2ee6a8">${esc(kicker)}</text>`;
+  for (let i = 0; i < titleLines.length; i++) {
+    body += `<text x="72" y="${titleStart + i * 68}" text-anchor="start" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="700" font-size="48" fill="#f4f7fb">${esc(titleLines[i])}</text>`;
+  }
+  const descStart = titleStart + titleLines.length * 68 + 12;
+  for (let i = 0; i < descLines.length; i++) {
+    body += `<text x="72" y="${descStart + i * 36}" text-anchor="start" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="400" font-size="26" fill="#b7c3d6">${esc(descLines[i])}</text>`;
+  }
+  body += `<text x="72" y="580" text-anchor="start" direction="ltr" font-family="IBM Plex Sans Arabic" font-weight="400" font-size="24" fill="#8ea0b8">paycards.io/en</text>`;
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="1" stop-color="#10261f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="14" height="630" fill="#2ee6a8"/>
+  <circle cx="1040" cy="520" r="180" fill="#2ee6a8" fill-opacity="0.08"/>
+  ${body}
+</svg>`;
+}
+
+const enDir = join(ROOT, 'src/content/en');
+const english = [
+  {
+    file: 'en-home.png',
+    kicker: 'Independent guide',
+    title: 'RedotPay review, fees, and countries',
+    description: 'Published figures only. Referral code yj8cq during signup.',
+  },
+  {
+    file: 'en-site.png',
+    kicker: 'PayCards',
+    title: 'An independent RedotPay guide',
+    description: 'Fees, supported countries, top-ups, and ATM withdrawals.',
+  },
+];
+try {
+  for (const name of readdirSync(enDir)) {
+    if (!/\.mdx?$/.test(name)) continue;
+    const raw = readFileSync(join(enDir, name), 'utf8');
+    const fm = raw.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
+    const id = name.replace(/\.mdx?$/, '');
+    english.push({
+      file: `en-${id}.png`,
+      kicker: 'Guide · PayCards',
+      title: field(fm, 'h1') || field(fm, 'title') || id,
+      description: field(fm, 'description'),
+    });
+  }
+} catch {
+  /* English collection is optional during a partial checkout */
+}
+
 mkdirSync(OUT, { recursive: true });
 for (const page of pages) {
   writeFileSync(join(OUT, page.file), png(await svg(page)));
 }
-console.log(`og: ${pages.length} images → public/og`);
+for (const page of english) {
+  writeFileSync(join(OUT, page.file), png(svgEn(page)));
+}
+console.log(`og: ${pages.length + english.length} images → public/og`);

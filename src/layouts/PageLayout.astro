@@ -2,17 +2,29 @@
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { breadcrumbSchema, formatDate } from '../lib/articles';
+import { formatDate as formatDateEn } from '../lib/en-articles';
 import { SITE } from '../config';
 
-interface Props { title: string; description: string; page: string; path: string; heading?: string; showUpdated?: boolean; }
-const { title, description, page, path, heading = title, showUpdated = false } = Astro.props;
-const crumbs = [{ name: 'الرئيسية', url: '/' }, { name: heading, url: path }];
+interface Props {
+  title: string;
+  description: string;
+  page: string;
+  path: string;
+  heading?: string;
+  showUpdated?: boolean;
+  lang?: 'ar' | 'en';
+}
+const { title, description, page, path, heading = title, showUpdated = false, lang = 'ar' } = Astro.props;
+const crumbs = lang === 'en'
+  ? [{ name: 'Home', url: '/en' }, { name: heading, url: path }]
+  : [{ name: 'الرئيسية', url: '/' }, { name: heading, url: path }];
+const reviewed = lang === 'en' ? formatDateEn(new Date(SITE.lastReviewed)) : formatDate(new Date(SITE.lastReviewed));
 ---
-<BaseLayout title={title} description={description} page={page} schema={[breadcrumbSchema(crumbs)]}>
+<BaseLayout lang={lang} title={title} description={description} page={page} schema={[breadcrumbSchema(crumbs)]}>
   <section class="container-x max-w-3xl pt-8 sm:pt-12">
     <Breadcrumbs items={crumbs} />
     <h1 class="mt-5 text-3xl font-extrabold sm:text-4xl">{heading}</h1>
-    {showUpdated && <p class="mt-2 text-sm text-muted">آخر تحديث: {formatDate(new Date(SITE.lastReviewed))}</p>}
+    {showUpdated && <p class="mt-2 text-sm text-muted">{lang === 'en' ? 'Last updated' : 'آخر تحديث'}: {reviewed}</p>}
     <div class="prose prose-pc prose-lg mt-8 max-w-none prose-headings:font-extrabold prose-p:leading-[1.95]">
       <slot />
     </div>

@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import CTABox from '../../../components/CTABox.astro';
+import RedotHub from '../../../components/RedotHub.astro';
+import { getArticles } from '../../../lib/en-articles';
+import { breadcrumbSchema } from '../../../lib/articles';
+
+const all = await getArticles();
+const crumbs = [{ name: 'Home', url: '/en' }, { name: 'Guides', url: '/en/articles' }];
+---
+<BaseLayout lang="en" title="RedotPay guides: fees, countries, top-up, ATM" description="English RedotPay guides: review, fees, referral code, supported countries, how to top up, ATM withdrawals, Apple Pay, and a comparison that does not invent other cards’ fees." page="articles-en" schema={[breadcrumbSchema(crumbs)]}>
+  <section class="container-x pt-8 sm:pt-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-5 text-3xl font-extrabold sm:text-4xl">RedotPay guides</h1>
+    <p class="mt-3 max-w-2xl text-muted">Practical pages for the questions English speakers search: fees, the referral code, supported countries, topping up, and ATM cash. General crypto explainers stay on the Arabic site.</p>
+    <div class="mt-8"><RedotHub lang="en" /></div>
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {all.map((a) => <ArticleCard lang="en" article={a} />)}
+    </div>
+    <div class="mx-auto max-w-3xl"><CTABox lang="en" position="end" /></div>
+  </section>
+</BaseLayout>

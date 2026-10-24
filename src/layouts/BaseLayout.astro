@@ -5,12 +5,12 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickyCTA from '../components/StickyCTA.astro';
 import CookieConsent from '../components/CookieConsent.astro';
-import { SITE, ANALYTICS } from '../config';
+import { SITE, SITE_EN, ANALYTICS } from '../config';
+import { pairFor, normalizePath } from '../i18n/routes';
 
 interface Props {
   title: string;
   description?: string;
-  /** اسم الصفحة لأحداث التتبع */
   page: string;
   image?: string;
   type?: 'website' | 'article';
@@ -18,13 +18,15 @@ interface Props {
   noindex?: boolean;
   published?: Date;
   modified?: Date;
+  lang?: 'ar' | 'en';
 }
 
 const {
   title,
-  description = SITE.description,
+  description = Astro.props.lang === 'en' ? SITE_EN.description : SITE.description,
   page,
-  image = '/og/site.png',
+  lang = 'ar',
+  image = lang === 'en' ? '/og/en-site.png' : '/og/site.png',
   type = 'website',
   schema = [],
   noindex = false,
@@ -33,20 +35,27 @@ const {
 } = Astro.props;
 
 const fullTitle = title.includes('PayCards') ? title : `${title} | PayCards`;
-const cleanPath = Astro.url.pathname.replace(/(\/index)?\.html$/, '').replace(/\/$/, '') || '/';
+const cleanPath = normalizePath(Astro.url.pathname);
 const canonical = new URL(cleanPath, SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
-const fontHref =
-  'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap';
+const pair = pairFor(cleanPath);
+const fontHref = lang === 'en'
+  ? 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap'
+  : 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap';
+const locale = lang === 'en' ? SITE_EN.locale : SITE.locale;
+const altLocale = lang === 'en' ? SITE.locale : SITE_EN.locale;
 ---
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang={lang} dir={lang === 'en' ? 'ltr' : 'rtl'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {pair && <link rel="alternate" hreflang="ar" href={new URL(pair.ar, SITE.url).href} />}
+    {pair && <link rel="alternate" hreflang="en" href={new URL(pair.en, SITE.url).href} />}
+    {pair && <link rel="alternate" hreflang="x-default" href={new URL(pair.ar, SITE.url).href} />}
     {SITE.googleVerification && <meta name="google-site-verification" content={SITE.googleVerification} />}
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#f5f7fb" />
@@ -57,10 +66,10 @@ const fontHref =
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Open Graph -->
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={SITE.name} />
-    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:locale" content={locale} />
+    {pair && <meta property="og:locale:alternate" content={altLocale} />}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -69,20 +78,17 @@ const fontHref =
     <meta property="og:image:height" content="630" />
     {published && <meta property="article:published_time" content={published.toISOString()} />}
     {modified && <meta property="article:modified_time" content={modified.toISOString()} />}
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- الخطوط: تحميل غير معطِّل للعرض مع font-display: swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href={fontHref} />
     <link rel="stylesheet" href={fontHref} media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href={fontHref} /></noscript>
 
-    <!-- الوضع الداكن/الفاتح + حالة الأشرطة المغلقة قبل الرسم لتجنّب الوميض -->
     <script is:inline>
       (function () {
         var d = document.documentElement;
@@ -103,15 +109,15 @@ const fontHref =
     {ANALYTICS.headHtml && <Fragment set:html={ANALYTICS.headHtml} />}
   </head>
   <body data-page={page} class="bg-grid min-h-dvh bg-no-repeat">
-    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">تخطَّ إلى المحتوى</a>
-    <TopBar />
-    <Header />
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">{lang === 'en' ? 'Skip to content' : 'تخطَّ إلى المحتوى'}</a>
+    <TopBar lang={lang} />
+    <Header lang={lang} />
     <main id="main">
       <slot />
     </main>
-    <Footer />
-    <StickyCTA />
-    <CookieConsent />
+    <Footer lang={lang} />
+    <StickyCTA lang={lang} />
+    <CookieConsent lang={lang} />
 
     <script is:inline>
       (function () {

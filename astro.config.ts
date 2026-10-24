@@ -4,7 +4,8 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { readdirSync, readFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
-import { SITE, REFERRAL } from './src/config';
+import { SITE, REFERRAL, REFERRAL_EN } from './src/config';
+import { pairFor } from './src/i18n/routes';
 
 /**
  * يتحقق أن تحويل vercel.json يطابق رابط الإحالة في src/config.ts،
@@ -21,13 +22,15 @@ function paycardsBuild() {
         } catch {
           return;
         }
-        const r = (vercel.redirects || []).find((x: { source?: string }) => x.source === REFERRAL.goPath);
-        if (!r || r.destination !== REFERRAL.url) {
-          throw new Error(
-            `رابط الإحالة في vercel.json (${r?.destination ?? 'غير موجود'}) لا يطابق src/config.ts (${REFERRAL.url}). حدّث الملفين بالرابط نفسه.`,
-          );
+        for (const ref of [REFERRAL, REFERRAL_EN]) {
+          const r = (vercel.redirects || []).find((x: { source?: string }) => x.source === ref.goPath);
+          if (!r || r.destination !== ref.url) {
+            throw new Error(
+              `رابط الإحالة في vercel.json (${r?.destination ?? 'غير موجود'}) لا يطابق src/config.ts (${ref.url}). حدّث الملفين بالرابط نفسه.`,
+            );
+          }
+          logger.info(`vercel.json: ${ref.goPath} → ${r.destination}`);
         }
-        logger.info(`vercel.json: ${REFERRAL.goPath} → ${r.destination}`);
       },
       'astro:build:done': async ({ logger }) => {
         try {
@@ -51,6 +54,14 @@ export default defineConfig({
   site: SITE.url,
   trailingSlash: 'never',
   build: { format: 'file' },
+  i18n: {
+    defaultLocale: 'ar',
+    locales: ['ar', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: false,
+    },
+  },
   integrations: [
     mdx(),
     sitemap({
@@ -60,6 +71,21 @@ export default defineConfig({
         return !m || usedCategories.has(m[1]);
       },
       changefreq: 'weekly',
+      serialize(item) {
+        const path = new URL(item.url).pathname;
+        const pair = pairFor(path);
+        if (!pair) return item;
+        const ar = new URL(pair.ar, SITE.url).href;
+        const en = new URL(pair.en, SITE.url).href;
+        return {
+          ...item,
+          links: [
+            { lang: 'ar', url: ar },
+            { lang: 'en', url: en },
+            { lang: 'x-default', url: ar },
+          ],
+        };
+      },
     }),
     paycardsBuild(),
   ],

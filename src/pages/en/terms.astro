@@ -1,0 +1,21 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="en" title="Terms of use" heading="Terms of use" description="Terms for using PayCards: what the content is, the limit of our responsibility, and how referral links and outside sites work." page="terms-en" path="/en/terms" showUpdated>
+  <p>Using PayCards ({SITE.domain}) means you accept the terms below.</p>
+  <h2>1. What the content is</h2>
+  <p>The content is general education. It is <strong>not financial, investment, legal, or tax advice</strong>. Crypto can fall in value, including to zero. Check the facts yourself before you act.</p>
+  <h2>2. Independence</h2>
+  <p>PayCards is independent. It is not RedotPay and it is not any other company named on the site. Names and trademarks belong to their owners and are used here so you can identify the product.</p>
+  <h2>3. Accuracy</h2>
+  <p>We try to keep pages current, but fees, limits, country rules, and product terms change without notice. The official app and the company’s own pages are the final reference.</p>
+  <h2>4. Referral links and other sites</h2>
+  <p>The site contains referral links and links to sites we do not control. Those sites have their own terms. Details are on the <a href="/en/disclosure">disclosure page</a>.</p>
+  <h2>5. Liability</h2>
+  <p>We are not liable for loss that comes from relying on this site or from using a third-party service. Confirm that a service is allowed where you live.</p>
+  <h2>6. Copyright</h2>
+  <p>The text and design of this site belong to PayCards. Short quotation is fine if you name PayCards and link to the page.</p>
+  <h2>7. Changes and contact</h2>
+  <p>We may change these terms. Questions: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>
