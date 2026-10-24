@@ -88,11 +88,13 @@ export function initSite() {
       const a = (e.target as Element).closest<HTMLElement>('[data-cta]');
       if (a) {
         const placement = a.dataset.ctaPosition || 'unknown';
+        const lang = document.documentElement.lang || 'ar';
         track(ANALYTICS.eventName, {
           page,
           placement,
           position: placement,
           label: (a.textContent || '').trim().slice(0, 60),
+          lang,
         });
       }
       const copyBtn = (e.target as Element).closest<HTMLButtonElement>('[data-copy]');
@@ -102,13 +104,14 @@ export function initSite() {
         void copyText(value).then((ok) => {
           if (!ok) return;
           const label = copyBtn.dataset.copyLabel || copyBtn.textContent || '';
-          copyBtn.textContent = 'تم النسخ';
+          copyBtn.textContent = copyBtn.dataset.copyDone || 'تم النسخ';
           window.setTimeout(() => {
             copyBtn.textContent = label;
           }, 1600);
           track(ANALYTICS.codeCopyEvent, {
             page,
             placement: copyBtn.dataset.copyPlacement || 'unknown',
+            lang: document.documentElement.lang || 'ar',
           });
         });
       }

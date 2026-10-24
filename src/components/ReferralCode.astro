@@ -1,46 +1,62 @@
 ---
-import { REFERRAL } from '../config';
+import { REFERRAL, REFERRAL_EN } from '../config';
 import { SOURCES } from '../data/redotpay';
 
 interface Props {
   placement?: string;
-  /** صف مختصر: الرمز وزر النسخ فقط */
   compact?: boolean;
+  lang?: 'ar' | 'en';
 }
-const { placement = 'referral', compact = false } = Astro.props;
+const { placement = 'referral', compact = false, lang = 'ar' } = Astro.props;
+const ref = lang === 'en' ? REFERRAL_EN : REFERRAL;
+const guide = lang === 'en' ? '/en/articles/redotpay-referral-code#referral' : '/articles/redotpay-signup-kyc#referral';
 ---
 <div class="not-prose rounded-2xl border border-line bg-surface-2 p-4">
   <div class="flex flex-wrap items-center gap-3">
     <div>
-      <p class="text-xs font-bold text-muted">رمز الإحالة</p>
-      <p class="font-mono text-xl font-extrabold tracking-wide" dir="ltr">{REFERRAL.code}</p>
+      <p class="text-xs font-bold text-muted">{lang === 'en' ? 'Referral code' : 'رمز الإحالة'}</p>
+      <p class="font-mono text-xl font-extrabold tracking-wide" dir="ltr">{ref.code}</p>
     </div>
     <button
       type="button"
       class="btn-ghost px-4 py-2 text-sm"
-      data-copy={REFERRAL.code}
+      data-copy={ref.code}
       data-copy-placement={placement}
-      data-copy-label="نسخ الرمز"
+      data-copy-label={lang === 'en' ? 'Copy code' : 'نسخ الرمز'}
+      data-copy-done={lang === 'en' ? 'Copied' : 'تم النسخ'}
     >
-      نسخ الرمز
+      {lang === 'en' ? 'Copy code' : 'نسخ الرمز'}
     </button>
   </div>
-  {REFERRAL.bonus && (
+  {ref.bonus && (
     <p class="mt-2 text-sm leading-7 text-muted">
-      مكافأة إنفاق <strong class="text-fg">{REFERRAL.bonus}</strong> للحسابات الجديدة، وليست مربوطة برمز الإحالة.
-      {REFERRAL.bonusTerms && <> {REFERRAL.bonusTerms}.</>}
+      {lang === 'en' ? (
+        <>A <strong class="text-fg">{ref.bonus}</strong> spending reward for new accounts. It is not tied to the referral code.{ref.bonusTerms && <> {ref.bonusTerms}</>}</>
+      ) : (
+        <>مكافأة إنفاق <strong class="text-fg">{ref.bonus}</strong> للحسابات الجديدة، وليست مربوطة برمز الإحالة.{REFERRAL.bonusTerms && <> {REFERRAL.bonusTerms}.</>}</>
+      )}
     </p>
   )}
   {!compact && (
-    <ol class="mt-3 list-decimal space-y-1.5 pe-5 text-sm leading-7 text-muted">
-      <li>زر التسجيل يفتح صفحة الدعوة الرسمية. إن طُلب الرمز أثناء إنشاء الحساب، الصقه قبل إنهاء التسجيل.</li>
-      <li>في شاشة التسجيل اضغط <span dir="ltr">Referral Code (Optional)</span> ثم أدخل الرمز.</li>
-      <li>لا يمكن إضافة الرمز بعد إنشاء الحساب.</li>
+    <ol class:list={['mt-3 list-decimal space-y-1.5 text-sm leading-7 text-muted', lang === 'en' ? 'ps-5' : 'pe-5']}>
+      {lang === 'en' ? (
+        <>
+          <li>The signup button opens RedotPay’s invite page. If the app still asks for a code, paste it before you finish creating the account.</li>
+          <li>On the registration screen, tap <span dir="ltr">Referral Code (Optional)</span> and enter the code.</li>
+          <li>The code cannot be added after the account exists.</li>
+        </>
+      ) : (
+        <>
+          <li>زر التسجيل يفتح صفحة الدعوة الرسمية. إن طُلب الرمز أثناء إنشاء الحساب، الصقه قبل إنهاء التسجيل.</li>
+          <li>في شاشة التسجيل اضغط <span dir="ltr">Referral Code (Optional)</span> ثم أدخل الرمز.</li>
+          <li>لا يمكن إضافة الرمز بعد إنشاء الحساب.</li>
+        </>
+      )}
     </ol>
   )}
   <p class="mt-2 text-xs text-muted">
-    خطوات الرمز من{' '}
-    <a href={SOURCES.referral.url} rel="noopener" target="_blank" class="underline">مركز مساعدة RedotPay</a>
-    {compact && <> · <a href="/articles/redotpay-signup-kyc#referral" class="underline">شرح التسجيل</a></>}
+    {lang === 'en' ? 'Code steps from' : 'خطوات الرمز من'}{' '}
+    <a href={SOURCES.referral.url} rel="noopener" target="_blank" class="underline">{lang === 'en' ? 'RedotPay Help Center' : 'مركز مساعدة RedotPay'}</a>
+    {compact && <> · <a href={guide} class="underline">{lang === 'en' ? 'Signup guide' : 'شرح التسجيل'}</a></>}
   </p>
 </div>

@@ -1,37 +1,93 @@
 ---
-import { DELIVERY_COUNTRIES, DELIVERY_ONLY_COUNTRIES, SOURCES, UNSUPPORTED_COUNTRIES, REVIEWED_LABEL } from '../data/redotpay';
+import { CARD_ISSUANCE_COUNTRIES, DELIVERY_COUNTRIES, DELIVERY_ONLY_COUNTRIES, LOCATION_COUNTRIES, SOURCES, UNSUPPORTED_COUNTRIES, REVIEWED_LABEL, countryPair } from '../data/redotpay';
+import { REVIEWED_LABEL_EN, sourceEn } from '../data/fees-en';
+
+interface Props { lang?: 'ar' | 'en'; }
+const { lang = 'ar' } = Astro.props;
+const reviewed = lang === 'en' ? REVIEWED_LABEL_EN : REVIEWED_LABEL;
+const unsupported = lang === 'en' ? sourceEn('unsupported') : SOURCES.unsupported;
+const location = lang === 'en' ? sourceEn('location') : SOURCES.location;
+const issuance = lang === 'en' ? sourceEn('issuanceBlock') : SOURCES.issuanceBlock;
+const delivery = lang === 'en' ? sourceEn('delivery') : SOURCES.delivery;
 ---
 <div class="not-prose space-y-8">
-  <p class="text-sm text-muted">رُوجعت القائمتان في <time datetime="2026-10-24">{REVIEWED_LABEL}</time>.</p>
+  <p class="text-sm text-muted">
+    {lang === 'en' ? <>These lists were checked on <time datetime="2026-10-24">{reviewed}</time>.</> : <>رُوجعت هذه القوائم في <time datetime="2026-10-24">{reviewed}</time>.</>}
+  </p>
 
   <section>
-    <h2 id="registration-block" class="text-2xl font-extrabold">دول لا يكتمل فيها التوثيق</h2>
+    <h2 id="registration-block" class="text-2xl font-extrabold">{lang === 'en' ? 'Citizenships that cannot finish verification' : 'دول لا يكتمل فيها التوثيق'}</h2>
     <p class="mt-2 leading-8 text-muted">
-      نص الصفحة الرسمية: إذا كنت <strong class="text-fg">مواطناً</strong> لإحدى هذه الدول أو المناطق فلن تتمكن من إكمال التحقق من الهوية أو استخدام الخدمة. القائمة مبنية على تنظيم محلي وسياسات عقوبات، وRedotPay تقول إنها قد تتغير.{' '}
-      <a href={SOURCES.unsupported.url} rel="noopener" target="_blank" class="text-accent-fg underline">المصدر</a>{' '}
-      (تحديث الصفحة: {SOURCES.unsupported.pageDate}).
+      {lang === 'en' ? (
+        <>If you are a <strong class="text-fg">citizen</strong> of a listed place, you cannot complete identity verification or use the service. RedotPay says the list follows local rules and sanctions policy and can change. The United States is on it.{' '}<a href={unsupported.url} rel="noopener" target="_blank" class="text-accent-fg underline">Source</a>{' '}(page update: {unsupported.pageDate}).</>
+      ) : (
+        <>نص الصفحة الرسمية: إذا كنت <strong class="text-fg">مواطناً</strong> لإحدى هذه الدول أو المناطق فلن تتمكن من إكمال التحقق من الهوية أو استخدام الخدمة. القائمة مبنية على تنظيم محلي وسياسات عقوبات، وRedotPay تقول إنها قد تتغير.{' '}<a href={SOURCES.unsupported.url} rel="noopener" target="_blank" class="text-accent-fg underline">المصدر</a>{' '}(تحديث الصفحة: {SOURCES.unsupported.pageDate}).</>
+      )}
     </p>
     <ul class="mt-4 grid gap-2 sm:grid-cols-2">
       {UNSUPPORTED_COUNTRIES.map(([ar, en]) => (
         <li class="rounded-xl border border-line bg-surface px-3 py-2 text-sm">
-          {ar} <span class="text-muted" dir="ltr">({en})</span>
+          {lang === 'en' ? en : <>{ar} <span class="text-muted" dir="ltr">({en})</span></>}
         </li>
       ))}
     </ul>
   </section>
 
   <section>
-    <h2 id="no-physical-shipping" class="text-2xl font-extrabold">دول لا تُشحن إليها البطاقة المادية</h2>
+    <h2 id="app-location" class="text-2xl font-extrabold">{lang === 'en' ? 'Where the app does not open' : 'أماكن لا يُفتح فيها التطبيق'}</h2>
     <p class="mt-2 leading-8 text-muted">
-      هذه قائمة التوصيل كما نُشرت، وهي أوسع من قائمة منع التسجيل. من الأسماء التي تهم كثيراً من القرّاء وليست في قائمة المنع أعلاه، لكن البطاقة المادية لا تُشحن إليها:{' '}
-      {DELIVERY_ONLY_COUNTRIES.map(([ar]) => ar).join('، ')}.{' '}
-      <a href={SOURCES.delivery.url} rel="noopener" target="_blank" class="text-accent-fg underline">المصدر</a>{' '}
-      (تحديث الصفحة: {SOURCES.delivery.pageDate}).
+      {lang === 'en' ? (
+        <>If you are <strong class="text-fg">located</strong> in one of these places, RedotPay says you cannot access the app. The United States is on this list. Tanzania is on this list and is not on the citizenship list above.{' '}<a href={location.url} rel="noopener" target="_blank" class="text-accent-fg underline">Source</a>{' '}(page update: {location.pageDate}).</>
+      ) : (
+        <>إذا كنت <strong class="text-fg">موجوداً</strong> في إحدى هذه المناطق فلن تتمكن من فتح التطبيق. الولايات المتحدة في هذه القائمة. تنزانيا هنا وليست في قائمة الجنسية أعلاه.{' '}<a href={SOURCES.location.url} rel="noopener" target="_blank" class="text-accent-fg underline">المصدر</a>{' '}(تحديث الصفحة: {SOURCES.location.pageDate}).</>
+      )}
+    </p>
+    <ul class="mt-4 grid gap-2 sm:grid-cols-2">
+      {LOCATION_COUNTRIES.map((en) => {
+        const [ar, name] = countryPair(en);
+        return (
+          <li class="rounded-xl border border-line bg-surface px-3 py-2 text-sm">
+            {lang === 'en' ? name : <>{ar} <span class="text-muted" dir="ltr">({name})</span></>}
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="card-issuance" class="text-2xl font-extrabold">{lang === 'en' ? 'Residents who cannot be issued a card' : 'مقيمون لا تُصدر لهم بطاقة'}</h2>
+    <p class="mt-2 leading-8 text-muted">
+      {lang === 'en' ? (
+        <>Residents of these areas are ineligible for a virtual card and a physical card, and the location cannot be a billing address. The United States is on this list. So are India, Indonesia, Morocco, Nepal, Singapore, and Turkey.{' '}<a href={issuance.url} rel="noopener" target="_blank" class="text-accent-fg underline">Source</a>{' '}(page update: {issuance.pageDate}).</>
+      ) : (
+        <>المقيمون في هذه المناطق لا تُصدر لهم بطاقة افتراضية ولا مادية، ولا يُقبل المكان عنوان فوترة. الولايات المتحدة في القائمة، ومعها الهند وإندونيسيا والمغرب ونيبال وسنغافورة وتركيا.{' '}<a href={SOURCES.issuanceBlock.url} rel="noopener" target="_blank" class="text-accent-fg underline">المصدر</a>{' '}(تحديث الصفحة: {SOURCES.issuanceBlock.pageDate}).</>
+      )}
+    </p>
+    <ul class="mt-4 grid gap-2 sm:grid-cols-2">
+      {CARD_ISSUANCE_COUNTRIES.map((en) => {
+        const [ar, name] = countryPair(en);
+        return (
+          <li class="rounded-xl border border-line bg-surface px-3 py-2 text-sm">
+            {lang === 'en' ? name : <>{ar} <span class="text-muted" dir="ltr">({name})</span></>}
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="no-physical-shipping" class="text-2xl font-extrabold">{lang === 'en' ? 'Places that do not receive the physical card' : 'دول لا تُشحن إليها البطاقة المادية'}</h2>
+    <p class="mt-2 leading-8 text-muted">
+      {lang === 'en' ? (
+        <>This is the delivery list as published. It is wider than the signup block. Names that are not on the citizenship block above, but still do not receive a physical card:{' '}{DELIVERY_ONLY_COUNTRIES.map(([, en]) => en).join(', ')}.{' '}<a href={delivery.url} rel="noopener" target="_blank" class="text-accent-fg underline">Source</a>{' '}(page update: {delivery.pageDate}).</>
+      ) : (
+        <>هذه قائمة التوصيل كما نُشرت، وهي أوسع من قائمة منع التسجيل. من الأسماء التي تهم كثيراً من القرّاء وليست في قائمة المنع أعلاه، لكن البطاقة المادية لا تُشحن إليها:{' '}{DELIVERY_ONLY_COUNTRIES.map(([ar]) => ar).join('، ')}.{' '}<a href={SOURCES.delivery.url} rel="noopener" target="_blank" class="text-accent-fg underline">المصدر</a>{' '}(تحديث الصفحة: {SOURCES.delivery.pageDate}).</>
+      )}
     </p>
     <ul class="mt-4 grid gap-2 sm:grid-cols-2">
       {DELIVERY_COUNTRIES.map(([ar, en]) => (
         <li class="rounded-xl border border-line bg-surface px-3 py-2 text-sm">
-          {ar} <span class="text-muted" dir="ltr">({en})</span>
+          {lang === 'en' ? en : <>{ar} <span class="text-muted" dir="ltr">({en})</span></>}
         </li>
       ))}
     </ul>

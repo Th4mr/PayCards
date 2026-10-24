@@ -30,4 +30,25 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { articles };
+const articlesEn = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/en' }),
+  schema: z.object({
+    title: z.string().max(60),
+    description: z.string().max(155),
+    slug: z.string().regex(/^[a-z0-9-]+$/),
+    h1: z.string().optional(),
+    keyword: z.string(),
+    category: z.enum(['guides', 'use-cases', 'comparisons', 'troubleshooting']),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    summary: z.string(),
+    cover: z.object({ icon: z.string(), hue: z.number().default(160) }),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+    howto: z.array(z.object({ name: z.string(), text: z.string() })).optional(),
+    related: z.array(z.string()).default([]),
+    order: z.number().default(99),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { articles, articlesEn };

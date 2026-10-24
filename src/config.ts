@@ -36,6 +36,24 @@ export const REFERRAL = {
   rel: 'nofollow sponsored noopener',
 } as const;
 
+/** دعوة الواجهة الإنجليزية. مسار منفصل حتى تبقى وجهة /go/redotpay العربية كما هي. */
+export const REFERRAL_EN = {
+  url: 'https://wap.redotpay.com/en/invite/?referralId=yj8cq',
+  goPath: '/go/redotpay-en',
+  code: REFERRAL.code,
+  bonus: '5 USD' as string | null,
+  bonusTerms: 'Spending credit for 30 days after you receive it. It cannot pay card issuance or replacement fees.' as string | null,
+  rel: REFERRAL.rel,
+} as const;
+
+export const SITE_EN = {
+  /** hreflang في الصفحات هو en بلا منطقة. og:locale هو en_GB، وهو صيغة صالحة وليست en_US. */
+  locale: 'en_GB',
+  tagline: 'An independent guide to the RedotPay card',
+  description:
+    'Independent English guide to the RedotPay card: published fees, supported countries, referral code yj8cq, top-ups, and ATM withdrawals. Figures come from RedotPay’s own pages.',
+} as const;
+
 /**
  * علامات {{تحقق}} داخلية للمراجعة فقط (npm run verify).
  * false → لا تظهر للزائر. خلية لا تحوي سوى العلامة تُعرض بعبارة محايدة من V.astro.

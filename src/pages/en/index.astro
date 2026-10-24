@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card3D from '../../components/Card3D.astro';
+import CTAButton from '../../components/CTAButton.astro';
+import Icon from '../../components/Icon.astro';
+import FAQ from '../../components/FAQ.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import FeeTable from '../../components/FeeTable.astro';
+import ReferralCode from '../../components/ReferralCode.astro';
+import AvailabilityNote from '../../components/AvailabilityNote.astro';
+import RedotHub from '../../components/RedotHub.astro';
+import { SITE_EN, REFERRAL_EN } from '../../config';
+import { trustItems, features, steps, useCases, homeFaq } from '../../data/home-en';
+import { getArticles, webPageSchema } from '../../lib/en-articles';
+import { faqSchema } from '../../lib/articles';
+
+const latest = (await getArticles()).slice(0, 6);
+const schema = [
+  webPageSchema('RedotPay review, fees, and card guide', SITE_EN.description, '/en'),
+  faqSchema(homeFaq),
+];
+---
+<BaseLayout
+  lang="en"
+  title="PayCards — RedotPay review, fees, and card guide"
+  description={SITE_EN.description}
+  page="home-en"
+  image="/og/en-home.png"
+  schema={schema}
+>
+  <section class="relative overflow-hidden">
+    <div class="container-x grid items-center gap-8 pb-8 pt-8 sm:pt-12 lg:grid-cols-[1.1fr_0.9fr] lg:pb-10">
+      <div>
+        <span class="eyebrow"><span class="h-1.5 w-1.5 rounded-full bg-accent"></span> Independent RedotPay guide</span>
+        <h1 class="mt-5 text-[2rem] font-extrabold leading-[1.25] sm:text-5xl sm:leading-[1.2]">
+          RedotPay review: <span class="bg-gradient-to-r from-accent-fg to-[#4c6ef5] bg-clip-text text-transparent">fees, countries, and the card</span>
+        </h1>
+        <p class="mt-5 max-w-xl text-lg text-muted">
+          Spend USDT and other assets where major card networks are accepted. This guide quotes RedotPay’s own pages for fees, the referral code, country blocks, top-ups, and ATM cash — and it says when a number is not published.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <CTAButton lang="en" position="hero" label="Get your card" size="lg" />
+          <a href="#how" class="btn-ghost px-7 py-4 text-lg">How it works</a>
+        </div>
+        <ul class="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+          {['Virtual card: 10 USD once', 'Apple Pay and Google Pay, where accepted', 'Referral code during signup only'].map((t) => (
+            <li class="flex items-center gap-1.5"><Icon name="check" class="h-4 w-4 text-accent-fg" />{t}</li>
+          ))}
+        </ul>
+        <div class="mt-6 max-w-xl"><ReferralCode lang="en" placement="hero" /></div>
+        <AvailabilityNote lang="en" class="mt-3 max-w-xl" />
+      </div>
+      <Card3D lang="en" />
+    </div>
+  </section>
+
+  <section aria-label="Highlights" class="border-y border-line bg-surface/60">
+    <ul class="container-x grid grid-cols-2 gap-x-4 gap-y-5 py-6 text-sm font-semibold lg:grid-cols-4">
+      {trustItems.map((t) => (
+        <li class="flex items-center gap-3">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-surface-2 text-accent-fg"><Icon name={t.icon} class="h-5 w-5" /></span>
+          <span>{t.text}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section" id="why">
+    <div class="container-x">
+      <h2 class="section-title reveal">What the card is for</h2>
+      <p class="section-lead reveal">A crypto balance becomes a card payment. The merchant is paid on a card network. You still need to check that RedotPay will open an account for your citizenship.</p>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {features.map((f) => (
+          <div class="card reveal flex gap-4 p-5 transition hover:border-accent/60 sm:block sm:p-6">
+            <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-accent/15 text-accent-fg"><Icon name={f.icon} /></span>
+            <div>
+              <h3 class="text-lg font-bold sm:mt-4">{f.title}</h3>
+              <p class="mt-1.5 text-[15px] text-muted sm:mt-2 sm:text-base">{f.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-bg-2" id="how">
+    <div class="container-x">
+      <h2 class="section-title reveal">Start in four steps</h2>
+      <p class="section-lead reveal">From the invite page to the first payment. The full sequence is in the <a class="text-accent-fg underline" href="/en/articles/redotpay-referral-code">referral code and signup guide</a>.</p>
+      <ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((s, i) => (
+          <li class="card reveal relative p-6">
+            <span class="absolute end-5 top-5 text-5xl font-extrabold text-line">{i + 1}</span>
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-accent text-on-accent"><Icon name={s.icon} /></span>
+            <h3 class="mt-4 text-lg font-bold">{s.title}</h3>
+            <p class="mt-2 text-sm text-muted">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <CTAButton lang="en" position="steps" label="Start signup" size="lg" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="use-cases">
+    <div class="container-x">
+      <h2 class="section-title reveal">Start with the question you have</h2>
+      <p class="section-lead reveal">These are the searches this guide is written to answer.</p>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {useCases.map((u) => (
+          <a href={u.href} class="card group reveal flex flex-col p-6 transition hover:-translate-y-1 hover:border-accent/60">
+            <Icon name={u.icon} class="h-8 w-8 text-accent-fg" />
+            <h3 class="mt-4 text-lg font-bold">{u.title}</h3>
+            <p class="mt-1 text-sm text-muted">{u.text}</p>
+            <span class="mt-4 text-sm font-bold text-accent-fg">Read the guide →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section !pt-12" id="fees">
+    <div class="container-x">
+      <h2 class="section-title reveal">RedotPay fees we checked</h2>
+      <p class="section-lead reveal">The headline numbers. Every line, with its source, is in the <a class="text-accent-fg underline" href="/en/articles/redotpay-fees">RedotPay fees guide</a>.</p>
+      <div class="mt-8 reveal"><FeeTable lang="en" variant="compact" /></div>
+    </div>
+  </section>
+
+  <section class="section bg-bg-2" id="articles">
+    <div class="container-x">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h2 class="section-title reveal">Guides</h2>
+          <p class="section-lead reveal">Fees, countries, top-up, ATM, and the referral code.</p>
+        </div>
+        <a href="/en/articles" class="hidden shrink-0 font-bold text-accent-fg sm:inline">All guides →</a>
+      </div>
+      <div class="mt-8 reveal"><RedotHub lang="en" /></div>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {latest.map((a) => <ArticleCard lang="en" article={a} />)}
+      </div>
+      <a href="/en/articles" class="btn-ghost mt-8 w-full sm:hidden">All guides</a>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container-x max-w-3xl">
+      <h2 class="section-title reveal text-center">Common questions</h2>
+      <p class="section-lead reveal mx-auto text-center">Short answers before you create an account.</p>
+      <div class="mt-10 reveal"><FAQ items={homeFaq} /></div>
+    </div>
+  </section>
+
+  <section class="pb-8">
+    <div class="container-x">
+      <div class="reveal relative overflow-hidden rounded-3xl border border-line bg-surface px-6 py-12 text-center sm:px-12 sm:py-16">
+        <div aria-hidden="true" class="pointer-events-none absolute -top-32 start-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-accent/25 blur-3xl"></div>
+        <h2 class="relative text-2xl font-extrabold leading-snug sm:text-4xl">Check the country list, then open the account.</h2>
+        <p class="relative mx-auto mt-4 max-w-xl text-muted">Create the account, finish verification, and issue the virtual card.{REFERRAL_EN.bonus && <> The current spending reward is <strong class="text-fg">{REFERRAL_EN.bonus}</strong>{REFERRAL_EN.bonusTerms && <>: {REFERRAL_EN.bonusTerms}</>}.</>}</p>
+        <div class="relative mx-auto mt-8 max-w-md text-start">
+          <ReferralCode lang="en" placement="end" compact />
+          <CTAButton lang="en" position="end" label="Get your card" size="lg" full class="mt-4" />
+          <AvailabilityNote lang="en" class="mt-3 text-center" />
+        </div>
+        <p class="relative mt-4 text-xs text-muted">Signup is on RedotPay · crypto can lose value · not financial advice</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

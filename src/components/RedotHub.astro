@@ -1,30 +1,46 @@
 ---
 import { getArticles } from '../lib/articles';
+import { getArticles as getEnglish } from '../lib/en-articles';
 
-/** أدلة RedotPay بالترتيب الذي يفيد القارئ، لا بتاريخ النشر. */
-const order = [
-  'what-is-redotpay',
-  'redotpay-supported-countries',
-  'redotpay-signup-kyc',
-  'redotpay-fees',
-  'redotpay-top-up-usdt',
-  'redotpay-atm-withdrawal',
-  'redotpay-apple-pay-google-pay',
-  'redotpay-vs-other-crypto-cards',
-];
-const all = await getArticles();
+interface Props { lang?: 'ar' | 'en'; }
+const { lang = 'ar' } = Astro.props;
+
+const order = lang === 'en'
+  ? [
+      'redotpay-review',
+      'is-redotpay-safe',
+      'redotpay-supported-countries',
+      'redotpay-referral-code',
+      'redotpay-fees',
+      'how-to-top-up-redotpay',
+      'redotpay-atm-withdrawal',
+      'redotpay-apple-pay-google-pay',
+      'redotpay-vs-other-crypto-cards',
+    ]
+  : [
+      'what-is-redotpay',
+      'redotpay-supported-countries',
+      'redotpay-signup-kyc',
+      'redotpay-fees',
+      'redotpay-top-up-usdt',
+      'redotpay-atm-withdrawal',
+      'redotpay-apple-pay-google-pay',
+      'redotpay-vs-other-crypto-cards',
+    ];
+const all = lang === 'en' ? await getEnglish() : await getArticles();
 const items = order.flatMap((id) => {
   const a = all.find((x) => x.id === id);
   return a ? [a] : [];
 });
+const prefix = lang === 'en' ? '/en/articles' : '/articles';
 ---
-<nav aria-label="أدلة RedotPay" class="not-prose rounded-2xl border border-line bg-surface p-5 sm:p-6">
-  <p class="text-lg font-extrabold">أدلة RedotPay في مكان واحد</p>
-  <p class="mt-1 text-sm text-muted">من التوفر في بلدك إلى الرسوم والسحب. كل دليل يربط بالذي بعده.</p>
+<nav aria-label={lang === 'en' ? 'RedotPay guides' : 'أدلة RedotPay'} class="not-prose rounded-2xl border border-line bg-surface p-5 sm:p-6">
+  <p class="text-lg font-extrabold">{lang === 'en' ? 'RedotPay guides' : 'أدلة RedotPay في مكان واحد'}</p>
+  <p class="mt-1 text-sm text-muted">{lang === 'en' ? 'From country availability to fees, top-ups, and ATM cash.' : 'من التوفر في بلدك إلى الرسوم والسحب. كل دليل يربط بالذي بعده.'}</p>
   <ul class="mt-4 grid gap-2 sm:grid-cols-2">
     {items.map((a) => (
       <li>
-        <a href={`/articles/${a.id}`} class="block rounded-xl border border-line px-3 py-2 text-sm font-semibold hover:border-accent">
+        <a href={`${prefix}/${a.id}`} class="block rounded-xl border border-line px-3 py-2 text-sm font-semibold hover:border-accent">
           {a.data.h1 ?? a.data.title}
         </a>
       </li>
