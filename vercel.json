@@ -6,7 +6,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/go/redotpay", "destination": "https://url.hk/i/ar/yj8cq", "permanent": false }
+    { "source": "/go/redotpay", "destination": "https://wap.redotpay.com/ar/invite/?referralId=yj8cq", "permanent": false }
   ],
   "headers": [
     {

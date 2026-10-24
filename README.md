@@ -45,7 +45,7 @@ npm run verify    # عرض كل علامات {{تحقق}} المتبقية قب�
 
 ```ts
 export const REFERRAL = {
-  url: 'https://url.hk/i/ar/yj8cq', // الرابط الأصلي — لا يظهر في أي صفحة
+  url: 'https://wap.redotpay.com/ar/invite/?referralId=yj8cq', // الرابط المباشر — لا يظهر في أي صفحة
   bonus: '5 دولار',                  // ضع null لإخفاء المكافأة من كل الموقع
   ...
 };

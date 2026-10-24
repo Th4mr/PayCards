@@ -23,8 +23,8 @@ export const SITE = {
 } as const;
 
 export const REFERRAL = {
-  /** الرابط الأصلي للإحالة — لا يُكتب في أي صفحة، يُستخدم فقط في _redirects */
-  url: 'https://url.hk/i/ar/yj8cq',
+  /** رابط دعوة RedotPay المباشر — لا يُكتب في أي صفحة؛ يولّد _redirects ويجب أن يطابقه vercel.json */
+  url: 'https://wap.redotpay.com/ar/invite/?referralId=yj8cq',
   /** المسار الداخلي الذي تشير إليه كل الأزرار */
   goPath: '/go/redotpay',
   /** نص المكافأة كما يُعرض للزائر. ضع null لإخفائها من كل الموقع */
