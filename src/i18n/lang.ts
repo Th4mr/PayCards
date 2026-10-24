@@ -1,4 +1,4 @@
-export type Lang = 'ar' | 'en' | 'fr' | 'es';
+export type Lang = 'ar' | 'en' | 'fr' | 'es' | 'pt';
 
 export function text<T>(lang: Lang, copy: Record<Lang, T>): T {
   return copy[lang];

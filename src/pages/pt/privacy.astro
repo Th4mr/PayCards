@@ -1,0 +1,22 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="pt" title="Política de privacidade" heading="Política de privacidade" description="Como a PayCards trata os dados de quem visita o site: o que coletamos, o que não coletamos e os serviços externos que o site usa." page="privacy-pt" path="/pt/privacy" showUpdated>
+  <p>A PayCards é um site estático. Não tem <strong>formulário de cadastro nem contas de usuário</strong>, e não pedimos dados pessoais para ler um guia.</p>
+  <h2>O que pode ser coletado?</h2>
+  <ul>
+    <li><strong>Estatísticas:</strong> só depois que você aceitar, carregamos o Google Analytics 4 para medir as páginas, os cliques nos botões de cadastro (nome da página e lugar do botão) e as cópias do código de indicação. Esses eventos incluem um parâmetro <span dir="ltr">lang</span>. Antes de você aceitar, o script do Google não é pedido e nada é enviado ao Google. Depois de carregado, o Google pode usar cookies e tratar dados como o endereço IP e o tipo de dispositivo segundo a <a href="https://policies.google.com/privacy" rel="nofollow noopener" target="_blank">política de privacidade do Google</a>.</li>
+    <li><strong>A sua escolha:</strong> um aviso no rodapé oferece Aceitar e Recusar. Aceitar carrega o Google Analytics. Recusar não o carrega. A escolha fica no <span dir="ltr">localStorage</span> do navegador sob <span dir="ltr">pc-consent</span>, com o valor <span dir="ltr">granted</span> ou <span dir="ltr">denied</span>. Apague os dados do site e o aviso volta.</li>
+    <li><strong>Registros de hospedagem:</strong> o site está hospedado na Vercel. A Vercel pode registrar dados técnicos como o endereço IP por segurança e operação, segundo a política dela.</li>
+    <li><strong>Fontes:</strong> as páginas em português, espanhol, francês e inglês carregam IBM Plex Sans do Google Fonts, então o navegador contata o Google para obter a fonte. As páginas em árabe carregam IBM Plex Sans Arabic do mesmo modo.</li>
+  </ul>
+  <h2>Armazenamento local no seu dispositivo</h2>
+  <p>Guardamos algumas preferências só no navegador: modo claro ou escuro (<span dir="ltr">pc-theme</span>), fechamento do aviso superior (<span dir="ltr">pc-topbar</span>), fechamento do botão móvel durante a sessão (<span dir="ltr">pc-sticky</span>) e a escolha de estatísticas (<span dir="ltr">pc-consent</span>). Esses dados ficam no seu dispositivo. O nosso servidor não os lê.</p>
+  <h2>Links externos</h2>
+  <p>Um botão de cadastro envia você à RedotPay. A partir daí vale a política de privacidade da RedotPay. Não podemos ver a sua conta RedotPay.</p>
+  <h2>E-mail</h2>
+  <p>Se você nos escrever, usamos a mensagem para responder. Não a encaminhamos.</p>
+  <h2>Mudanças</h2>
+  <p>Atualizamos esta política quando as ferramentas do site mudam, e mudamos a data acima. Perguntas: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>

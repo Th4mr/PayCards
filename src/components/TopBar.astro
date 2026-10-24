@@ -9,9 +9,10 @@ const message = text(lang, {
   en: ref.bonus ? `${ref.bonus} spending reward for new accounts — it does not cover the card fee` : 'RedotPay where major card networks are accepted',
   fr: ref.bonus ? `Récompense de dépenses de ${ref.bonus} pour les nouveaux comptes — elle ne couvre pas les frais de carte` : 'RedotPay là où les grands réseaux de cartes sont acceptés',
   es: ref.bonus ? `Recompensa de gasto de ${ref.bonus} para cuentas nuevas — no cubre la comisión de la tarjeta` : 'RedotPay donde se aceptan las grandes redes de tarjetas',
+  pt: ref.bonus ? `Recompensa de gasto de ${ref.bonus} para contas novas — não cobre a taxa do cartão` : 'RedotPay onde as grandes redes de cartão são aceitas',
 });
-const cta = text(lang, { ar: 'ابدأ الآن ←', en: 'Get started →', fr: 'Commencer →', es: 'Empezar →' });
-const closeLabel = text(lang, { ar: 'إغلاق الشريط', en: 'Dismiss banner', fr: 'Fermer le bandeau', es: 'Cerrar el aviso' });
+const cta = text(lang, { ar: 'ابدأ الآن ←', en: 'Get started →', fr: 'Commencer →', es: 'Empezar →', pt: 'Começar →' });
+const closeLabel = text(lang, { ar: 'إغلاق الشريط', en: 'Dismiss banner', fr: 'Fermer le bandeau', es: 'Cerrar el aviso', pt: 'Fechar o aviso' });
 ---
 <div id="topbar" class:list={['topbar relative z-50 hidden text-on-accent md:block', isLtr(lang) ? 'bg-gradient-to-r from-accent to-[#4cd3e0]' : 'bg-gradient-to-l from-accent to-[#4cd3e0]']}>
   <div class="container-x flex min-h-10 items-center justify-center gap-2 py-1.5 pe-10 text-center text-[13px] font-semibold sm:text-sm">

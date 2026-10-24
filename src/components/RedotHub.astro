@@ -3,6 +3,7 @@ import { getArticles } from '../lib/articles';
 import { getArticles as getEnglish } from '../lib/en-articles';
 import { getArticles as getFrench } from '../lib/fr-articles';
 import { getArticles as getSpanish } from '../lib/es-articles';
+import { getArticles as getPortuguese } from '../lib/pt-articles';
 import { text, type Lang } from '../i18n/lang';
 
 interface Props { lang?: Lang; }
@@ -76,17 +77,34 @@ const order = text(lang, {
     'retiro-redotpay-banco',
     'redotpay-vs-bybit',
   ],
+  pt: [
+    'opinioes-redotpay',
+    'redotpay-e-confiavel',
+    'paises-redotpay',
+    'codigo-indicacao-redotpay',
+    'taxas-redotpay',
+    'recarregar-redotpay',
+    'caixa-redotpay',
+    'apple-pay-redotpay',
+    'redotpay-vs-outros-cartoes',
+    'cartao-redotpay-recusado',
+    'redotpay-netflix-chatgpt',
+    'limites-redotpay',
+    'envio-cartao-redotpay',
+    'saque-redotpay-banco',
+    'redotpay-vs-bybit',
+  ],
 });
-const all = lang === 'es' ? await getSpanish() : lang === 'fr' ? await getFrench() : lang === 'en' ? await getEnglish() : await getArticles();
+const all = lang === 'pt' ? await getPortuguese() : lang === 'es' ? await getSpanish() : lang === 'fr' ? await getFrench() : lang === 'en' ? await getEnglish() : await getArticles();
 const items = order.flatMap((id) => {
   const a = all.find((x) => x.id === id);
   return a ? [a] : [];
 });
-const prefix = text(lang, { ar: '/articles', en: '/en/articles', fr: '/fr/articles', es: '/es/articles' });
+const prefix = text(lang, { ar: '/articles', en: '/en/articles', fr: '/fr/articles', es: '/es/articles', pt: '/pt/articles' });
 ---
-<nav aria-label={text(lang, { ar: 'أدلة RedotPay', en: 'RedotPay guides', fr: 'Guides RedotPay', es: 'Guías RedotPay' })} class="not-prose rounded-2xl border border-line bg-surface p-5 sm:p-6">
-  <p class="text-lg font-extrabold">{text(lang, { ar: 'أدلة RedotPay في مكان واحد', en: 'RedotPay guides', fr: 'Guides RedotPay', es: 'Guías RedotPay' })}</p>
-  <p class="mt-1 text-sm text-muted">{text(lang, { ar: 'من التوفر في بلدك إلى الرسوم والسحب. كل دليل يربط بالذي بعده.', en: 'From country availability to fees, top-ups, and ATM cash.', fr: 'Des pays aux frais, à la recharge et au cash au DAB.', es: 'De los países a las comisiones, la recarga y el efectivo en cajero.' })}</p>
+<nav aria-label={text(lang, { ar: 'أدلة RedotPay', en: 'RedotPay guides', fr: 'Guides RedotPay', es: 'Guías RedotPay', pt: 'Guias RedotPay' })} class="not-prose rounded-2xl border border-line bg-surface p-5 sm:p-6">
+  <p class="text-lg font-extrabold">{text(lang, { ar: 'أدلة RedotPay في مكان واحد', en: 'RedotPay guides', fr: 'Guides RedotPay', es: 'Guías RedotPay', pt: 'Guias RedotPay' })}</p>
+  <p class="mt-1 text-sm text-muted">{text(lang, { ar: 'من التوفر في بلدك إلى الرسوم والسحب. كل دليل يربط بالذي بعده.', en: 'From country availability to fees, top-ups, and ATM cash.', fr: 'Des pays aux frais, à la recharge et au cash au DAB.', es: 'De los países a las comisiones, la recarga y el efectivo en cajero.', pt: 'Dos países às taxas, à recarga e ao dinheiro no caixa eletrônico.' })}</p>
   <ul class="mt-4 grid gap-2 sm:grid-cols-2">
     {items.map((a) => (
       <li>

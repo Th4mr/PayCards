@@ -7,10 +7,13 @@ const href = text(lang, {
   en: '/en/articles/redotpay-supported-countries',
   fr: '/fr/articles/pays-redotpay',
   es: '/es/articles/paises-redotpay',
+  pt: '/pt/articles/paises-redotpay',
 });
 ---
 <p class:list={['text-xs leading-6 text-muted', cls]}>
-  {lang === 'es' ? (
+  {lang === 'pt' ? (
+    <>Sem cartão para residentes dos Estados Unidos, e o aplicativo não abre se você estiver lá. Cidadãos dos Estados Unidos não concluem o KYC. Guiné-Bissau está nas listas da RedotPay. Um país que não aparece não é uma aceitação.{' '}<a href={href} class="underline">Listas de países</a></>
+  ) : lang === 'es' ? (
     <>Sin tarjeta para residentes de Estados Unidos, y la app no se abre si estás allí. Los ciudadanos estadounidenses no terminan el KYC. Cuba, Nicaragua y Venezuela están en las listas de RedotPay. Que un país no aparezca no es una aceptación.{' '}<a href={href} class="underline">Listas de países</a></>
   ) : lang === 'fr' ? (
     <>Pas de carte pour les résidents des États-Unis, et l’app ne s’ouvre pas si vous y êtes. Les citoyens américains ne finissent pas le KYC. Les résidents du Maroc ne reçoivent pas de carte. La carte physique n’est pas livrée en Tunisie. L’absence d’un pays sur ces listes ne vaut pas acceptation.{' '}<a href={href} class="underline">Listes des pays</a></>

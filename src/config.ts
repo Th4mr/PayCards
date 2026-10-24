@@ -90,10 +90,29 @@ export const SITE_ES = {
     'Guía en español de la tarjeta RedotPay: comisiones publicadas, países, código yj8cq, recargas y cajeros. Cifras de las páginas de RedotPay.',
 } as const;
 
-export function referralFor(lang: 'ar' | 'en' | 'fr' | 'es') {
+/** دعوة الواجهة البرتغالية. رُاجعت في 24 أكتوبر 2026: الصفحة تُحمَّل و lang=pt، والوصف «Toque. Pague. Pronto.» */
+export const REFERRAL_PT = {
+  url: 'https://wap.redotpay.com/pt/invite/?referralId=yj8cq',
+  goPath: '/go/redotpay-pt',
+  code: REFERRAL.code,
+  bonus: '5 USD' as string | null,
+  bonusTerms: 'crédito de gasto por 30 dias a partir do recebimento. Não paga as taxas de emissão nem de substituição.' as string | null,
+  rel: REFERRAL.rel,
+} as const;
+
+export const SITE_PT = {
+  /** hreflang هو pt بلا منطقة. og:locale هو pt_BR. */
+  locale: 'pt_BR',
+  tagline: 'Guia independente do cartão RedotPay',
+  description:
+    'Guia em português do cartão RedotPay: taxas publicadas, países, código yj8cq, recargas e saques no caixa. Números das páginas da RedotPay.',
+} as const;
+
+export function referralFor(lang: 'ar' | 'en' | 'fr' | 'es' | 'pt') {
   if (lang === 'en') return REFERRAL_EN;
   if (lang === 'fr') return REFERRAL_FR;
   if (lang === 'es') return REFERRAL_ES;
+  if (lang === 'pt') return REFERRAL_PT;
   return REFERRAL;
 }
 
