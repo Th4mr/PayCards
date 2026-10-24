@@ -1,0 +1,48 @@
+---
+import { REVIEWED_LABEL, SOURCES, feeRows, type SourceId } from '../data/redotpay';
+
+interface Props {
+  /** compact: أبرز البنود فقط، للصفحة الرئيسية والمقارنات */
+  variant?: 'full' | 'compact';
+}
+const { variant = 'full' } = Astro.props;
+const rows = variant === 'compact' ? feeRows.filter((r) => r.compact) : feeRows;
+const used = new Set(rows.map((r) => r.sourceId).filter(Boolean) as SourceId[]);
+---
+<div class="not-prose">
+  <p class="mb-3 text-sm leading-7 text-muted">
+    رُوجعت الأرقام في <time datetime="2026-10-24">{REVIEWED_LABEL}</time> من صفحات RedotPay الرسمية المرتبطة أسفل الجدول.
+    المبلغ الذي يظهر في التطبيق قبل التأكيد هو المرجع الأخير، لأن الرسوم تتغيّر.
+  </p>
+  <div class="overflow-x-auto rounded-2xl border border-line">
+    <table class="w-full min-w-[36rem] border-collapse text-sm">
+      <thead class="bg-surface-2 text-start">
+        <tr>
+          <th class="px-3 py-3 font-bold">البند</th>
+          <th class="px-3 py-3 font-bold">القيمة المنشورة</th>
+          {variant === 'full' && <th class="px-3 py-3 font-bold">التفاصيل</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr class="border-t border-line align-top">
+            <th class="px-3 py-3 text-start font-semibold">{row.item}</th>
+            <td class="px-3 py-3 font-bold text-fg">{row.value}</td>
+            {variant === 'full' && <td class="px-3 py-3 leading-7 text-muted">{row.detail}</td>}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <ul class="mt-3 space-y-1 text-xs leading-6 text-muted">
+    {[...used].map((id) => {
+      const s = SOURCES[id];
+      return (
+        <li>
+          <a href={s.url} rel="noopener" target="_blank" class="text-accent-fg underline">{s.title}</a>
+          <span> — تحديث الصفحة لدى RedotPay: {s.pageDate}</span>
+        </li>
+      );
+    })}
+  </ul>
+</div>

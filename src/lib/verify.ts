@@ -12,8 +12,8 @@ const MARKER = /\s*\{\{تحقق(?::\s*([^}]*))?\}\}/g;
 
 export function renderVerify(s: string): string {
   if (!SHOW_VERIFY_MARKERS) {
-    // نص لا يحتوي سوى علامة (مثل خلية في جدول الرسوم) يظهر كـ "حسب التطبيق"
-    if (!s.replace(MARKER, '').trim()) return '<span class="whitespace-nowrap text-muted" data-verify-hidden>حسب التطبيق</span>';
+    // خلية لا تحوي سوى علامة داخلية: عبارة مكتملة لا تبدو كحقل ناقص
+    if (!s.replace(MARKER, '').trim()) return '<span class="text-muted" data-verify-hidden>يظهر في التطبيق قبل التأكيد</span>';
     s = s.replace(MARKER, '');
   }
   return escapeHtml(s)

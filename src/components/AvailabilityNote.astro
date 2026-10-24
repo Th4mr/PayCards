@@ -1,0 +1,8 @@
+---
+interface Props { class?: string; }
+const { class: cls = '' } = Astro.props;
+---
+<p class:list={['text-xs leading-6 text-muted', cls]}>
+  قد لا تكون RedotPay، أو بطاقات العملات الرقمية عموماً، متاحة أو مسموحة في بعض الدول. تحقق من القواعد المحلية ومن التطبيق قبل التسجيل.
+  <a href="/articles/redotpay-supported-countries" class="underline">قائمة الدول المنشورة</a>
+</p>

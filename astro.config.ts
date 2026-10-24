@@ -2,23 +2,18 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
-import { writeFile } from 'node:fs/promises';
 import { readdirSync, readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { join } from 'node:path';
 import { execSync } from 'node:child_process';
 import { SITE, REFERRAL } from './src/config';
 
 /**
- * يولّد ملف _redirects لـ Cloudflare Pages من src/config.ts،
- * ويتحقق أن تحويل vercel.json (للنشر على Vercel) يطابق الرابط نفسه.
- * ويطبع عدد علامات {{تحقق}} المتبقية في الموقع بعد البناء.
+ * يتحقق أن تحويل vercel.json يطابق رابط الإحالة في src/config.ts،
+ * ويطبع عدد علامات {{تحقق}} المتبقية بعد البناء.
  */
 function paycardsBuild() {
   return {
     name: 'paycards-build',
     hooks: {
-      // Vercel يقرأ التحويل من vercel.json؛ نتأكد أنه يطابق الرابط في src/config.ts
       'astro:config:setup': ({ logger }) => {
         let vercel;
         try {
@@ -26,7 +21,7 @@ function paycardsBuild() {
         } catch {
           return;
         }
-        const r = (vercel.redirects || []).find((x) => x.source === REFERRAL.goPath);
+        const r = (vercel.redirects || []).find((x: { source?: string }) => x.source === REFERRAL.goPath);
         if (!r || r.destination !== REFERRAL.url) {
           throw new Error(
             `رابط الإحالة في vercel.json (${r?.destination ?? 'غير موجود'}) لا يطابق src/config.ts (${REFERRAL.url}). حدّث الملفين بالرابط نفسه.`,
@@ -34,18 +29,7 @@ function paycardsBuild() {
         }
         logger.info(`vercel.json: ${REFERRAL.goPath} → ${r.destination}`);
       },
-      'astro:build:done': async ({ dir, logger }) => {
-        const out = fileURLToPath(dir);
-        const lines = [
-          '# يُولَّد تلقائياً من src/config.ts — لا تعدّله يدوياً',
-          `${REFERRAL.goPath} ${REFERRAL.url} ${REFERRAL.redirectStatus}`,
-          `${REFERRAL.goPath}/ ${REFERRAL.url} ${REFERRAL.redirectStatus}`,
-          '',
-        ];
-        await writeFile(join(out, '_redirects'), lines.join('\n'), 'utf8');
-        logger.info(`_redirects: ${REFERRAL.goPath} → ${REFERRAL.url} (${REFERRAL.redirectStatus})`);
-
-        // تذكير بعدد بنود التحقق المتبقية (ظاهرة أو مخفية)
+      'astro:build:done': async ({ logger }) => {
         try {
           const out = execSync('node scripts/list-verify.mjs', { encoding: 'utf8' }).trim().split('\n').pop();
           logger.warn(`${out} شغّل "npm run verify" لعرض القائمة قبل الإطلاق.`);

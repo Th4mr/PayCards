@@ -1,0 +1,15 @@
+---
+/** شريط موافقة خفيف. الحالة الابتدائية تُضبط من سكربت الرأس حتى لا يومض الشريط لمن اختار سابقاً. */
+---
+<div id="cookie-consent" class="cookie-consent fixed inset-x-0 bottom-0 z-50 border-t border-line bg-surface/95 p-3 backdrop-blur sm:p-4" role="dialog" aria-label="ملفات تعريف الارتباط">
+  <div class="container-x flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <p class="text-sm leading-7 text-muted">
+      نستخدم Google Analytics لمعرفة الصفحات المقروءة ونقرات التسجيل. التحليلات متوقفة إلى أن توافق، ويمكنك الرفض.
+      <a href="/privacy" class="text-accent-fg underline">سياسة الخصوصية</a>
+    </p>
+    <div class="flex shrink-0 gap-2">
+      <button type="button" data-consent="denied" class="btn-ghost px-4 py-2 text-sm">رفض</button>
+      <button type="button" data-consent="granted" class="btn-primary px-4 py-2 text-sm">موافقة</button>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 # PayCards — paycards.io
 
-موقع عربي مستقل (Astro + Tailwind) يشرح الدفع بالعملات الرقمية عبر بطاقة RedotPay، مبني كموقع ثابت بالكامل وجاهز للنشر على Cloudflare Pages.
+موقع عربي مستقل (Astro + Tailwind) يشرح الدفع بالعملات الرقمية عبر بطاقة RedotPay، مبني كموقع ثابت ويُنشر على Vercel.
 
 ## التشغيل
 
@@ -12,32 +12,17 @@ npm run preview   # معاينة نسخة البناء
 npm run verify    # عرض كل علامات {{تحقق}} المتبقية قبل الإطلاق
 ```
 
-يتطلب Node.js 22 أو أحدث.
-
-## النشر على Cloudflare Pages
-
-1. ارفع المشروع إلى مستودع GitHub أو GitLab.
-2. في Cloudflare: **Workers & Pages ← Create ← Pages ← Connect to Git**.
-3. الإعدادات:
-   - Framework preset: **Astro**
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-   - متغير بيئة: `NODE_VERSION = 22`
-4. اربط الدومين `paycards.io` من تبويب **Custom domains**.
-
-بديل سريع دون Git: `npm run build` ثم `npx wrangler pages deploy dist`.
-
-> مسار `/go/redotpay` يعمل على Cloudflare فقط (عبر ملف `_redirects`)، ولن يعمل في `npm run dev`. لتجربته محلياً: `npx wrangler pages dev dist`.
+يتطلب Node.js 24، وهو الإصدار الذي يستخدمه مشروع Vercel (`engines` و`.nvmrc`).
 
 ## النشر على Vercel
 
-المشروع يعمل على Vercel دون إعداد إضافي: اربط مستودع GitHub، وسيقرأ Vercel ملف `vercel.json` تلقائياً. هذا الملف مسؤول عن:
+اربط مستودع GitHub. يقرأ Vercel ملف `vercel.json`:
 
-- تحويل `/go/redotpay` إلى رابط الإحالة (على Vercel لا يعمل ملف `_redirects` الخاص بـ Cloudflare).
-- الروابط النظيفة دون `.html` مثل `/articles/redotpay-fees`.
+- تحويل `/go/redotpay` إلى رابط الإحالة.
+- الروابط النظيفة دون `.html`.
 - رؤوس الأمان والتخزين المؤقت.
 
-**عند تغيير رابط الإحالة** غيّره في `src/config.ts` وفي `vercel.json` معاً. إذا اختلف الرابطان يتوقف البناء برسالة واضحة، حتى لا يُنشر الموقع برابط خاطئ.
+**عند تغيير رابط الإحالة** غيّره في `src/config.ts` وفي `vercel.json` معاً. إذا اختلف الرابطان يتوقف البناء. مسار `/go/redotpay` تحويل على Vercel وليس صفحة في `npm run dev`.
 
 ## تغيير رابط الإحالة أو المكافأة
 
@@ -45,17 +30,18 @@ npm run verify    # عرض كل علامات {{تحقق}} المتبقية قب�
 
 ```ts
 export const REFERRAL = {
-  url: 'https://wap.redotpay.com/ar/invite/?referralId=yj8cq', // الرابط المباشر — لا يظهر في أي صفحة
+  url: 'https://wap.redotpay.com/ar/invite/?referralId=yj8cq', // يجب أن يطابقه vercel.json
+  code: 'yj8cq',                     // يُعرض مع زر النسخ، ولا يغيّر وجهة /go/
   bonus: '5 دولار',                  // ضع null لإخفاء المكافأة من كل الموقع
   ...
 };
 ```
 
-ملف `_redirects` يُولَّد تلقائياً من هذه القيم عند كل بناء، فلا تعدّله يدوياً. كل الأزرار تشير إلى `/go/redotpay` وتحمل `rel="nofollow sponsored noopener"`.
+كل الأزرار تشير إلى `/go/redotpay` وتحمل `rel="nofollow sponsored noopener"`.
 
 ## علامات {{تحقق}}
 
-كل رقم أو تفصيل قابل للتغيّر (رسوم، حدود، دول، شبكات، مكافآت) مكتوب كعلامة تحقق صفراء تظهر في الصفحة حتى لا تنساها:
+الأرقام التي لم تُراجع بعد تُعلَّم داخلياً ولا تظهر للزائر ما دام `SHOW_VERIFY_MARKERS` يساوي `false`. للمراجعة:
 
 - داخل المقالات (MDX): `<V n="رسوم إصدار البطاقة الافتراضية" />`
 - داخل ملفات البيانات والـ frontmatter: `{{تحقق: رسوم إصدار البطاقة الافتراضية}}`
@@ -102,11 +88,9 @@ faq:
 
 ## الإحصائيات وتتبع الأزرار
 
-كل زر إحالة يرسل حدث `referral_click` يحمل `page` (اسم الصفحة) و`position` (hero / inline / sticky / end / header / topbar / summary / sidebar / steps / mobile-menu).
+كل زر إحالة يرسل حدث `referral_click` يحمل `page` و`placement` (موضع الزر). نسخ رمز الإحالة يرسل `referral_code_copy`.
 
-الحدث يُرسل تلقائياً إلى أي أداة موجودة في الصفحة: Google Analytics 4 (gtag)، أو GTM (dataLayer)، أو Plausible، أو Umami. لإضافة الأداة ضع وسمها في `ANALYTICS.headHtml` في `src/config.ts`، ثم حدّث صفحة الخصوصية `src/pages/privacy.astro` باسمها.
-
-ملاحظة: Cloudflare Web Analytics المجاني لا يدعم الأحداث المخصصة؛ لتتبع النقرات استخدم إحدى الأدوات أعلاه.
+Google Analytics 4 يعمل مع Consent Mode: `analytics_storage` مرفوض إلى أن يوافق الزائر. الحدث يُرسل أيضاً إلى `dataLayer`، وإلى Plausible أو Umami إن وُجدا.
 
 ## بنية المشروع
 
@@ -120,7 +104,7 @@ src/
   pages/                 ← الرئيسية، المقالات، التصنيفات، الصفحات الثابتة، 404
   lib/site.ts            ← كل JavaScript الموقع (التتبع، النسخ، الوضع الداكن، الزر الثابت)
 public/
-  _headers, robots.txt, favicon.svg, og-default.png ...
+  robots.txt, favicon.svg, og-default.png ...
 scripts/
   generate-images.mjs    ← يعيد توليد الأيقونات وصورة OG
   list-verify.mjs        ← npm run verify

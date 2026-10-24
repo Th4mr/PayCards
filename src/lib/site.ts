@@ -23,6 +23,29 @@ export function track(event: string, props: Props) {
   }
 }
 
+async function copyText(value: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(value);
+    return true;
+  } catch {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = value;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.inset = '0';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return ok;
+    } catch {
+      return false;
+    }
+  }
+}
+
 function store(kind: 'local' | 'session', key: string, val?: string) {
   try {
     const s = kind === 'local' ? localStorage : sessionStorage;
@@ -44,11 +67,39 @@ export function initSite() {
     (e) => {
       const a = (e.target as Element).closest<HTMLElement>('[data-cta]');
       if (a) {
+        const placement = a.dataset.ctaPosition || 'unknown';
         track(ANALYTICS.eventName, {
           page,
-          position: a.dataset.ctaPosition || 'unknown',
+          placement,
+          position: placement,
           label: (a.textContent || '').trim().slice(0, 60),
         });
+      }
+      const copyBtn = (e.target as Element).closest<HTMLButtonElement>('[data-copy]');
+      if (copyBtn) {
+        e.preventDefault();
+        const value = copyBtn.dataset.copy || '';
+        void copyText(value).then((ok) => {
+          if (!ok) return;
+          const label = copyBtn.dataset.copyLabel || copyBtn.textContent || '';
+          copyBtn.textContent = 'تم النسخ';
+          window.setTimeout(() => {
+            copyBtn.textContent = label;
+          }, 1600);
+          track(ANALYTICS.codeCopyEvent, {
+            page,
+            placement: copyBtn.dataset.copyPlacement || 'unknown',
+          });
+        });
+      }
+      const consent = (e.target as Element).closest<HTMLElement>('[data-consent]');
+      if (consent) {
+        const choice = consent.dataset.consent === 'granted' ? 'granted' : 'denied';
+        store('local', 'pc-consent', choice);
+        root.classList.add('consent-set');
+        if (choice === 'granted') {
+          window.gtag?.('consent', 'update', { analytics_storage: 'granted' });
+        }
       }
     },
     { capture: true },

@@ -139,16 +139,18 @@
   background-size: auto, auto, 44px 44px, 44px 44px;
 }
 
-/* ---------- حركة الظهور عند التمرير (تعمل فقط مع JS) ---------- */
-.js .reveal {
+/* ---------- حركة الظهور عند التمرير ---------- */
+/* المحتوى الظاهر في أول شاشة يبقى مرئياً. الإخفاء يبدأ بعد وسم ما تحت الطيّة فقط. */
+.reveal { transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal-arm .reveal:not(.is-in) {
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.js .reveal.is-in {
-  opacity: 1;
-  transform: none;
-}
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* شريط الموافقة أسفل الشاشة. الزر الثابت يبقى مخفياً حتى يختار الزائر حتى لا يتكدس شريطان. */
+html:not(.consent-set) #sticky-cta.sticky-cta { display: none; }
+html.consent-set .cookie-consent { display: none; }
 
 /* ---------- نصوص المقالات ---------- */
 .prose-pc {
