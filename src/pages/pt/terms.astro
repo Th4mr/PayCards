@@ -1,0 +1,21 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="pt" title="Condições de uso" heading="Condições de uso" description="Condições de uso da PayCards: o que é o conteúdo, o limite da nossa responsabilidade e como funcionam os links de indicação e os sites externos." page="terms-pt" path="/pt/terms" showUpdated>
+  <p>Usar a PayCards ({SITE.domain}) significa que você aceita as condições abaixo.</p>
+  <h2>1. O que é o conteúdo</h2>
+  <p>O conteúdo é informação geral. Não é <strong>um conselho financeiro, de investimento, jurídico nem fiscal</strong>. Criptomoedas podem perder valor, até zero. Confira os fatos por conta própria antes de agir.</p>
+  <h2>2. Independência</h2>
+  <p>A PayCards é independente. Não é a RedotPay nem nenhuma outra empresa nomeada no site. Os nomes e as marcas pertencem aos seus donos e são usados aqui para que você identifique o produto.</p>
+  <h2>3. Exatidão</h2>
+  <p>Tentamos manter as páginas em dia, mas as taxas, os limites, as regras de países e as condições do produto mudam sem aviso. O aplicativo oficial e as páginas da empresa mandam.</p>
+  <h2>4. Links de indicação e outros sites</h2>
+  <p>O site contém links de indicação e links para sites que não controlamos. Esses sites têm as próprias condições. O detalhe está na <a href="/pt/disclosure">página de aviso</a>.</p>
+  <h2>5. Responsabilidade</h2>
+  <p>Não somos responsáveis por uma perda que venha de se apoiar neste site ou de usar um serviço de terceiros. Confirme que um serviço é permitido onde você mora.</p>
+  <h2>6. Direitos autorais</h2>
+  <p>O texto e o design deste site pertencem à PayCards. Uma citação breve é aceitável se você nomear a PayCards e ligar a página.</p>
+  <h2>7. Mudanças e contato</h2>
+  <p>Podemos modificar estas condições. Perguntas: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>

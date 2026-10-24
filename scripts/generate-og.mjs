@@ -392,4 +392,39 @@ try {
 for (const page of spanish) {
   writeFileSync(join(OUT, page.file), png(svgLtr({ ...page, path: 'paycards.io/es' })));
 }
-console.log(`og: ${pages.length + english.length + french.length + spanish.length} images → public/og`);
+
+const ptDir = join(ROOT, 'src/content/pt');
+const portuguese = [
+  {
+    file: 'pt-home.png',
+    kicker: 'Guia independente',
+    title: 'Opiniões RedotPay, taxas e países',
+    description: 'Números publicados. Código de indicação yj8cq no cadastro.',
+  },
+  {
+    file: 'pt-site.png',
+    kicker: 'PayCards',
+    title: 'Guia independente do cartão RedotPay',
+    description: 'Taxas, países, recarga e saques no caixa.',
+  },
+];
+try {
+  for (const name of readdirSync(ptDir)) {
+    if (!/\.mdx?$/.test(name)) continue;
+    const raw = readFileSync(join(ptDir, name), 'utf8');
+    const fm = raw.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
+    const id = name.replace(/\.mdx?$/, '');
+    portuguese.push({
+      file: `pt-${id}.png`,
+      kicker: 'Guia · PayCards',
+      title: field(fm, 'h1') || field(fm, 'title') || id,
+      description: field(fm, 'description'),
+    });
+  }
+} catch {
+  /* Portuguese collection is optional during a partial checkout */
+}
+for (const page of portuguese) {
+  writeFileSync(join(OUT, page.file), png(svgLtr({ ...page, path: 'paycards.io/pt' })));
+}
+console.log(`og: ${pages.length + english.length + french.length + spanish.length + portuguese.length} images → public/og`);

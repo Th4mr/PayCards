@@ -15,12 +15,13 @@ const guide = text(lang, {
   en: '/en/articles/redotpay-referral-code#referral',
   fr: '/fr/articles/code-parrainage-redotpay#parrainage',
   es: '/es/articles/codigo-referido-redotpay#referido',
+  pt: '/pt/articles/codigo-indicacao-redotpay#indicacao',
 });
 ---
 <div class="not-prose rounded-2xl border border-line bg-surface-2 p-4">
   <div class="flex flex-wrap items-center gap-3">
     <div>
-      <p class="text-xs font-bold text-muted">{text(lang, { ar: 'رمز الإحالة', en: 'Referral code', fr: 'Code de parrainage', es: 'Código de referido' })}</p>
+      <p class="text-xs font-bold text-muted">{text(lang, { ar: 'رمز الإحالة', en: 'Referral code', fr: 'Code de parrainage', es: 'Código de referido', pt: 'Código de indicação' })}</p>
       <p class="font-mono text-xl font-extrabold tracking-wide" dir="ltr">{ref.code}</p>
     </div>
     <button
@@ -28,15 +29,17 @@ const guide = text(lang, {
       class="btn-ghost px-4 py-2 text-sm"
       data-copy={ref.code}
       data-copy-placement={placement}
-      data-copy-label={text(lang, { ar: 'نسخ الرمز', en: 'Copy code', fr: 'Copier le code', es: 'Copiar código' })}
-      data-copy-done={text(lang, { ar: 'تم النسخ', en: 'Copied', fr: 'Copié', es: 'Copiado' })}
+      data-copy-label={text(lang, { ar: 'نسخ الرمز', en: 'Copy code', fr: 'Copier le code', es: 'Copiar código', pt: 'Copiar código' })}
+      data-copy-done={text(lang, { ar: 'تم النسخ', en: 'Copied', fr: 'Copié', es: 'Copiado', pt: 'Copiado' })}
     >
-      {text(lang, { ar: 'نسخ الرمز', en: 'Copy code', fr: 'Copier le code', es: 'Copiar código' })}
+      {text(lang, { ar: 'نسخ الرمز', en: 'Copy code', fr: 'Copier le code', es: 'Copiar código', pt: 'Copiar código' })}
     </button>
   </div>
   {ref.bonus && (
     <p class="mt-2 text-sm leading-7 text-muted">
-      {lang === 'es' ? (
+      {lang === 'pt' ? (
+        <>Recompensa de gasto de <strong class="text-fg">{ref.bonus}</strong> para contas novas. Não depende do código de indicação.{ref.bonusTerms && <> {ref.bonusTerms.charAt(0).toUpperCase() + ref.bonusTerms.slice(1)}</>}</>
+      ) : lang === 'es' ? (
         <>Recompensa de gasto de <strong class="text-fg">{ref.bonus}</strong> para cuentas nuevas. No depende del código de referido.{ref.bonusTerms && <> {ref.bonusTerms.charAt(0).toUpperCase() + ref.bonusTerms.slice(1)}</>}</>
       ) : lang === 'fr' ? (
         <>Crédit de dépenses de <strong class="text-fg">{ref.bonus}</strong> pour les nouveaux comptes. Il n’est pas lié au code de parrainage.{ref.bonusTerms && <> {ref.bonusTerms.charAt(0).toUpperCase() + ref.bonusTerms.slice(1)}</>}</>
@@ -49,7 +52,13 @@ const guide = text(lang, {
   )}
   {!compact && (
     <ol class:list={['mt-3 list-decimal space-y-1.5 text-sm leading-7 text-muted', isLtr(lang) ? 'ps-5' : 'pe-5']}>
-      {lang === 'es' ? (
+      {lang === 'pt' ? (
+        <>
+          <li>O botão de cadastro abre a página de convite da RedotPay. Se o aplicativo ainda pedir um código, cole-o antes de terminar de criar a conta.</li>
+          <li>Na tela de cadastro, toque em <span dir="ltr">Referral Code (Optional)</span> e digite o código.</li>
+          <li>O código não pode ser acrescentado quando a conta já existe.</li>
+        </>
+      ) : lang === 'es' ? (
         <>
           <li>El botón de registro abre la página de invitación de RedotPay. Si la app aún pide un código, pégalo antes de terminar de crear la cuenta.</li>
           <li>En la pantalla de registro, toca <span dir="ltr">Referral Code (Optional)</span> e introduce el código.</li>
@@ -77,8 +86,8 @@ const guide = text(lang, {
     </ol>
   )}
   <p class="mt-2 text-xs text-muted">
-    {text(lang, { ar: 'خطوات الرمز من', en: 'Code steps from', fr: 'Étapes du code, d’après', es: 'Pasos del código, según' })}{' '}
-    <a href={SOURCES.referral.url} rel="noopener" target="_blank" class="underline">{text(lang, { ar: 'مركز مساعدة RedotPay', en: 'RedotPay Help Center', fr: 'le centre d’aide RedotPay', es: 'el centro de ayuda de RedotPay' })}</a>
-    {compact && <> · <a href={guide} class="underline">{text(lang, { ar: 'شرح التسجيل', en: 'Signup guide', fr: 'Guide d’inscription', es: 'Guía de registro' })}</a></>}
+    {text(lang, { ar: 'خطوات الرمز من', en: 'Code steps from', fr: 'Étapes du code, d’après', es: 'Pasos del código, según', pt: 'Passos do código, segundo' })}{' '}
+    <a href={SOURCES.referral.url} rel="noopener" target="_blank" class="underline">{text(lang, { ar: 'مركز مساعدة RedotPay', en: 'RedotPay Help Center', fr: 'le centre d’aide RedotPay', es: 'el centro de ayuda de RedotPay', pt: 'a central de ajuda da RedotPay' })}</a>
+    {compact && <> · <a href={guide} class="underline">{text(lang, { ar: 'شرح التسجيل', en: 'Signup guide', fr: 'Guide d’inscription', es: 'Guía de registro', pt: 'Guia de cadastro' })}</a></>}
   </p>
 </div>

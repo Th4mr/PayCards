@@ -1,0 +1,30 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import CTABox from '../../components/CTABox.astro';
+import { SITE } from '../../config';
+---
+<PageLayout lang="pt" title="Quem somos" heading="Quem somos" description="A PayCards é um guia independente do cartão RedotPay. As páginas em português citam fontes oficiais e assinam a equipe PayCards, não um autor pessoal." page="about-pt" path="/pt/about">
+  <p><strong>PayCards</strong> explica como um cartão RedotPay serve no gasto do dia a dia: caixa online, carteira do celular e dinheiro no caixa eletrônico. O site em árabe é o original. Estas páginas em português cobrem o mesmo produto para buscas em português, no Brasil, em Portugal e na África lusófona. Estas páginas não se dirigem aos Estados Unidos, excluídos pela RedotPay.</p>
+  <p>Não somos a RedotPay. O cadastro é sempre feito no site da RedotPay.</p>
+  <h2>Quem escreve</h2>
+  <p>A assinatura é a <strong>equipe PayCards</strong>. Não inventamos um autor pessoal e não publicamos opiniões, notas nem depoimentos que não tenhamos documentado. Se uma linha estiver errada, escreva para nós.</p>
+  <h2>Como verificamos</h2>
+  <ul>
+    <li>Os números da RedotPay — taxas, recompensa de cadastro, listas de países, programas de cartão — vêm da central de ajuda da RedotPay ou de redotpay.com. A fonte está ligada sob a tabela ou no guia.</li>
+    <li>Cada página de números mostra a data em que <strong>a conferimos</strong>, e a data da página da RedotPay quando ela é visível. Se o aplicativo mudou desde então, o valor que ele mostra antes de confirmar é o que vale.</li>
+    <li>Se não encontramos uma cifra fixa, não a adivinhamos. Dizemos que o valor está no aplicativo, ou que não estava nas páginas lidas.</li>
+    <li>A data de «atualização» de um artigo só muda quando esse artigo muda.</li>
+    <li>Alguns links são de indicação. Isso não muda as suas taxas. Consulte o <a href="/pt/disclosure">aviso</a>.</li>
+  </ul>
+  <h2>O que não faremos</h2>
+  <ul>
+    <li>Chamar o cartão de Mastercard. As condições lidas nomeiam Visa para os programas de Hong Kong e de Singapura, e as páginas de ajuda mais recentes dizem «grandes redes de cartão».</li>
+    <li>Publicar as taxas de um concorrente que não tenhamos verificado no mesmo dia.</li>
+    <li>Tratar um país ausente como permissão para usar o cartão.</li>
+  </ul>
+  <h2>Um limite que vale a leitura</h2>
+  <p>Os preços das criptomoedas se movem, e este site não é um conselho financeiro, de investimento nem jurídico. Estas páginas não se dirigem aos Estados Unidos, excluídos pela RedotPay: a RedotPay não emite cartão para residentes dos Estados Unidos, e o aplicativo não abre se você estiver lá. Guiné-Bissau está nas listas da RedotPay. Brasil, Portugal, Angola e Moçambique não estão nomeados. Um país que não aparece não é uma aceitação. Leia as <a href="/pt/articles/paises-redotpay">listas de países</a> e o aplicativo antes de pagar taxas de emissão.</p>
+  <h2>Contato</h2>
+  <p>Correções e ideias de temas: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  <CTABox lang="pt" position="end" />
+</PageLayout>

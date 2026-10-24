@@ -19,6 +19,7 @@ const title = Astro.props.title ?? text(lang, {
   en: position === 'end' ? 'Ready to open the account?' : 'Open the RedotPay account',
   fr: position === 'end' ? 'Prêt à ouvrir le compte ?' : 'Ouvrir le compte RedotPay',
   es: position === 'end' ? '¿Listo para abrir la cuenta?' : 'Abrir la cuenta RedotPay',
+  pt: position === 'end' ? 'Pronto para abrir a conta?' : 'Abrir a conta RedotPay',
 });
 const body = Astro.props.text ?? text(lang, {
   ar: REFERRAL.bonus
@@ -33,16 +34,20 @@ const body = Astro.props.text ?? text(lang, {
   es: ref.bonus
     ? `Crea la cuenta en RedotPay e introduce el código de referido durante el registro si quieres. La recompensa de gasto de ${ref.bonus} para cuentas nuevas no cubre la comisión de emisión, y no depende del código.`
     : 'Crea una cuenta RedotPay, emite la tarjeta virtual y paga desde el saldo cripto.',
+  pt: ref.bonus
+    ? `Crie a conta na RedotPay e digite o código de indicação durante o cadastro, se quiser. A recompensa de gasto de ${ref.bonus} para contas novas não cobre a taxa de emissão, e não depende do código.`
+    : 'Crie uma conta RedotPay, emita o cartão virtual e pague a partir do saldo em cripto.',
 });
 const button = Astro.props.button ?? text(lang, {
   ar: position === 'end' ? 'احصل على بطاقتك الآن' : 'ابدأ التسجيل',
   en: position === 'end' ? 'Get your card' : 'Start signup',
   fr: position === 'end' ? 'Obtenir la carte' : 'Commencer l’inscription',
   es: position === 'end' ? 'Pedir la tarjeta' : 'Empezar el registro',
+  pt: position === 'end' ? 'Pedir o cartão' : 'Começar o cadastro',
 });
-const disclosure = text(lang, { ar: '/disclosure', en: '/en/disclosure', fr: '/fr/disclosure', es: '/es/disclosure' });
+const disclosure = text(lang, { ar: '/disclosure', en: '/en/disclosure', fr: '/fr/disclosure', es: '/es/disclosure', pt: '/pt/disclosure' });
 ---
-<aside class="not-prose relative my-10 overflow-hidden rounded-2xl border border-line bg-surface p-5 sm:p-7" aria-label={text(lang, { ar: 'دعوة للتسجيل', en: 'Signup', fr: 'Inscription', es: 'Registro' })}>
+<aside class="not-prose relative my-10 overflow-hidden rounded-2xl border border-line bg-surface p-5 sm:p-7" aria-label={text(lang, { ar: 'دعوة للتسجيل', en: 'Signup', fr: 'Inscription', es: 'Registro', pt: 'Cadastro' })}>
   <div aria-hidden="true" class="pointer-events-none absolute -top-24 -start-24 h-56 w-56 rounded-full bg-accent/20 blur-3xl"></div>
   <div class="relative grid gap-5 sm:grid-cols-[1fr_auto] sm:items-center">
     <div>
@@ -54,7 +59,9 @@ const disclosure = text(lang, { ar: '/disclosure', en: '/en/disclosure', fr: '/f
   <div class="relative mt-4"><ReferralCode lang={lang} placement={position} compact /></div>
   <AvailabilityNote lang={lang} class="relative mt-3" />
   <p class="relative mt-2 text-xs text-muted">
-    {lang === 'es' ? (
+    {lang === 'pt' ? (
+      <>O cadastro abre na RedotPay. <a href={disclosure} class="underline">Aviso de indicação</a></>
+    ) : lang === 'es' ? (
       <>El registro se abre en RedotPay. <a href={disclosure} class="underline">Aviso de referidos</a></>
     ) : lang === 'fr' ? (
       <>L’inscription s’ouvre chez RedotPay. <a href={disclosure} class="underline">Avertissement de parrainage</a></>

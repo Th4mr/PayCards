@@ -25,15 +25,20 @@ const nav = text(lang, {
     { href: '/es#comisiones', label: 'Comisiones' },
     { href: '/es#faq', label: 'FAQ' },
   ],
+  pt: [
+    { href: '/pt/articles', label: 'Guias' },
+    { href: '/pt#taxas', label: 'Taxas' },
+    { href: '/pt#faq', label: 'FAQ' },
+  ],
 });
-const cta = text(lang, { ar: 'احصل على بطاقتك', en: 'Get your card', fr: 'Obtenir la carte', es: 'Pedir la tarjeta' });
-const homeHref = text(lang, { ar: '/', en: '/en', fr: '/fr', es: '/es' });
-const homeLabel = text(lang, { ar: 'PayCards — الرئيسية', en: 'PayCards — Home', fr: 'PayCards — Accueil', es: 'PayCards — Inicio' });
-const primary = text(lang, { ar: 'القائمة الرئيسية', en: 'Primary', fr: 'Principal', es: 'Principal' });
-const themeLabel = text(lang, { ar: 'تبديل الوضع الداكن والفاتح', en: 'Toggle dark mode', fr: 'Changer le thème', es: 'Cambiar el tema' });
-const menuLabel = text(lang, { ar: 'فتح القائمة', en: 'Open menu', fr: 'Ouvrir le menu', es: 'Abrir el menú' });
-const mobileLabel = text(lang, { ar: 'قائمة الجوال', en: 'Mobile', fr: 'Menu mobile', es: 'Menú móvil' });
-const langLabel = text(lang, { ar: 'اللغة', en: 'Language', fr: 'Langue', es: 'Idioma' });
+const cta = text(lang, { ar: 'احصل على بطاقتك', en: 'Get your card', fr: 'Obtenir la carte', es: 'Pedir la tarjeta', pt: 'Pedir o cartão' });
+const homeHref = text(lang, { ar: '/', en: '/en', fr: '/fr', es: '/es', pt: '/pt' });
+const homeLabel = text(lang, { ar: 'PayCards — الرئيسية', en: 'PayCards — Home', fr: 'PayCards — Accueil', es: 'PayCards — Inicio', pt: 'PayCards — Início' });
+const primary = text(lang, { ar: 'القائمة الرئيسية', en: 'Primary', fr: 'Principal', es: 'Principal', pt: 'Principal' });
+const themeLabel = text(lang, { ar: 'تبديل الوضع الداكن والفاتح', en: 'Toggle dark mode', fr: 'Changer le thème', es: 'Cambiar el tema', pt: 'Mudar o tema' });
+const menuLabel = text(lang, { ar: 'فتح القائمة', en: 'Open menu', fr: 'Ouvrir le menu', es: 'Abrir el menú', pt: 'Abrir o menu' });
+const mobileLabel = text(lang, { ar: 'قائمة الجوال', en: 'Mobile', fr: 'Menu mobile', es: 'Menú móvil', pt: 'Menu móvel' });
+const langLabel = text(lang, { ar: 'اللغة', en: 'Language', fr: 'Langue', es: 'Idioma', pt: 'Idioma' });
 ---
 <header class="sticky top-0 z-40 border-b border-line/70 bg-bg/80 backdrop-blur-md">
   <div class="container-x flex h-16 items-center justify-between gap-2">
@@ -46,7 +51,7 @@ const langLabel = text(lang, { ar: 'اللغة', en: 'Language', fr: 'Langue', e
     <div class="flex items-center gap-1.5 sm:gap-2">
       <nav aria-label={langLabel} class="flex items-center gap-1">
         {others.map((o) => (
-          <a href={o.href} hreflang={o.lang} lang={o.lang} class="grid h-10 min-w-10 place-items-center rounded-xl border border-line bg-surface px-2 text-xs font-bold text-muted hover:text-fg" aria-label={o.label}>{o.short}</a>
+          <a href={o.href} hreflang={o.lang} lang={o.lang} class="grid h-9 min-w-8 place-items-center rounded-lg border border-line bg-surface px-1.5 text-[11px] font-bold text-muted hover:text-fg sm:h-10 sm:min-w-10 sm:rounded-xl sm:px-2 sm:text-xs" aria-label={o.label}>{o.short}</a>
         ))}
       </nav>
       <button type="button" data-theme-toggle class="grid h-10 w-10 place-items-center rounded-xl border border-line bg-surface text-muted hover:text-fg" aria-label={themeLabel}>

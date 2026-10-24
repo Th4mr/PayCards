@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { readdirSync, readFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
-import { SITE, REFERRAL, REFERRAL_EN, REFERRAL_FR, REFERRAL_ES } from './src/config';
+import { SITE, REFERRAL, REFERRAL_EN, REFERRAL_FR, REFERRAL_ES, REFERRAL_PT } from './src/config';
 import { pairFor } from './src/i18n/routes';
 
 /**
@@ -22,7 +22,7 @@ function paycardsBuild() {
         } catch {
           return;
         }
-        for (const ref of [REFERRAL, REFERRAL_EN, REFERRAL_FR, REFERRAL_ES]) {
+        for (const ref of [REFERRAL, REFERRAL_EN, REFERRAL_FR, REFERRAL_ES, REFERRAL_PT]) {
           const r = (vercel.redirects || []).find((x: { source?: string }) => x.source === ref.goPath);
           if (!r || r.destination !== ref.url) {
             throw new Error(
@@ -64,7 +64,7 @@ export default defineConfig({
   build: { format: 'file' },
   i18n: {
     defaultLocale: 'ar',
-    locales: ['ar', 'en', 'fr', 'es'],
+    locales: ['ar', 'en', 'fr', 'es', 'pt'],
     routing: {
       prefixDefaultLocale: false,
       redirectToDefaultLocale: false,
@@ -88,6 +88,7 @@ export default defineConfig({
         if (pair.en) links.push({ lang: 'en', url: new URL(pair.en, SITE.url).href });
         if (pair.fr) links.push({ lang: 'fr', url: new URL(pair.fr, SITE.url).href });
         if (pair.es) links.push({ lang: 'es', url: new URL(pair.es, SITE.url).href });
+        if (pair.pt) links.push({ lang: 'pt', url: new URL(pair.pt, SITE.url).href });
         if (pair.ar) links.push({ lang: 'x-default', url: new URL(pair.ar, SITE.url).href });
         else if (pair.en && pair.fr) links.push({ lang: 'x-default', url: new URL(pair.en, SITE.url).href });
         if (links.length < 2) return item;
