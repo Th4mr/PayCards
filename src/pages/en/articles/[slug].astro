@@ -45,6 +45,7 @@ if (data.faq.length) toc.push({ depth: 2, slug: 'faq', text: 'FAQ' });
 const crumbs = [
   { name: 'Home', url: '/en' },
   { name: 'Guides', url: '/en/articles' },
+  { name: categoryLabel(data.category), url: `/en/articles/category/${data.category}` },
   { name: data.h1 ?? data.title, url: articleUrl(article) },
 ];
 const schema = [articleSchema(article), breadcrumbSchema(crumbs)];
