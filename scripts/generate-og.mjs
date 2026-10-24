@@ -53,7 +53,23 @@ function wrap(text, max) {
   return lines;
 }
 
-/** If the text needs more lines than fit, end the last visible line on a word and add an ellipsis. */
+/**
+ * Sentence-ending . ! ? ؟ ۔ 
+ * A period inside a token (Crypto.com, 1.2) is not one: the next character is a letter or digit.
+ */
+function sentenceEndAt(text, index) {
+  const mark = text[index];
+  if (!mark || !/[.!?؟۔]/.test(mark)) return false;
+  const next = text[index + 1];
+  if (mark === '.' && next && /[\p{L}\p{N}]/u.test(next)) return false;
+  return true;
+}
+
+/**
+ * If the text needs more lines than fit, end the last visible line on a word.
+ * A cut right after sentence-ending punctuation stays as that sentence, with no "…",
+ * so a description never renders as ".…". A cut mid-sentence still takes an ellipsis.
+ */
 function fitLines(text, max, maxLines) {
   const lines = wrap(text, max);
   if (lines.length <= maxLines) return lines;
@@ -66,20 +82,33 @@ function fitLines(text, max, maxLines) {
   if (charLength(last) > budget) {
     const earlier = lines[maxLines - 2];
     if (earlier) {
-      lines[maxLines - 2] = `${earlier.replace(/[\s,،;:؛.!?؟\-–—/|]+$/u, '')}${ellipsis}`;
+      lines[maxLines - 2] = closeLine(earlier, ellipsis);
       return lines.slice(0, maxLines - 1);
     }
     last = [...last].slice(0, Math.max(0, budget)).join('').trimEnd();
   }
   last = last.replace(/[\s,،;:؛\-–—/|]+$/u, '');
-  const marks = [...last.matchAll(/[,،;؛.!?؟]/g)];
+  const marks = [...last.matchAll(/[,،;؛.!?؟۔]/g)];
   const lastMark = marks.length ? marks[marks.length - 1] : null;
   if (lastMark && lastMark.index >= 12) {
+    const through = last.slice(0, lastMark.index + 1);
+    // The break is this sentence. Keep the mark and do not add an ellipsis after it.
+    if (sentenceEndAt(last, lastMark.index) && charLength(through) <= max) {
+      lines[maxLines - 1] = through;
+      return lines.slice(0, maxLines);
+    }
     const phrase = last.slice(0, lastMark.index).replace(/[\s\-–—/|]+$/u, '');
     if (charLength(phrase) >= 12 && charLength(phrase) <= budget) last = phrase;
   }
-  lines[maxLines - 1] = `${last}${ellipsis}`;
+  lines[maxLines - 1] = closeLine(last, ellipsis);
   return lines.slice(0, maxLines);
+}
+
+/** Keep a finished sentence as-is. A mid-sentence cut takes an ellipsis and never ".…". */
+function closeLine(text, ellipsis) {
+  const trimmed = text.replace(/[\s,،;:؛\-–—/|]+$/u, '');
+  if (sentenceEndAt(trimmed, trimmed.length - 1)) return trimmed;
+  return `${trimmed}${ellipsis}`;
 }
 
 /** مسافة أو علامة محايدة. إلصاقها بمقطع عربي يجعل بدايتها المنطقية على يسار الرسم. */
