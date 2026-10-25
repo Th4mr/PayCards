@@ -4,7 +4,7 @@
  */
 import { SOURCES, feeRows, type SourceId } from './redotpay';
 
-export const REVIEWED_LABEL_PT = '24 de outubro de 2026';
+export const REVIEWED_LABEL_PT = '25 de outubro de 2026';
 
 export const SOURCE_META_PT: Record<SourceId, { title: string; pageDate: string }> = {
   issuance: { title: 'Há taxas para obter um cartão?', pageDate: '27 de julho de 2026' },
@@ -66,6 +66,18 @@ const PT_ROWS: Record<string, { item: string; value: string; detail: string }> =
     value: '1 %',
     detail: '',
   },
+  'معاملة صغيرة': {
+    item: 'Transação pequena',
+    value: '0,2 USD depois de 5 grátis',
+    detail:
+      'Na tabela de taxas do gráfico de limites (a imagem marca vigência desde 1 de dezembro de 2025): as primeiras 5 operações por cartão no mês de 1,00 USD ou menos são isentas, depois 0,2 USD. É uma autorização pequena, não uma taxa de recusa.',
+  },
+  'عملية مرفوضة': {
+    item: 'Transação recusada',
+    value: '0,5 USD depois de 3 grátis',
+    detail:
+      'A mesma tabela isenta as primeiras 3 recusas por cartão no mês, depois 0,5 USD. Exemplos: saldo insuficiente, cartão congelado, cartão perdido, dados incorretos. A lista não é exaustiva. Outra página diz que o valor de uma compra realmente recusada não é cobrado, e que uma retenção pendente costuma ser liberada em 2 a 5 dias.',
+  },
   'سحب الصراف — بطاقة بالدولار': {
     item: 'Saque no caixa — cartão em USD',
     value: '2 % até 10.000 USD no mês, depois 3 %',
@@ -116,7 +128,7 @@ const PT_ROWS: Record<string, { item: string; value: string; detail: string }> =
 };
 
 export const FX_SCOPE_NOTE_PT =
-  'A taxa de 1 % para a conversão de criptomoedas e a de 1,2 % para uma transação numa moeda diferente da do cartão estão publicadas na página de saque no caixa eletrônico. Essa página não diz se elas se aplicam a cada compra ou só aos saques. Citamos como está e recomendamos comparar o valor cobrado no aplicativo.';
+  'A taxa de 1 % na conversão de criptomoedas e a de 1,2 % numa transação em moeda diferente da do cartão são taxas gerais de transação. Estão na seção 2, Transactions, do gráfico de limites e taxas (página atualizada em 24 de julho de 2026), e não como uma linha só do caixa eletrônico. Compare o valor debitado no aplicativo.';
 
 export const feeRowsPt = feeRows.map((row) => {
   const copy = PT_ROWS[row.item];

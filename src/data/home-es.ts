@@ -73,7 +73,7 @@ export const homeFaq = [
   },
   {
     q: '¿Qué criptomonedas puedo depositar?',
-    a: 'La página de servicios lista USDT, USDC, BTC, ETH, BNB, SOL, TRX, XRP, SUI y S para depósitos y pagos. Cada activo se acepta en las redes que muestra la pantalla Deposit. Enviar por otra red puede hacer perder los fondos. Los mínimos por red no están publicados en una tabla única.',
+    a: 'La página de servicios (24 de julio de 2026) lista USDT, USDC, BTC, ETH, BNB, SOL, TRX, XRP, SUI y S. Artículos posteriores añaden RLUSD, BCH, LTC y GRAM. El artículo de redes publica mínimos, incluido 1,00 USDT en cada red listada. Enviar por otra red puede hacer perder los fondos. Confirma la fila en la app.',
   },
   {
     q: '¿Cuánto cuesta la tarjeta RedotPay?',

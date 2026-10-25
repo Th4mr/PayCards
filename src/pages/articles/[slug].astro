@@ -14,6 +14,7 @@ import ReferralCode from '../../components/ReferralCode.astro';
 import AvailabilityNote from '../../components/AvailabilityNote.astro';
 import CountryLists from '../../components/CountryLists.astro';
 import RedotHub from '../../components/RedotHub.astro';
+import DepositTable from '../../components/DepositTable.astro';
 import {
   getArticles,
   readingMinutes,
@@ -108,7 +109,7 @@ const showHub = article.id.startsWith('redotpay-') || article.id === 'what-is-re
         )}
 
         <div class="prose prose-pc prose-lg mt-8 max-w-none prose-headings:font-extrabold prose-h2:mt-12 prose-h2:text-2xl prose-h3:text-xl prose-p:leading-[1.95] prose-li:leading-[1.9]">
-          <Content components={{ CTABox, V, CTAButton, FeeTable, ReferralCode, AvailabilityNote, CountryLists, RedotHub }} />
+          <Content components={{ CTABox, V, CTAButton, FeeTable, ReferralCode, AvailabilityNote, CountryLists, RedotHub, DepositTable }} />
 
           {data.faq.length > 0 && (
             <>

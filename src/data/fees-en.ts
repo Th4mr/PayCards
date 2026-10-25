@@ -5,7 +5,7 @@
  */
 import { SOURCES, feeRows, type SourceId } from './redotpay';
 
-export const REVIEWED_LABEL_EN = '24 October 2026';
+export const REVIEWED_LABEL_EN = '25 October 2026';
 
 export const SOURCE_META_EN: Record<SourceId, { title: string; pageDate: string }> = {
   issuance: { title: 'Are there any fees for getting a card?', pageDate: '27 July 2026' },
@@ -67,6 +67,18 @@ const EN_ROWS: Record<string, { item: string; value: string; detail: string }> =
     value: '1%',
     detail: '',
   },
+  'معاملة صغيرة': {
+    item: 'Small transaction',
+    value: '0.2 USD after 5 free',
+    detail:
+      'On the fees table of the limitations chart (the image is marked effective from 1 December 2025): the first 5 transactions per card each month of 1.00 USD or less are waived, then 0.2 USD. That is a small authorization, not a decline fee.',
+  },
+  'عملية مرفوضة': {
+    item: 'Declined transaction',
+    value: '0.5 USD after 3 free',
+    detail:
+      'The same table waives the first 3 declined transactions per card each month, then 0.5 USD. Examples: insufficient balance, frozen card, lost card, incorrect card information. The list is not exhaustive. A separate page says the purchase amount of a truly declined transaction is not charged, and a pending hold is usually released in 2 to 5 days.',
+  },
   'سحب الصراف — بطاقة بالدولار': {
     item: 'ATM withdrawal — USD card',
     value: '2% up to 10,000 USD a month, then 3%',
@@ -117,7 +129,7 @@ const EN_ROWS: Record<string, { item: string; value: string; detail: string }> =
 };
 
 export const FX_SCOPE_NOTE_EN =
-  'The 1% crypto-conversion rate and the 1.2% rate for a transaction in a currency other than the card currency are published on the ATM withdrawal page. That page does not say whether they apply to every purchase or only to withdrawals, so we quote them as published and suggest you compare the amount debited in the app.';
+  'The 1% crypto-conversion fee and the 1.2% fee for a transaction in a currency other than the card currency are general transaction fees. They are in section 2, Transactions, of the limitations and fees chart (page updated 24 July 2026), not an ATM-only line. Compare the amount debited in the app.';
 
 export const feeRowsEn = feeRows.map((row) => {
   const copy = EN_ROWS[row.item];

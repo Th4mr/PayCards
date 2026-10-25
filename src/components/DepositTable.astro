@@ -1,0 +1,69 @@
+---
+import { DEPOSIT_MINIMUMS, SOURCES } from '../data/redotpay';
+import { sourceEn } from '../data/fees-en';
+import { sourceFr } from '../data/fees-fr';
+import { sourceEs } from '../data/fees-es';
+import { sourcePt } from '../data/fees-pt';
+import { text, type Lang } from '../i18n/lang';
+
+interface Props { lang?: Lang; }
+const { lang = 'ar' } = Astro.props;
+const src = lang === 'pt' ? sourcePt('deposits') : lang === 'es' ? sourceEs('deposits') : lang === 'fr' ? sourceFr('deposits') : lang === 'en' ? sourceEn('deposits') : SOURCES.deposits;
+const headers = text(lang, {
+  ar: ['الأصل', 'الشبكات في الصورة', 'الحد الأدنى'],
+  en: ['Asset', 'Networks on the image', 'Minimum'],
+  fr: ['Actif', 'Réseaux sur l’image', 'Minimum'],
+  es: ['Activo', 'Redes en la imagen', 'Mínimo'],
+  pt: ['Ativo', 'Redes na imagem', 'Mínimo'],
+});
+const seeApp = text(lang, {
+  ar: 'الشاشة في التطبيق',
+  en: 'The screen in the app',
+  fr: 'L’écran dans l’app',
+  es: 'La pantalla en la app',
+  pt: 'A tela no aplicativo',
+});
+---
+<div class="not-prose">
+  <div class="overflow-hidden rounded-2xl border border-line">
+    <table class="w-full border-collapse text-sm">
+      <thead class="bg-surface-2 text-start">
+        <tr>
+          {headers.map((h) => <th class="px-3 py-3 text-start font-bold">{h}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {DEPOSIT_MINIMUMS.map((row) => (
+          <tr class="border-t border-line align-top">
+            <th class="px-3 py-3 text-start font-semibold">{row.asset}</th>
+            <td class="px-3 py-3 leading-7">{row.networks || seeApp}</td>
+            <td class="px-3 py-3 font-bold">{row.minimum}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="mt-3 text-xs leading-6 text-muted">
+    {lang === 'pt' ? (
+      <>
+        Tabela lida na imagem de <a href={src.url} rel="noopener" target="_blank" class="text-accent-fg underline">{src.title}</a> (data da página: 21 de julho de 2026), conferida em 25 de outubro de 2026. O mínimo de USDT e de USDC vale para cada rede nomeada. A imagem ainda lista TON a 0,1. Em 27 de julho de 2026 a RedotPay disse que o TON foi convertido em GRAM. A imagem não traz mínimo para RLUSD, BCH, LTC nem GRAM. Confirme a linha na tela Deposit antes de enviar.
+      </>
+    ) : lang === 'es' ? (
+      <>
+        Tabla leída en la imagen de <a href={src.url} rel="noopener" target="_blank" class="text-accent-fg underline">{src.title}</a> (fecha de la página: 21 de julio de 2026), revisada el 25 de octubre de 2026. El mínimo de USDT y de USDC vale para cada red nombrada. La imagen todavía lista TON en 0,1. El 27 de julio de 2026 RedotPay dijo que TON se convirtió en GRAM. La imagen no trae mínimo para RLUSD, BCH, LTC ni GRAM. Confirma la fila en la pantalla Deposit antes de enviar.
+      </>
+    ) : lang === 'fr' ? (
+      <>
+        Tableau lu sur l’image de <a href={src.url} rel="noopener" target="_blank" class="text-accent-fg underline">{src.title}</a> (date de page : 21 juillet 2026), vérifié le 25 octobre 2026. Le minimum d’USDT et d’USDC vaut pour chaque réseau nommé. L’image liste encore TON à 0,1. Le 27 juillet 2026, RedotPay a dit que TON était converti en GRAM. L’image ne donne pas de minimum pour RLUSD, BCH, LTC ou GRAM. Confirmez la ligne sur l’écran Dépôt avant d’envoyer.
+      </>
+    ) : lang === 'en' ? (
+      <>
+        Read from the image on <a href={src.url} rel="noopener" target="_blank" class="text-accent-fg underline">{src.title}</a> (page date 21 July 2026), checked on 25 October 2026. The USDT and USDC minimum applies on each named network. The image still lists TON at 0.1. On 27 July 2026 RedotPay said TON was converted to GRAM. The image has no minimum for RLUSD, BCH, LTC, or GRAM. Confirm the row on the Deposit screen before you send.
+      </>
+    ) : (
+      <>
+        منقول من صورة <a href={src.url} rel="noopener" target="_blank" class="text-accent-fg underline">{src.title}</a> (تاريخ الصفحة 21 يوليو 2026)، وقُرئت في 25 أكتوبر 2026. حد USDT وUSDC لكل شبكة مذكورة. الصورة ما زالت تذكر TON عند 0.1. في 27 يوليو 2026 قالت RedotPay إن TON تحوّلت إلى GRAM. الصورة بلا حد لـ RLUSD أو BCH أو LTC أو GRAM. أكّد السطر في شاشة الإيداع قبل الإرسال.
+      </>
+    )}
+  </p>
+</div>

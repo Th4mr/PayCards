@@ -1,11 +1,11 @@
 /**
  * حقائق RedotPay التي راجعناها من صفحاتها الرسمية فقط.
  * أي رقم هنا يجب أن يبقى مربوطاً بمصدره. ما لم يُنشر برقم ثابت لا يُخترع.
- * تاريخ مراجعتنا: 24 أكتوبر 2026.
+ * تاريخ مراجعتنا: 25 أكتوبر 2026.
  */
 
-export const REVIEWED_ON = '2026-10-24';
-export const REVIEWED_LABEL = '24 أكتوبر 2026';
+export const REVIEWED_ON = '2026-10-25';
+export const REVIEWED_LABEL = '25 أكتوبر 2026';
 
 export type Source = {
   id: string;
@@ -154,9 +154,9 @@ export type FeeRow = {
   compact?: boolean;
 };
 
-/** نسب 1% و1.2% منشورة داخل صفحة السحب، والصفحة لا تصرّح إن كانت لكل الإنفاق أم للسحب فقط. */
+/** نسب 1% و1.2% في القسم 2 «Transactions» من جدول القيود والرسوم: رسوم معاملات عامة، لا رسوم صراف فقط. */
 export const FX_SCOPE_NOTE =
-  'نسبتا 1% لتحويل العملات الرقمية و1.2% للمعاملة بعملة غير عملة البطاقة منشورتان في صفحة السحب من الصراف. الصفحة لا تقول صراحة إنهما تشملان كل عملية شراء أم السحب فقط، لذلك ننقلهما كما نُشرا وننصح بمقارنة المبلغ المخصوم في التطبيق.';
+  'نسبتا 1% لتحويل العملات الرقمية و1.2% للمعاملة بعملة غير عملة البطاقة واردتان في القسم 2 «Transactions» من جدول قيود البطاقة ورسومها (تحديث الصفحة 24 يوليو 2026). هما رسوم معاملات عامة، لا بنداً خاصاً بالصراف. قارن المبلغ المخصوم في التطبيق.';
 
 export const feeRows: FeeRow[] = [
   {
@@ -197,15 +197,29 @@ export const feeRows: FeeRow[] = [
     item: 'معاملة بعملة أخرى',
     value: '1.2%',
     detail: FX_SCOPE_NOTE,
-    sourceId: 'atm',
+    sourceId: 'limits',
     compact: true,
   },
   {
     item: 'تحويل العملات الرقمية',
     value: '1%',
     detail: FX_SCOPE_NOTE,
-    sourceId: 'atm',
+    sourceId: 'limits',
     compact: true,
+  },
+  {
+    item: 'معاملة صغيرة',
+    value: '0.2 دولار بعد 5 مجانية',
+    detail:
+      'في جدول الرسوم على صفحة القيود (الصورة موسومة بسارية من 1 ديسمبر 2025): تُعفى أول 5 عمليات لكل بطاقة في الشهر بمبلغ 1.00 دولار أو أقل، ثم 0.2 دولار. هذا تفويض صغير لا رسم رفض.',
+    sourceId: 'limits',
+  },
+  {
+    item: 'عملية مرفوضة',
+    value: '0.5 دولار بعد 3 مجانية',
+    detail:
+      'الجدول نفسه يعفي أول 3 عمليات مرفوضة لكل بطاقة في الشهر، ثم 0.5 دولار. الأمثلة: رصيد غير كافٍ، بطاقة مجمّدة، بطاقة مفقودة، بيانات غير صحيحة، والقائمة غير حصرية. صفحة أخرى تقول إن مبلغ الشراء المرفوض نفسه لا يُخصم، وإن الحجز المعلّق يُرد عادة خلال 2 إلى 5 أيام.',
+    sourceId: 'limits',
   },
   {
     item: 'سحب الصراف — بطاقة بالدولار',
@@ -270,7 +284,28 @@ export const feeRows: FeeRow[] = [
 export const NETWORK_COPY =
   'شروط البطاقة تسمّي برنامجي هونغ كونغ وسنغافورة برنامجي Visa، وصفحة برنامج سنغافورة تقول إن البطاقة تُصدر بترخيص من Visa. مركز المساعدة الأحدث يصف القبول لدى من يقبل «شبكات البطاقات الرئيسية»، لدى أكثر من 130 مليون تاجر، والبرنامج يُحدَّد حسب بلد الإقامة. لا نسمي الشبكة ماستركارد لأن مصادر RedotPay التي راجعناها لا تقول ذلك.';
 
+/** قائمة صفحة الخدمات بتاريخ 24 يوليو 2026. العملات الأحدث لها مقالاتها ولا تُنسب إلى هذه الصفحة. */
 export const ASSETS = ['USDT', 'USDC', 'BTC', 'ETH', 'BNB', 'SOL', 'TRX', 'XRP', 'SUI', 'S'] as const;
+
+/**
+ * جدول الحد الأدنى كما في صورة مقال الشبكات (21 يوليو 2026).
+ * حد USDT وUSDC هو لكل شبكة مذكورة. الشبكات غير المذكورة هنا لا تُخترع.
+ * الصورة ما زالت تسمّي TON. إعلان 27 يوليو 2026 يقول إن TON تحوّلت إلى GRAM،
+ * ولا حد منشور لـ GRAM أو RLUSD أو BCH أو LTC في هذه الصورة.
+ */
+export const DEPOSIT_MINIMUMS: ReadonlyArray<{ asset: string; networks: string; minimum: string }> = [
+  { asset: 'USDT', networks: 'ERC-20, BEP-20, opBNB, TRC20, Solana, TON, Arbitrum One', minimum: '1.00 USDT' },
+  { asset: 'USDC', networks: 'ERC-20, BEP-20, Polygon, Solana, Sonic, Base, Arbitrum One, SUI', minimum: '1.00 USDC' },
+  { asset: 'BTC', networks: '', minimum: '0.0001 BTC' },
+  { asset: 'ETH', networks: 'ERC-20, BEP-20', minimum: '0.001 ETH' },
+  { asset: 'SOL', networks: '', minimum: '0.01 SOL' },
+  { asset: 'S', networks: '', minimum: '1 S' },
+  { asset: 'TRX', networks: '', minimum: '1 TRX' },
+  { asset: 'TON', networks: '', minimum: '0.1 TON' },
+  { asset: 'XRP', networks: '', minimum: '0.1 XRP' },
+  { asset: 'BNB', networks: '', minimum: '0.001 BNB' },
+  { asset: 'SUI', networks: '', minimum: '0.1 SUI' },
+];
 
 export const MERCHANT_FEE_NAMES = [
   'Gulf Health Counsel',

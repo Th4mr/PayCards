@@ -4,7 +4,7 @@
  */
 import { SOURCES, feeRows, type SourceId } from './redotpay';
 
-export const REVIEWED_LABEL_FR = '24 octobre 2026';
+export const REVIEWED_LABEL_FR = '25 octobre 2026';
 
 export const SOURCE_META_FR: Record<SourceId, { title: string; pageDate: string }> = {
   issuance: { title: 'Y a-t-il des frais pour obtenir une carte ?', pageDate: '27 juillet 2026' },
@@ -66,6 +66,18 @@ const FR_ROWS: Record<string, { item: string; value: string; detail: string }> =
     value: '1 %',
     detail: '',
   },
+  'معاملة صغيرة': {
+    item: 'Petite transaction',
+    value: '0,2 USD après 5 gratuites',
+    detail:
+      'Dans le tableau des frais du graphique des limites (l’image est marquée en vigueur depuis le 1er décembre 2025) : les 5 premières opérations par carte et par mois de 1,00 USD ou moins sont offertes, puis 0,2 USD. C’est une petite autorisation, pas des frais de refus.',
+  },
+  'عملية مرفوضة': {
+    item: 'Transaction refusée',
+    value: '0,5 USD après 3 gratuites',
+    detail:
+      'Le même tableau offre les 3 premiers refus par carte et par mois, puis 0,5 USD. Exemples : solde insuffisant, carte gelée, carte perdue, informations incorrectes. La liste n’est pas exhaustive. Une autre page dit que le montant d’un achat vraiment refusé n’est pas débité, et qu’une pré-autorisation en attente est en général libérée sous 2 à 5 jours.',
+  },
   'سحب الصراف — بطاقة بالدولار': {
     item: 'Retrait DAB — carte en USD',
     value: '2 % jusqu’à 10 000 USD par mois, puis 3 %',
@@ -116,7 +128,7 @@ const FR_ROWS: Record<string, { item: string; value: string; detail: string }> =
 };
 
 export const FX_SCOPE_NOTE_FR =
-  'Le taux de 1 % pour la conversion de cryptomonnaies et le taux de 1,2 % pour une transaction dans une devise autre que celle de la carte sont publiés sur la page de retrait au DAB. Cette page ne dit pas s’ils s’appliquent à chaque achat ou seulement aux retraits. Nous les citons tels quels et conseillons de comparer le montant débité dans l’app.';
+  'Les 1 % de conversion de cryptomonnaies et les 1,2 % pour une transaction dans une devise autre que celle de la carte sont des frais de transaction généraux. Ils figurent à la section 2, Transactions, du graphique des limites et frais (page mise à jour le 24 juillet 2026), et non comme une ligne réservée au DAB. Comparez le montant débité dans l’app.';
 
 export const feeRowsFr = feeRows.map((row) => {
   const copy = FR_ROWS[row.item];

@@ -73,7 +73,7 @@ export const homeFaq = [
   },
   {
     q: 'Which cryptocurrencies can I deposit?',
-    a: 'The services page lists USDT, USDC, BTC, ETH, BNB, SOL, TRX, XRP, SUI, and S for deposits and payments. Each asset is accepted on networks shown on the in-app Deposit page. Sending on a different network can lose the funds. Per-network minimums are not published as one table.',
+    a: 'The services page (24 July 2026) lists USDT, USDC, BTC, ETH, BNB, SOL, TRX, XRP, SUI, and S. Later articles add RLUSD, BCH, LTC, and GRAM. The networks article publishes minimums, including 1.00 USDT on each listed network. Sending on a different network can lose the funds. Confirm the row in the app. See the top-up guide.',
   },
   {
     q: 'How much does the RedotPay card cost?',
