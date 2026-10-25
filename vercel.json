@@ -12,18 +12,17 @@
     { "source": "/go/redotpay-es", "destination": "https://wap.redotpay.com/es/invite/?referralId=yj8cq", "permanent": false },
     { "source": "/go/redotpay-pt", "destination": "https://wap.redotpay.com/pt/invite/?referralId=yj8cq", "permanent": false },
     {
-      "source": "/:path*/",
+      "source": "/:path+/",
       "has": [{ "type": "host", "value": "paycards.io" }],
       "destination": "https://www.paycards.io/:path*",
       "permanent": true
     },
     {
-      "source": "/:path*",
+      "source": "/:path+",
       "has": [{ "type": "host", "value": "paycards.io" }],
       "destination": "https://www.paycards.io/:path*",
       "permanent": true
-    },
-    { "source": "/:path*/", "destination": "/:path*", "permanent": true }
+    }
   ],
   "headers": [
     {

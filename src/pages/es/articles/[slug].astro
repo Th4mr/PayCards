@@ -43,10 +43,12 @@ const related = await relatedArticles(article, all);
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 if (data.faq.length) toc.push({ depth: 2, slug: 'faq', text: 'FAQ' });
 
+const hubName = 'Guías';
+const categoryName = categoryLabel(data.category);
 const crumbs = [
   { name: 'Inicio', url: '/es' },
-  { name: 'Guías', url: '/es/articles' },
-  { name: categoryLabel(data.category), url: `/es/articles/category/${data.category}` },
+  { name: hubName, url: '/es/articles' },
+  ...(categoryName === hubName ? [] : [{ name: categoryName, url: `/es/articles/category/${data.category}` }]),
   { name: data.h1 ?? data.title, url: articleUrl(article) },
 ];
 const schema = [articleSchema(article), breadcrumbSchema(crumbs)];
