@@ -251,7 +251,7 @@ html[lang="fr"] body {
 .crumb-sep::before { content: '‹'; }
 html[dir="ltr"] .crumb-sep::before { content: '›'; }
 .prose-pc blockquote p::before, .prose-pc blockquote p::after { content: none; }
-.prose-pc a { text-underline-offset: 4px; }
+.prose-pc a { text-underline-offset: 4px; overflow-wrap: anywhere; }
 .prose-pc :where(ol > li)::marker { font-weight: 700; }
 
 details > summary { list-style: none; }
