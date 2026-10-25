@@ -4,7 +4,7 @@
  */
 import { SOURCES, feeRows, type SourceId } from './redotpay';
 
-export const REVIEWED_LABEL_ES = '24 de octubre de 2026';
+export const REVIEWED_LABEL_ES = '25 de octubre de 2026';
 
 export const SOURCE_META_ES: Record<SourceId, { title: string; pageDate: string }> = {
   issuance: { title: '¿Hay comisiones por obtener una tarjeta?', pageDate: '27 de julio de 2026' },
@@ -66,6 +66,18 @@ const ES_ROWS: Record<string, { item: string; value: string; detail: string }> =
     value: '1 %',
     detail: '',
   },
+  'معاملة صغيرة': {
+    item: 'Transacción pequeña',
+    value: '0,2 USD después de 5 gratis',
+    detail:
+      'En la tabla de comisiones del gráfico de límites (la imagen marca vigencia desde el 1 de diciembre de 2025): las primeras 5 operaciones por tarjeta y mes de 1,00 USD o menos se eximen, luego 0,2 USD. Es una autorización pequeña, no una comisión por rechazo.',
+  },
+  'عملية مرفوضة': {
+    item: 'Transacción rechazada',
+    value: '0,5 USD después de 3 gratis',
+    detail:
+      'La misma tabla exime los primeros 3 rechazos por tarjeta y mes, luego 0,5 USD. Ejemplos: saldo insuficiente, tarjeta congelada, tarjeta perdida, datos incorrectos. La lista no es exhaustiva. Otra página dice que el importe de una compra realmente rechazada no se cobra, y que una retención pendiente suele liberarse en 2 a 5 días.',
+  },
   'سحب الصراف — بطاقة بالدولار': {
     item: 'Retiro en cajero — tarjeta en USD',
     value: '2 % hasta 10 000 USD al mes, luego 3 %',
@@ -116,7 +128,7 @@ const ES_ROWS: Record<string, { item: string; value: string; detail: string }> =
 };
 
 export const FX_SCOPE_NOTE_ES =
-  'La tasa del 1 % para la conversión de criptomonedas y la del 1,2 % para una transacción en una moneda distinta de la de la tarjeta están publicadas en la página de retiro en cajero. Esa página no dice si se aplican a cada compra o solo a los retiros. Las citamos tal cual y recomendamos comparar el importe cargado en la app.';
+  'El 1 % de conversión de criptomonedas y el 1,2 % por una transacción en una moneda distinta de la de la tarjeta son comisiones generales de transacción. Están en la sección 2, Transactions, del gráfico de límites y comisiones (página actualizada el 24 de julio de 2026), no como una línea solo del cajero. Compara el importe cargado en la app.';
 
 export const feeRowsEs = feeRows.map((row) => {
   const copy = ES_ROWS[row.item];

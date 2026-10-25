@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { readdirSync, readFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { SITE, REFERRAL, REFERRAL_EN, REFERRAL_FR, REFERRAL_ES, REFERRAL_PT } from './src/config';
-import { pairFor } from './src/i18n/routes';
+import { alternateLinks, pairFor } from './src/i18n/routes';
 
 /**
  * يتحقق أن تحويل vercel.json يطابق رابط الإحالة في src/config.ts،
@@ -82,17 +82,9 @@ export default defineConfig({
       serialize(item) {
         const path = new URL(item.url).pathname;
         const pair = pairFor(path);
-        if (!pair) return item;
-        const links: { lang: string; url: string }[] = [];
-        if (pair.ar) links.push({ lang: 'ar', url: new URL(pair.ar, SITE.url).href });
-        if (pair.en) links.push({ lang: 'en', url: new URL(pair.en, SITE.url).href });
-        if (pair.fr) links.push({ lang: 'fr', url: new URL(pair.fr, SITE.url).href });
-        if (pair.es) links.push({ lang: 'es', url: new URL(pair.es, SITE.url).href });
-        if (pair.pt) links.push({ lang: 'pt', url: new URL(pair.pt, SITE.url).href });
-        if (pair.ar) links.push({ lang: 'x-default', url: new URL(pair.ar, SITE.url).href });
-        else if (pair.en && pair.fr) links.push({ lang: 'x-default', url: new URL(pair.en, SITE.url).href });
-        if (links.length < 2) return item;
-        return { ...item, links };
+        const alternates = pair ? alternateLinks(pair) : [];
+        if (alternates.length < 2) return item;
+        return { ...item, links: alternates.map((link) => ({ lang: link.lang, url: new URL(link.path, SITE.url).href })) };
       },
     }),
     paycardsBuild(),

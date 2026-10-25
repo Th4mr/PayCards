@@ -1,9 +1,9 @@
 ---
-import { CARD_ISSUANCE_COUNTRIES, DELIVERY_COUNTRIES, DELIVERY_ONLY_COUNTRIES, LOCATION_COUNTRIES, SOURCES, UNSUPPORTED_COUNTRIES, REVIEWED_LABEL, countryPair } from '../data/redotpay';
-import { REVIEWED_LABEL_EN, sourceEn } from '../data/fees-en';
-import { REVIEWED_LABEL_FR, sourceFr } from '../data/fees-fr';
-import { REVIEWED_LABEL_ES, sourceEs } from '../data/fees-es';
-import { REVIEWED_LABEL_PT, sourcePt } from '../data/fees-pt';
+import { CARD_ISSUANCE_COUNTRIES, DELIVERY_COUNTRIES, DELIVERY_ONLY_COUNTRIES, LOCATION_COUNTRIES, SOURCES, UNSUPPORTED_COUNTRIES, countryPair } from '../data/redotpay';
+import { sourceEn } from '../data/fees-en';
+import { sourceFr } from '../data/fees-fr';
+import { sourceEs } from '../data/fees-es';
+import { sourcePt } from '../data/fees-pt';
 import { countryFr } from '../data/countries-fr';
 import { countryEs } from '../data/countries-es';
 import { countryPt } from '../data/countries-pt';
@@ -11,7 +11,7 @@ import type { Lang } from '../i18n/lang';
 
 interface Props { lang?: Lang; }
 const { lang = 'ar' } = Astro.props;
-const reviewed = lang === 'pt' ? REVIEWED_LABEL_PT : lang === 'es' ? REVIEWED_LABEL_ES : lang === 'fr' ? REVIEWED_LABEL_FR : lang === 'en' ? REVIEWED_LABEL_EN : REVIEWED_LABEL;
+const reviewed = lang === 'pt' ? '24 de outubro de 2026' : lang === 'es' ? '24 de octubre de 2026' : lang === 'fr' ? '24 octobre 2026' : lang === 'en' ? '24 October 2026' : '24 أكتوبر 2026';
 const unsupported = lang === 'pt' ? sourcePt('unsupported') : lang === 'es' ? sourceEs('unsupported') : lang === 'fr' ? sourceFr('unsupported') : lang === 'en' ? sourceEn('unsupported') : SOURCES.unsupported;
 const location = lang === 'pt' ? sourcePt('location') : lang === 'es' ? sourceEs('location') : lang === 'fr' ? sourceFr('location') : lang === 'en' ? sourceEn('location') : SOURCES.location;
 const issuance = lang === 'pt' ? sourcePt('issuanceBlock') : lang === 'es' ? sourceEs('issuanceBlock') : lang === 'fr' ? sourceFr('issuanceBlock') : lang === 'en' ? sourceEn('issuanceBlock') : SOURCES.issuanceBlock;

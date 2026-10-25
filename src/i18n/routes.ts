@@ -39,7 +39,20 @@ export const PAIRS: ReadonlyArray<Pair> = [
   { ar: '/disclosure', en: '/en/disclosure', fr: '/fr/disclosure', es: '/es/disclosure', pt: '/pt/disclosure' },
   { ar: '/about', en: '/en/about', fr: '/fr/about', es: '/es/about', pt: '/pt/about' },
   { ar: '/contact', en: '/en/contact', fr: '/fr/contact', es: '/es/contact', pt: '/pt/contact' },
+  { ar: '/articles/redotpay-send', en: '/en/articles/redotpay-send' },
+  { en: '/en/articles/redotpay-vs-kast', es: '/es/articles/redotpay-vs-kast', pt: '/pt/articles/redotpay-vs-kast' },
+  { es: '/es/articles/redotpay-qr-latam', pt: '/pt/articles/redotpay-pix' },
 ];
+
+/** روابط hreflang لزوج فيه لغتان على الأقل. x-default عربية إن وُجدت، وإلا الإنجليزية، وإلا أول لغة. */
+export function alternateLinks(pair: Pair): Array<{ lang: string; path: string }> {
+  const langs = (['ar', 'en', 'fr', 'es', 'pt'] as const).filter((lang) => pair[lang]);
+  if (langs.length < 2) return [];
+  const x = pair.ar ?? pair.en ?? pair.fr ?? pair.es ?? pair.pt;
+  const links = langs.map((lang) => ({ lang, path: pair[lang] as string }));
+  if (x) links.push({ lang: 'x-default', path: x });
+  return links;
+}
 
 const HOME: Record<Locale, string> = { ar: '/', en: '/en', fr: '/fr', es: '/es', pt: '/pt' };
 

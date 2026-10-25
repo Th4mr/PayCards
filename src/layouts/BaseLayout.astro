@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 import StickyCTA from '../components/StickyCTA.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import { SITE, SITE_EN, SITE_FR, SITE_ES, SITE_PT, ANALYTICS } from '../config';
-import { pairFor, normalizePath } from '../i18n/routes';
+import { alternateLinks, pairFor, normalizePath } from '../i18n/routes';
 import { isLtr, text, type Lang } from '../i18n/lang';
 
 interface Props {
@@ -58,13 +58,7 @@ const altLocales = (['ar', 'en', 'fr', 'es', 'pt'] as const).filter((code) => co
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {pair?.ar && <link rel="alternate" hreflang="ar" href={new URL(pair.ar, SITE.url).href} />}
-    {pair?.en && <link rel="alternate" hreflang="en" href={new URL(pair.en, SITE.url).href} />}
-    {pair?.fr && <link rel="alternate" hreflang="fr" href={new URL(pair.fr, SITE.url).href} />}
-    {pair?.es && <link rel="alternate" hreflang="es" href={new URL(pair.es, SITE.url).href} />}
-    {pair?.pt && <link rel="alternate" hreflang="pt" href={new URL(pair.pt, SITE.url).href} />}
-    {pair?.ar && <link rel="alternate" hreflang="x-default" href={new URL(pair.ar, SITE.url).href} />}
-    {!pair?.ar && pair?.en && pair?.fr && <link rel="alternate" hreflang="x-default" href={new URL(pair.en, SITE.url).href} />}
+    {pair && alternateLinks(pair).map((link) => <link rel="alternate" hreflang={link.lang} href={new URL(link.path, SITE.url).href} />)}
     {SITE.googleVerification && <meta name="google-site-verification" content={SITE.googleVerification} />}
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#f5f7fb" />

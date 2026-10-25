@@ -12,6 +12,7 @@ import ReferralCode from '../../../components/ReferralCode.astro';
 import AvailabilityNote from '../../../components/AvailabilityNote.astro';
 import CountryLists from '../../../components/CountryLists.astro';
 import RedotHub from '../../../components/RedotHub.astro';
+import DepositTable from '../../../components/DepositTable.astro';
 import {
   getArticles,
   readingMinutes,
@@ -42,10 +43,12 @@ const related = await relatedArticles(article, all);
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 if (data.faq.length) toc.push({ depth: 2, slug: 'faq', text: 'FAQ' });
 
+const hubName = 'Guides';
+const categoryName = categoryLabel(data.category);
 const crumbs = [
   { name: 'Home', url: '/en' },
-  { name: 'Guides', url: '/en/articles' },
-  { name: categoryLabel(data.category), url: `/en/articles/category/${data.category}` },
+  { name: hubName, url: '/en/articles' },
+  ...(categoryName === hubName ? [] : [{ name: categoryName, url: `/en/articles/category/${data.category}` }]),
   { name: data.h1 ?? data.title, url: articleUrl(article) },
 ];
 const schema = [articleSchema(article), breadcrumbSchema(crumbs)];
@@ -101,7 +104,7 @@ if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.desc
         )}
 
         <div class="prose prose-pc prose-lg mt-8 max-w-none prose-headings:font-extrabold prose-h2:mt-12 prose-h2:text-2xl prose-h3:text-xl prose-p:leading-8 prose-li:leading-8">
-          <Content components={{ CTABox, CTAButton, FeeTable, ReferralCode, AvailabilityNote, CountryLists, RedotHub }} />
+          <Content components={{ CTABox, CTAButton, FeeTable, ReferralCode, AvailabilityNote, CountryLists, RedotHub, DepositTable }} />
 
           {data.faq.length > 0 && (
             <>
