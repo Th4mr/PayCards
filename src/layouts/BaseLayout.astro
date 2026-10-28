@@ -211,5 +211,9 @@ const altLocales = (['ar', 'en', 'fr', 'es', 'pt'] as const).filter((code) => co
       import { initSite } from '../lib/site';
       initSite();
     </script>
+    <script>
+      import { inject } from '@vercel/analytics';
+      inject();
+    </script>
   </body>
 </html>
