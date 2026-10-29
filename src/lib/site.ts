@@ -86,8 +86,7 @@ export function initSite() {
     'click',
     (e) => {
       const a = (e.target as Element).closest<HTMLElement>('[data-cta]');
-      // نقرات /go/ تُرسل مرة واحدة من BaseLayout، حتى لا يُحسب referral_click مرتين.
-      if (a && !(a.getAttribute('href') || '').startsWith('/go/')) {
+      if (a) {
         const placement = a.dataset.ctaPosition || 'unknown';
         const lang = document.documentElement.lang || 'ar';
         track(ANALYTICS.eventName, {
