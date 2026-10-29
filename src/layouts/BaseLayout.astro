@@ -212,8 +212,41 @@ const altLocales = (['ar', 'en', 'fr', 'es', 'pt'] as const).filter((code) => co
       initSite();
     </script>
     <script>
-      import { inject } from '@vercel/analytics';
+      import { inject, track } from '@vercel/analytics';
+
       inject();
+
+      function langFromGo(href: string): string {
+        const path = href.split(/[?#]/)[0];
+        if (path === '/go/redotpay') return 'ar';
+        if (!path.startsWith('/go/redotpay-')) return 'ar';
+        const suffix = path.slice('/go/redotpay-'.length);
+        return suffix === 'en' || suffix === 'fr' || suffix === 'es' || suffix === 'pt' ? suffix : 'ar';
+      }
+
+      document.addEventListener(
+        'click',
+        (event) => {
+          const origin = event.target instanceof Element ? event.target : null;
+          const anchor = origin?.closest('a[href^="/go/"]');
+          if (!(anchor instanceof HTMLAnchorElement)) return;
+          const link = anchor.getAttribute('href') || '';
+          const props = { lang: langFromGo(link), page: location.pathname, link };
+          try {
+            track('referral_click', props);
+          } catch {
+            /* لا نؤخر الانتقال */
+          }
+          try {
+            if (localStorage.getItem('pc-consent') === 'granted') {
+              window.gtag?.('event', 'referral_click', props);
+            }
+          } catch {
+            /* لا نؤخر الانتقال */
+          }
+        },
+        { capture: true, passive: true },
+      );
     </script>
   </body>
 </html>
