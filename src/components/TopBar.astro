@@ -1,8 +1,8 @@
 ---
 import { REFERRAL, referralFor } from '../config';
 import { text, isLtr, type Lang } from '../i18n/lang';
-interface Props { lang?: Lang; }
-const { lang = 'ar' } = Astro.props;
+interface Props { lang?: Lang; hideReferral?: boolean; }
+const { lang = 'ar', hideReferral = false } = Astro.props;
 const ref = referralFor(lang);
 const message = text(lang, {
   ar: REFERRAL.bonus ? `مكافأة إنفاق ${REFERRAL.bonus} للحسابات الجديدة — لا تغطي رسم البطاقة` : 'بطاقة RedotPay حيث تقبل شبكات الدفع الرئيسية',
@@ -14,6 +14,7 @@ const message = text(lang, {
 const cta = text(lang, { ar: 'ابدأ الآن ←', en: 'Get started →', fr: 'Commencer →', es: 'Empezar →', pt: 'Começar →' });
 const closeLabel = text(lang, { ar: 'إغلاق الشريط', en: 'Dismiss banner', fr: 'Fermer le bandeau', es: 'Cerrar el aviso', pt: 'Fechar o aviso' });
 ---
+{hideReferral ? null : (
 <div id="topbar" class:list={['topbar relative z-50 hidden text-on-accent md:block', isLtr(lang) ? 'bg-gradient-to-r from-accent to-[#4cd3e0]' : 'bg-gradient-to-l from-accent to-[#4cd3e0]']}>
   <div class="container-x flex min-h-10 items-center justify-center gap-2 py-1.5 pe-10 text-center text-[13px] font-semibold sm:text-sm">
     <span>{message}</span>
@@ -23,3 +24,4 @@ const closeLabel = text(lang, { ar: 'إغلاق الشريط', en: 'Dismiss bann
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
   </button>
 </div>
+)}
