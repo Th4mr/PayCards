@@ -22,6 +22,8 @@ interface Props {
   lang?: Lang;
   /** صفحة 404: تختار اللغة من مسار المتصفح وتعرض الواجهة المناسبة. */
   detectLang?: boolean;
+  /** صفحة خطر قانوني: بلا شريط إحالة ولا زر /go. */
+  hideReferral?: boolean;
 }
 
 const {
@@ -36,6 +38,7 @@ const {
   published,
   modified,
   detectLang = false,
+  hideReferral = false,
 } = Astro.props;
 
 const fullTitle = title.includes('PayCards') ? title : `${title} | PayCards`;
@@ -151,15 +154,15 @@ const altLocales = (['ar', 'en', 'fr', 'es', 'pt'] as const).filter((code) => co
       (['ar', 'en', 'fr', 'es', 'pt'] as const).map((ui) => (
         <div data-ui-block={ui}>
           <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">{text(ui, { ar: 'تخطَّ إلى المحتوى', en: 'Skip to content', fr: 'Aller au contenu', es: 'Saltar al contenido', pt: 'Pular para o conteúdo' })}</a>
-          <TopBar lang={ui} />
-          <Header lang={ui} />
+          <TopBar lang={ui} hideReferral={hideReferral} />
+          <Header lang={ui} hideReferral={hideReferral} />
         </div>
       ))
     ) : (
       <>
         <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent">{text(lang, { ar: 'تخطَّ إلى المحتوى', en: 'Skip to content', fr: 'Aller au contenu', es: 'Saltar al contenido', pt: 'Pular para o conteúdo' })}</a>
-        <TopBar lang={lang} />
-        <Header lang={lang} />
+        <TopBar lang={lang} hideReferral={hideReferral} />
+        <Header lang={lang} hideReferral={hideReferral} />
       </>
     )}
     <main id="main">
@@ -169,14 +172,14 @@ const altLocales = (['ar', 'en', 'fr', 'es', 'pt'] as const).filter((code) => co
       (['ar', 'en', 'fr', 'es', 'pt'] as const).map((ui) => (
         <div data-ui-block={ui}>
           <Footer lang={ui} />
-          <StickyCTA lang={ui} />
+          {hideReferral ? null : <StickyCTA lang={ui} />}
           <CookieConsent lang={ui} />
         </div>
       ))
     ) : (
       <>
         <Footer lang={lang} />
-        <StickyCTA lang={lang} />
+        {hideReferral ? null : <StickyCTA lang={lang} />}
         <CookieConsent lang={lang} />
       </>
     )}

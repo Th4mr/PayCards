@@ -56,6 +56,7 @@ const schema = [articleSchema(article), breadcrumbSchema(crumbs)];
 if (data.faq.length) schema.push(faqSchema(data.faq));
 if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.description, data.howto));
 const showHub = article.id.startsWith('redotpay-') || article.id === 'what-is-redotpay';
+const noSignup = article.id === 'redotpay-algeria';
 ---
 <BaseLayout
   title={data.title}
@@ -66,6 +67,7 @@ const showHub = article.id.startsWith('redotpay-') || article.id === 'what-is-re
   schema={schema}
   published={data.pubDate}
   modified={updated}
+  hideReferral={noSignup}
 >
   <article class="container-x pt-6 sm:pt-10">
 <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_16rem]">
@@ -93,9 +95,11 @@ const showHub = article.id.startsWith('redotpay-') || article.id === 'what-is-re
             الإجابة المختصرة
           </p>
           <VText as="p" text={data.summary} class="mt-2 leading-8" />
-          <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <CTAButton position="summary" label="احصل على بطاقتك" />
-          </div>
+          {noSignup ? null : (
+            <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <CTAButton position="summary" label="احصل على بطاقتك" />
+            </div>
+          )}
         </section>
 
         <!-- جدول المحتويات (جوال) -->
@@ -121,10 +125,14 @@ const showHub = article.id.startsWith('redotpay-') || article.id === 'what-is-re
 
         {showHub && <div class="mt-10"><RedotHub /></div>}
 
-        <CTABox position="end" />
+        {noSignup ? null : <CTABox position="end" />}
 
         <p class="rounded-xl border border-line bg-surface-2 p-4 text-sm leading-7 text-muted">
-          <strong class="text-fg">تنبيه:</strong> PayCards موقع مستقل وغير تابع لـ RedotPay. الرسوم والحدود والدول المدعومة تتغيّر، فراجعها في التطبيق الرسمي قبل أي قرار. العملات الرقمية تنطوي على مخاطر، وهذا المحتوى تعليمي وليس نصيحة مالية. الروابط في هذه الصفحة <a href="/disclosure" class="underline">روابط إحالة</a>.
+          {noSignup ? (
+            <><strong class="text-fg">تنبيه:</strong> PayCards موقع مستقل وغير تابع لـ RedotPay. هذه الصفحة شرح لخطر قانوني، وليست استشارة قانونية ولا دعوة للتسجيل أو للشحن. لا زر تسجيل ولا رابط دعوة فيها. راجع النص الساري في الجريدة الرسمية قبل أي قرار.</>
+          ) : (
+            <><strong class="text-fg">تنبيه:</strong> PayCards موقع مستقل وغير تابع لـ RedotPay. الرسوم والحدود والدول المدعومة تتغيّر، فراجعها في التطبيق الرسمي قبل أي قرار. العملات الرقمية تنطوي على مخاطر، وهذا المحتوى تعليمي وليس نصيحة مالية. الروابط في هذه الصفحة <a href="/disclosure" class="underline">روابط إحالة</a>.</>
+          )}
         </p>
       </div>
 
@@ -139,11 +147,13 @@ const showHub = article.id.startsWith('redotpay-') || article.id === 'what-is-re
               </ol>
             </nav>
           )}
-          <div class="rounded-2xl border border-line bg-surface p-5 text-center">
-            <p class="text-sm font-bold">ابدأ مع RedotPay</p>
-            <p class="mt-1 text-xs leading-6 text-muted">بطاقة افتراضية تُشحن بالعملات الرقمية وتدعم الدفع بالهاتف.</p>
-            <CTAButton position="sidebar" label="احصل على بطاقتك" size="sm" full class="mt-3" />
-          </div>
+          {noSignup ? null : (
+            <div class="rounded-2xl border border-line bg-surface p-5 text-center">
+              <p class="text-sm font-bold">ابدأ مع RedotPay</p>
+              <p class="mt-1 text-xs leading-6 text-muted">بطاقة افتراضية تُشحن بالعملات الرقمية وتدعم الدفع بالهاتف.</p>
+              <CTAButton position="sidebar" label="احصل على بطاقتك" size="sm" full class="mt-3" />
+            </div>
+          )}
         </div>
       </aside>
     </div>
