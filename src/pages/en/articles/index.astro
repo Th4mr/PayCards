@@ -5,16 +5,23 @@ import CTABox from '../../../components/CTABox.astro';
 import RedotHub from '../../../components/RedotHub.astro';
 import GuideSections from '../../../components/GuideSections.astro';
 import { getArticles } from '../../../lib/en-articles';
-import { breadcrumbSchema } from '../../../lib/articles';
+import { breadcrumbSchema, faqSchema } from '../../../lib/articles';
+import FeaturedGuides from '../../../components/FeaturedGuides.astro';
+import FAQ from '../../../components/FAQ.astro';
+import { articlesIndexCopy } from '../../../data/hub-copy';
 
 const all = await getArticles();
+const hub = articlesIndexCopy.en;
 const crumbs = [{ name: 'Home', url: '/en' }, { name: 'All guides', url: '/en/articles' }];
 ---
-<BaseLayout lang="en" title="All guides: crypto cards, USDT, and fees" description="Every English guide, grouped by category: choosing a crypto card, virtual and prepaid cards, spending USDT, KYC, cash, fees, and countries." page="articles-en" schema={[breadcrumbSchema(crumbs)]}>
+<BaseLayout lang="en" title="All guides: crypto cards, USDT, and fees" description="Every English guide, grouped by category: choosing a crypto card, virtual and prepaid cards, spending USDT, KYC, cash, fees, and countries." page="articles-en" schema={[breadcrumbSchema(crumbs), faqSchema([...hub.faq])]}>
   <section class="container-x pt-8 sm:pt-12">
     <Breadcrumbs items={crumbs} lang="en" />
     <h1 class="mt-5 text-3xl font-extrabold sm:text-4xl">All guides</h1>
-    <p class="mt-3 max-w-2xl text-muted">Every English page on this site, grouped by category. Start with the RedotPay path if you already know the brand, or with a broader question such as spending USDT or choosing a crypto card.</p>
+    <p class="mt-3 max-w-3xl leading-7 text-muted">Every English page on this site, grouped by category. Start with the RedotPay path if you already know the brand, or with a broader question such as spending USDT or choosing a crypto card. A missing country is not approval, and these pages do not target US residents.</p>
+    <FeaturedGuides heading={hub.heading} lead={hub.lead} items={[...hub.items]} />
+    <h2 class="mt-12 text-2xl font-extrabold">{hub.faqHeading}</h2>
+    <div class="mt-4 max-w-3xl"><FAQ items={[...hub.faq]} /></div>
     <div class="mt-8"><RedotHub lang="en" /></div>
     <GuideSections lang="en" articles={all} />
     <div class="mx-auto max-w-3xl"><CTABox lang="en" position="end" /></div>

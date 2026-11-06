@@ -12,9 +12,12 @@ import AvailabilityNote from '../components/AvailabilityNote.astro';
 import RedotHub from '../components/RedotHub.astro';
 import { SITE, REFERRAL } from '../config';
 import { trustItems, features, steps, useCases, homeFaq } from '../data/home';
+import FeaturedGuides from '../components/FeaturedGuides.astro';
+import { articlesIndexCopy } from '../data/hub-copy';
 import { getArticles, orgSchema, websiteSchema, faqSchema } from '../lib/articles';
 
 const latest = (await getArticles()).slice(0, 6);
+const hub = articlesIndexCopy.ar;
 const schema = [orgSchema, websiteSchema, faqSchema(homeFaq)];
 ---
 <BaseLayout
@@ -148,6 +151,12 @@ const schema = [orgSchema, websiteSchema, faqSchema(homeFaq)];
   </section>
 
   <!-- 9) الأسئلة الشائعة -->
+  <section class="section" id="key-guides">
+    <div class="container-x">
+      <FeaturedGuides heading={hub.heading} lead={hub.lead} items={[...hub.items]} />
+    </div>
+  </section>
+
   <section class="section" id="faq">
     <div class="container-x max-w-3xl">
       <h2 class="section-title reveal text-center">الأسئلة الشائعة</h2>
