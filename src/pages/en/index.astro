@@ -11,10 +11,13 @@ import AvailabilityNote from '../../components/AvailabilityNote.astro';
 import RedotHub from '../../components/RedotHub.astro';
 import { SITE_EN, REFERRAL_EN } from '../../config';
 import { trustItems, features, steps, useCases, homeFaq } from '../../data/home-en';
+import FeaturedGuides from '../../components/FeaturedGuides.astro';
+import { articlesIndexCopy } from '../../data/hub-copy';
 import { getArticles, webPageSchema } from '../../lib/en-articles';
 import { faqSchema } from '../../lib/articles';
 
 const latest = (await getArticles()).slice(0, 6);
+const hub = articlesIndexCopy.en;
 const schema = [
   webPageSchema('RedotPay review, fees, and card guide', SITE_EN.description, '/en'),
   faqSchema(homeFaq),
@@ -142,6 +145,12 @@ const schema = [
         {latest.map((a) => <ArticleCard lang="en" article={a} />)}
       </div>
       <a href="/en/articles" class="btn-ghost mt-8 w-full sm:hidden">All guides</a>
+    </div>
+  </section>
+
+  <section class="section" id="key-guides">
+    <div class="container-x">
+      <FeaturedGuides heading={hub.heading} lead={hub.lead} items={[...hub.items]} />
     </div>
   </section>
 
