@@ -56,7 +56,7 @@ const schema = [articleSchema(article), breadcrumbSchema(crumbs)];
 if (data.faq.length) schema.push(faqSchema(data.faq));
 if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.description, data.howto));
 const showHub = article.id.startsWith('redotpay-') || article.id === 'what-is-redotpay';
-const noSignup = article.id === 'redotpay-algeria';
+const noSignup = ['redotpay-algeria', 'redotpay-saudi-arabia'].includes(article.id);
 ---
 <BaseLayout
   title={data.title}
@@ -128,8 +128,10 @@ const noSignup = article.id === 'redotpay-algeria';
         {noSignup ? null : <CTABox position="end" />}
 
         <p class="rounded-xl border border-line bg-surface-2 p-4 text-sm leading-7 text-muted">
-          {noSignup ? (
+          {article.id === 'redotpay-algeria' ? (
             <><strong class="text-fg">تنبيه:</strong> PayCards موقع مستقل وغير تابع لـ RedotPay. هذه الصفحة شرح لخطر قانوني، وليست استشارة قانونية ولا دعوة للتسجيل أو للشحن. لا زر تسجيل ولا رابط دعوة فيها. راجع النص الساري في الجريدة الرسمية قبل أي قرار.</>
+          ) : article.id === 'redotpay-saudi-arabia' ? (
+            <><strong class="text-fg">تنبيه:</strong> PayCards موقع مستقل وغير تابع لـ RedotPay. هذه الصفحة معلومات عن قوائم RedotPay وبيانات هيئة السوق المالية، وليست استشارة قانونية ولا دعوة للتسجيل أو للشحن. لا زر تسجيل ولا رابط دعوة فيها. اقرأ بيان الهيئة قبل أي قرار يخصك.</>
           ) : (
             <><strong class="text-fg">تنبيه:</strong> PayCards موقع مستقل وغير تابع لـ RedotPay. الرسوم والحدود والدول المدعومة تتغيّر، فراجعها في التطبيق الرسمي قبل أي قرار. العملات الرقمية تنطوي على مخاطر، وهذا المحتوى تعليمي وليس نصيحة مالية. الروابط في هذه الصفحة <a href="/disclosure" class="underline">روابط إحالة</a>.</>
           )}

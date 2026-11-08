@@ -104,7 +104,7 @@ export const SOURCES = {
     id: 'unsupported',
     title: 'الدول والمناطق غير المدعومة',
     url: 'https://helpcenter.redotpay.com/en/articles/10339263-unsupported-countries-regions',
-    pageDate: '28 أغسطس 2026',
+    pageDate: '2 نوفمبر 2026',
   },
   delivery: {
     id: 'delivery',
@@ -317,10 +317,9 @@ export const MERCHANT_FEE_NAMES = [
   'Discord',
 ] as const;
 
-/** [الاسم العربي, الاسم كما في الصفحة الرسمية] */
+/** [الاسم العربي, الاسم كما في صفحة الجنسية]. القائمة بتاريخ 2 نوفمبر 2026 فيها 35 اسماً. أُزيلت ألبانيا وكرواتيا وكوسوفو والجبل الأسود ومقدونيا الشمالية وسلوفينيا من الجنسية فقط، وما زالت في قوائم الإصدار أو الموقع أو الشحن حيث كانت. */
 export const UNSUPPORTED_COUNTRIES: ReadonlyArray<readonly [string, string]> = [
   ['أفغانستان', 'Afghanistan'],
-  ['ألبانيا', 'Albania'],
   ['بيلاروس', 'Belarus'],
   ['البوسنة والهرسك', 'Bosnia and Herzegovina'],
   ['جزيرة بوفيه', 'Bouvet Island'],
@@ -328,7 +327,6 @@ export const UNSUPPORTED_COUNTRIES: ReadonlyArray<readonly [string, string]> = [
   ['بوروندي', 'Burundi'],
   ['جمهورية أفريقيا الوسطى', 'Central African Republic'],
   ['جمهورية الكونغو الديمقراطية', 'Congo (Democratic Republic of the)'],
-  ['كرواتيا', 'Croatia'],
   ['كوبا', 'Cuba'],
   ['إريتريا', 'Eritrea'],
   ['إثيوبيا', 'Ethiopia'],
@@ -336,21 +334,17 @@ export const UNSUPPORTED_COUNTRIES: ReadonlyArray<readonly [string, string]> = [
   ['هايتي', 'Haiti'],
   ['إيران', 'Iran'],
   ['العراق', 'Iraq'],
-  ['كوسوفو', 'Kosovo'],
   ['لبنان', 'Lebanon'],
   ['ليبيريا', 'Liberia'],
   ['ليبيا', 'Libya'],
   ['برّ الصين الرئيسي', 'Mainland China'],
   ['مالي', 'Mali'],
-  ['الجبل الأسود', 'Montenegro'],
   ['ميانمار', 'Myanmar'],
   ['جزر الأنتيل الهولندية', 'Netherlands Antilles'],
   ['نيكاراغوا', 'Nicaragua'],
   ['كوريا الشمالية', 'North Korea'],
-  ['مقدونيا الشمالية', 'North Macedonia'],
   ['روسيا', 'Russia'],
   ['صربيا', 'Serbia'],
-  ['سلوفينيا', 'Slovenia'],
   ['الصومال', 'Somalia'],
   ['جنوب السودان', 'South Sudan'],
   ['السودان', 'Sudan'],

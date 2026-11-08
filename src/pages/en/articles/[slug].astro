@@ -54,6 +54,7 @@ const crumbs = [
 const schema = [articleSchema(article), breadcrumbSchema(crumbs)];
 if (data.faq.length) schema.push(faqSchema(data.faq));
 if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.description, data.howto));
+const noSignup = article.id === 'redotpay-pakistan';
 ---
 <BaseLayout
   lang="en"
@@ -65,6 +66,7 @@ if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.desc
   schema={schema}
   published={data.pubDate}
   modified={data.updatedDate}
+  hideReferral={noSignup}
 >
   <article class="container-x pt-6 sm:pt-10">
     <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_16rem]">
@@ -89,9 +91,11 @@ if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.desc
             Short answer
           </p>
           <p class="mt-2 leading-8">{data.summary}</p>
-          <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <CTAButton lang="en" position="summary" label="Get your card" />
-          </div>
+          {noSignup ? null : (
+            <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <CTAButton lang="en" position="summary" label="Get your card" />
+            </div>
+          )}
         </section>
 
         {toc.length > 2 && (
@@ -115,10 +119,14 @@ if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.desc
         </div>
 
         <div class="mt-10"><RedotHub lang="en" /></div>
-        <CTABox lang="en" position="end" />
+        {noSignup ? null : <CTABox lang="en" position="end" />}
 
         <p class="rounded-xl border border-line bg-surface-2 p-4 text-sm leading-7 text-muted">
-          <strong class="text-fg">Note:</strong> PayCards is independent and is not part of RedotPay. Fees, limits, and country rules change, so confirm them in the official app before you pay. Crypto can lose value. This page is education, not financial advice. Links to RedotPay are <a href="/en/disclosure" class="underline">referral links</a>.
+          {noSignup ? (
+            <><strong class="text-fg">Note:</strong> PayCards is independent and is not part of RedotPay. This page reports published lists and what PVARA publishes about the Virtual Assets Act, 2026. It is not legal advice and it is not an invitation to sign up or deposit. There is no signup button and no referral link on this page.</>
+          ) : (
+            <><strong class="text-fg">Note:</strong> PayCards is independent and is not part of RedotPay. Fees, limits, and country rules change, so confirm them in the official app before you pay. Crypto can lose value. This page is education, not financial advice. Links to RedotPay are <a href="/en/disclosure" class="underline">referral links</a>.</>
+          )}
         </p>
       </div>
 
@@ -132,11 +140,13 @@ if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.desc
               </ol>
             </nav>
           )}
-          <div class="rounded-2xl border border-line bg-surface p-5 text-center">
-            <p class="text-sm font-bold">Open RedotPay</p>
-            <p class="mt-1 text-xs leading-6 text-muted">Virtual card funded with crypto. Enter the code during signup if you use one.</p>
-            <CTAButton lang="en" position="sidebar" label="Get your card" size="sm" full class="mt-3" />
-          </div>
+          {noSignup ? null : (
+            <div class="rounded-2xl border border-line bg-surface p-5 text-center">
+              <p class="text-sm font-bold">Open RedotPay</p>
+              <p class="mt-1 text-xs leading-6 text-muted">Virtual card funded with crypto. Enter the code during signup if you use one.</p>
+              <CTAButton lang="en" position="sidebar" label="Get your card" size="sm" full class="mt-3" />
+            </div>
+          )}
         </div>
       </aside>
     </div>
