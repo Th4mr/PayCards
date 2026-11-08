@@ -17,6 +17,7 @@ export const PAIRS: ReadonlyArray<Pair> = [
   { ar: '/articles/redotpay-fees', en: '/en/articles/redotpay-fees', fr: '/fr/articles/frais-redotpay', es: '/es/articles/comisiones-redotpay', pt: '/pt/articles/taxas-redotpay' },
   { ar: '/articles/redotpay-referral-code', en: '/en/articles/redotpay-referral-code', fr: '/fr/articles/code-parrainage-redotpay', es: '/es/articles/codigo-referido-redotpay', pt: '/pt/articles/codigo-indicacao-redotpay' },
   { ar: '/articles/redotpay-supported-countries', en: '/en/articles/redotpay-supported-countries', fr: '/fr/articles/pays-redotpay', es: '/es/articles/paises-redotpay', pt: '/pt/articles/paises-redotpay' },
+  { ar: '/articles/redotpay-esim', en: '/en/articles/redotpay-esim' },
   { ar: '/articles/redotpay-top-up-usdt', en: '/en/articles/how-to-top-up-redotpay', fr: '/fr/articles/recharger-redotpay', es: '/es/articles/recargar-redotpay', pt: '/pt/articles/recarregar-redotpay' },
   { ar: '/articles/redotpay-atm-withdrawal', en: '/en/articles/redotpay-atm-withdrawal', fr: '/fr/articles/retrait-dab-redotpay', es: '/es/articles/cajero-redotpay', pt: '/pt/articles/caixa-redotpay' },
   { ar: '/articles/redotpay-vs-other-crypto-cards', en: '/en/articles/redotpay-vs-other-crypto-cards', fr: '/fr/articles/redotpay-vs-autres-cartes', es: '/es/articles/redotpay-vs-otras-tarjetas', pt: '/pt/articles/redotpay-vs-outros-cartoes' },

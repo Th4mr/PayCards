@@ -30,7 +30,7 @@ export const categoryCopy = {
       ],
     },
     comparisons: {
-      detail: 'Comparison pages copy RedotPay’s own chart and, where we read them, the other company’s page. We do not invent a rival fee. KAST’s fees and memberships pages were checked on 31 October 2026 and do not print a points percentage.',
+      detail: 'Comparison pages copy RedotPay’s own chart and, where we read them, the other company’s page. We do not invent a rival fee. KAST Points earning ends on 30 November 2026. The fees page still does not print a points percentage. Read on 8 November 2026.',
       featuredHeading: 'Comparisons with sources',
       featured: [
         { href: '/en/articles/best-crypto-card', title: 'How to choose', text: 'A checklist of availability, fees, and custody before any “best card” claim.' },
@@ -138,7 +138,7 @@ export const categoryCopy = {
       ],
     },
     comparisons: {
-      detail: 'Comparar empieza por si RedotPay puede emitir la tarjeta. Después van las cifras del cuadro del 24 de julio de 2026. KAST se cita solo desde sus páginas de comisiones y membresías, revisadas el 31 de octubre de 2026.',
+      detail: 'Comparar empieza por si RedotPay puede emitir la tarjeta. Después van las cifras del cuadro del 24 de julio de 2026. Ganar puntos KAST termina el 30 de noviembre de 2026. La página de comisiones sigue sin un porcentaje de puntos. Leído el 8 de noviembre de 2026.',
       featuredHeading: 'Comparar sin un ganador inventado',
       featured: [
         { href: '/es/articles/redotpay-vs-otras-tarjetas', title: 'Otras tarjetas', text: 'Bybit y Crypto.com quedan como enlaces oficiales. No copiamos sus tablas de comisiones.' },
@@ -192,7 +192,7 @@ export const categoryCopy = {
       ],
     },
     comparisons: {
-      detail: 'A comparação começa pela disponibilidade. KAST foi conferida em 31 de outubro de 2026 nas páginas de taxas e de assinaturas. Não há porcentagem de pontos impressa, e não escolhemos um vencedor.',
+      detail: 'A comparação começa pela disponibilidade. Ganhar pontos KAST termina em 30 de novembro de 2026. A página de taxas continua sem porcentagem de pontos, e não escolhemos um vencedor. Lido em 8 de novembro de 2026.',
       featuredHeading: 'Comparar com a página citada',
       featured: [
         { href: '/pt/articles/redotpay-vs-kast', title: 'RedotPay e KAST', text: 'PIX a 1 % e SPEI a 0 % nessa página são da KAST, não da RedotPay.' },
@@ -246,7 +246,7 @@ export const categoryCopy = {
       ],
     },
     comparisons: {
-      detail: 'المقارنة تبدأ بإمكانية الإصدار ثم بأرقام الجدول. لا نخترع رسوم Bybit أو Crypto.com. صفحة KAST رُوجعت في 31 أكتوبر 2026 ولا تطبع نسبة نقاط.',
+      detail: 'المقارنة تبدأ بإمكانية الإصدار ثم بأرقام الجدول. لا نخترع رسوم Bybit أو Crypto.com. كسب نقاط KAST ينتهي في 30 نوفمبر 2026. صفحة الرسوم ما زالت بلا نسبة نقاط. قُرئ في 8 نوفمبر 2026.',
       featuredHeading: 'مقارنة بمصدرها',
       featured: [
         { href: '/articles/best-crypto-card', title: 'كيف تختار', text: 'قائمة تحقق: التوفر، والرسوم المنشورة، ومن يحفظ الرصيد، قبل أي جملة «الأفضل».' },

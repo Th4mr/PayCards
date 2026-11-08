@@ -21,7 +21,7 @@ export const SOURCE_META_ES: Record<SourceId, { title: string; pageDate: string 
   services: { title: 'Servicios y funciones de RedotPay', pageDate: '24 de julio de 2026' },
   deposits: { title: 'Criptomonedas, redes y depósitos mínimos', pageDate: '21 de julio de 2026' },
   payments: { title: '¿Cómo pagar con mi tarjeta RedotPay?', pageDate: 'página de ayuda' },
-  unsupported: { title: 'Países y regiones no admitidos', pageDate: '28 de agosto de 2026' },
+  unsupported: { title: 'Países y regiones no admitidos', pageDate: '2 de noviembre de 2026' },
   delivery: { title: 'Restricciones de envío de la tarjeta', pageDate: '21 de julio de 2026' },
   location: { title: 'Restricciones de acceso según la ubicación', pageDate: '28 de agosto de 2026' },
   issuanceBlock: { title: 'Restricciones de emisión de tarjeta', pageDate: '28 de agosto de 2026' },

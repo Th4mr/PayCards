@@ -22,7 +22,7 @@ export const SOURCE_META_EN: Record<SourceId, { title: string; pageDate: string 
   services: { title: 'RedotPay services and features', pageDate: '24 July 2026' },
   deposits: { title: 'Supported cryptocurrencies, networks, and minimum deposits', pageDate: '21 July 2026' },
   payments: { title: 'How do I use my RedotPay card for payments?', pageDate: 'help center page' },
-  unsupported: { title: 'Unsupported countries and regions', pageDate: '28 August 2026' },
+  unsupported: { title: 'Unsupported countries and regions', pageDate: '2 November 2026' },
   delivery: { title: 'Card delivery restrictions', pageDate: '21 July 2026' },
   location: { title: 'Location-based access restrictions', pageDate: '28 August 2026' },
   issuanceBlock: { title: 'Card issuance restrictions', pageDate: '28 August 2026' },
