@@ -11,7 +11,7 @@ import type { Lang } from '../i18n/lang';
 
 interface Props { lang?: Lang; }
 const { lang = 'ar' } = Astro.props;
-const reviewed = lang === 'pt' ? '8 de novembro de 2026' : lang === 'es' ? '8 de noviembre de 2026' : lang === 'fr' ? '8 novembre 2026' : lang === 'en' ? '8 November 2026' : '8 نوفمبر 2026';
+const reviewed = lang === 'pt' ? '15 de novembro de 2026' : lang === 'es' ? '15 de noviembre de 2026' : lang === 'fr' ? '15 novembre 2026' : lang === 'en' ? '15 November 2026' : '15 نوفمبر 2026';
 const unsupported = lang === 'pt' ? sourcePt('unsupported') : lang === 'es' ? sourceEs('unsupported') : lang === 'fr' ? sourceFr('unsupported') : lang === 'en' ? sourceEn('unsupported') : SOURCES.unsupported;
 const location = lang === 'pt' ? sourcePt('location') : lang === 'es' ? sourceEs('location') : lang === 'fr' ? sourceFr('location') : lang === 'en' ? sourceEn('location') : SOURCES.location;
 const issuance = lang === 'pt' ? sourcePt('issuanceBlock') : lang === 'es' ? sourceEs('issuanceBlock') : lang === 'fr' ? sourceFr('issuanceBlock') : lang === 'en' ? sourceEn('issuanceBlock') : SOURCES.issuanceBlock;
@@ -28,7 +28,7 @@ const deliveryOnly = lang === 'pt'
 ---
 <div class="not-prose space-y-8">
   <p class="text-sm text-muted">
-    {lang === 'pt' ? <>Estas listas foram conferidas em <time datetime="2026-11-08">{reviewed}</time>.</> : lang === 'es' ? <>Estas listas se revisaron el <time datetime="2026-11-08">{reviewed}</time>.</> : lang === 'fr' ? <>Ces listes ont été vérifiées le <time datetime="2026-11-08">{reviewed}</time>.</> : lang === 'en' ? <>These lists were checked on <time datetime="2026-11-08">{reviewed}</time>.</> : <>رُوجعت هذه القوائم في <time datetime="2026-11-08">{reviewed}</time>.</>}
+    {lang === 'pt' ? <>Estas listas foram conferidas em <time datetime="2026-11-15">{reviewed}</time>.</> : lang === 'es' ? <>Estas listas se revisaron el <time datetime="2026-11-15">{reviewed}</time>.</> : lang === 'fr' ? <>Ces listes ont été vérifiées le <time datetime="2026-11-15">{reviewed}</time>.</> : lang === 'en' ? <>These lists were checked on <time datetime="2026-11-15">{reviewed}</time>.</> : <>رُوجعت هذه القوائم في <time datetime="2026-11-15">{reviewed}</time>.</>}
   </p>
 
   <section>

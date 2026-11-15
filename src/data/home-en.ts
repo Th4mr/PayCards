@@ -61,7 +61,7 @@ export const homeFaq = [
   },
   {
     q: 'Is the RedotPay card available in my country?',
-    a: 'US residents cannot be issued a virtual or physical card, people located in the United States cannot open the app, and US citizens cannot finish KYC. Those are three RedotPay help pages, checked on 24 October 2026. This guide is for English readers elsewhere. Pakistan, Bangladesh, Nigeria, and the Gulf states we checked are not named on those lists. India is on the card-issuance list, so Indian residents are ineligible for a card. A missing country is not an approval. See the country guide.',
+    a: 'US residents cannot be issued a virtual or physical card, people located in the United States cannot open the app, and US citizens cannot finish KYC. Those are three RedotPay help pages, checked on 15 November 2026. This guide is for English readers elsewhere. Pakistan, Bangladesh, Nigeria, and the Gulf states we checked are not named on those lists. India is on the card-issuance list, so Indian residents are ineligible for a card. A missing country is not an approval. See the country guide.',
   },
   {
     q: 'What is the RedotPay referral code?',

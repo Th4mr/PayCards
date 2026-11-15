@@ -41,6 +41,10 @@ export const PAIRS: ReadonlyArray<Pair> = [
   { ar: '/about', en: '/en/about', fr: '/fr/about', es: '/es/about', pt: '/pt/about' },
   { ar: '/contact', en: '/en/contact', fr: '/fr/contact', es: '/es/contact', pt: '/pt/contact' },
   { ar: '/articles/redotpay-send', en: '/en/articles/redotpay-send' },
+  { ar: '/articles/redotpay-credit', en: '/en/articles/redotpay-credit' },
+  { ar: '/articles/redotpay-p2p', en: '/en/articles/redotpay-p2p' },
+  { ar: '/articles/redotpay-iban', en: '/en/articles/redotpay-iban' },
+  { ar: '/articles/redotpay-signup-kyc', fr: '/fr/articles/inscription-redotpay' },
   { ar: '/articles/redotpay-vs-kast', en: '/en/articles/redotpay-vs-kast', es: '/es/articles/redotpay-vs-kast', pt: '/pt/articles/redotpay-vs-kast' },
   { es: '/es/articles/redotpay-qr-latam', pt: '/pt/articles/redotpay-pix' },
 ];
