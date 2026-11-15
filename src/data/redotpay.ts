@@ -104,13 +104,13 @@ export const SOURCES = {
     id: 'unsupported',
     title: 'الدول والمناطق غير المدعومة',
     url: 'https://helpcenter.redotpay.com/en/articles/10339263-unsupported-countries-regions',
-    pageDate: '2 نوفمبر 2026',
+    pageDate: 'محدَّثة هذا الأسبوع (قراءة 15 نوفمبر 2026)',
   },
   delivery: {
     id: 'delivery',
     title: 'قيود توصيل البطاقة',
     url: 'https://helpcenter.redotpay.com/en/articles/14255319-card-delivery-restrictions',
-    pageDate: '21 يوليو 2026',
+    pageDate: 'محدَّثة أمس (قراءة 15 نوفمبر 2026)',
   },
   location: {
     id: 'location',
@@ -122,7 +122,7 @@ export const SOURCES = {
     id: 'issuanceBlock',
     title: 'قيود إصدار البطاقة',
     url: 'https://helpcenter.redotpay.com/en/articles/14254838-card-issuance-restrictions',
-    pageDate: '28 أغسطس 2026',
+    pageDate: 'محدَّثة هذا الأسبوع (قراءة 15 نوفمبر 2026)',
   },
   depositHow: {
     id: 'depositHow',
@@ -317,7 +317,7 @@ export const MERCHANT_FEE_NAMES = [
   'Discord',
 ] as const;
 
-/** [الاسم العربي, الاسم كما في صفحة الجنسية]. القائمة بتاريخ 2 نوفمبر 2026 فيها 35 اسماً. أُزيلت ألبانيا وكرواتيا وكوسوفو والجبل الأسود ومقدونيا الشمالية وسلوفينيا من الجنسية فقط، وما زالت في قوائم الإصدار أو الموقع أو الشحن حيث كانت. */
+/** [الاسم العربي, الاسم كما في صفحة الجنسية]. عند القراءة في 15 نوفمبر 2026 الصفحة موسومة «محدَّثة هذا الأسبوع» وفيها 35 اسماً. أوكرانيا استُبدلت بمنطقة القرم (بما في ذلك سيفاستوبول). أوكرانيا ما زالت في قوائم الموقع والإصدار والشحن. */
 export const UNSUPPORTED_COUNTRIES: ReadonlyArray<readonly [string, string]> = [
   ['أفغانستان', 'Afghanistan'],
   ['بيلاروس', 'Belarus'],
@@ -349,7 +349,7 @@ export const UNSUPPORTED_COUNTRIES: ReadonlyArray<readonly [string, string]> = [
   ['جنوب السودان', 'South Sudan'],
   ['السودان', 'Sudan'],
   ['سوريا', 'Syria'],
-  ['أوكرانيا', 'Ukraine'],
+  ['منطقة القرم في أوكرانيا (بما في ذلك سيفاستوبول)', 'The Crimea region of Ukraine (including Sevastopol)'],
   ['الولايات المتحدة', 'United States'],
   ['فنزويلا', 'Venezuela'],
   ['اليمن', 'Yemen'],
@@ -358,7 +358,6 @@ export const UNSUPPORTED_COUNTRIES: ReadonlyArray<readonly [string, string]> = [
 
 export const DELIVERY_COUNTRIES: ReadonlyArray<readonly [string, string]> = [
   ['أفغانستان', 'Afghanistan'],
-  ['ألبانيا', 'Albania'],
   ['بيلاروس', 'Belarus'],
   ['البوسنة والهرسك', 'Bosnia and Herzegovina'],
   ['جزيرة بوفيه', 'Bouvet Island'],
@@ -377,13 +376,11 @@ export const DELIVERY_COUNTRIES: ReadonlyArray<readonly [string, string]> = [
   ['إندونيسيا', 'Indonesia'],
   ['إيران', 'Iran'],
   ['العراق', 'Iraq'],
-  ['كوسوفو', 'Kosovo'],
   ['لبنان', 'Lebanon'],
   ['ليبيريا', 'Liberia'],
   ['ليبيا', 'Libya'],
   ['برّ الصين الرئيسي', 'Mainland China'],
   ['مالي', 'Mali'],
-  ['الجبل الأسود', 'Montenegro'],
   ['المغرب', 'Morocco'],
   ['ميانمار', 'Myanmar'],
   ['نيبال', 'Nepal'],
@@ -451,7 +448,6 @@ export const LOCATION_COUNTRIES = [
 /** المقيمون في هذه المناطق لا تُصدر لهم بطاقة افتراضية ولا مادية، ولا تُسجَّل عنوان فوترة. */
 export const CARD_ISSUANCE_COUNTRIES = [
   'Afghanistan',
-  'Albania',
   'Belarus',
   'Bosnia and Herzegovina',
   'Bouvet Island',
@@ -469,20 +465,17 @@ export const CARD_ISSUANCE_COUNTRIES = [
   'Indonesia',
   'Iran',
   'Iraq',
-  'Kosovo',
   'Lebanon',
   'Liberia',
   'Libya',
   'Mainland China',
   'Mali',
-  'Montenegro',
   'Morocco',
   'Myanmar',
   'Nepal',
   'Netherlands Antilles',
   'Nicaragua',
   'North Korea',
-  'North Macedonia',
   'Russia',
   'Serbia',
   'Singapore',
@@ -502,6 +495,8 @@ export const CARD_ISSUANCE_COUNTRIES = [
 const EXTRA_AR: Record<string, string> = {
   Tanzania: 'تنزانيا',
   Singapore: 'سنغافورة',
+  Montenegro: 'الجبل الأسود',
+  'North Macedonia': 'مقدونيا الشمالية',
 };
 
 export function countryPair(en: string): readonly [string, string] {

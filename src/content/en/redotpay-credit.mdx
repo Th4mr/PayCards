@@ -1,0 +1,143 @@
+---
+title: "RedotPay Credit: limit, interest, liquidation"
+h1: "RedotPay Credit explained: a loan against your crypto"
+description: "RedotPay Credit (app v3.0.0+) is a line backed by non-stablecoin crypto. Simple interest is 0.05% a day. Risk index 0.9 can liquidate collateral."
+slug: "redotpay-credit"
+keyword: "RedotPay credit"
+category: "guides"
+pubDate: 2026-11-15
+order: 17
+summary: "RedotPay Credit, from app v3.0.0, is borrowing. Non-stablecoin holdings can back a credit line. You set Credit as the primary payment method. At the moment you spend, crypto is staked and locked until you repay. Simple interest is 0.05% a day on the principal, with no compounding, and there is no fixed due date. If the risk index reaches 0.9, liquidation is triggered. This is not a bank credit card, and a search for “RedotPay credit card” is this loan product. Checked on 15 November 2026."
+cover: { icon: "card", hue: 20 }
+related: ["redotpay-fees", "redotpay-limits", "how-to-top-up-redotpay", "redotpay-supported-countries"]
+howto:
+  - name: "Hold supported crypto, not only stablecoins"
+    text: "The credit-limit page dated 4 September 2026 names BTC, BNB, ETH, GRAM, S, SOL, TON, TRX, and XRP. USDT and USDC do not increase the limit."
+  - name: "Turn Credit on as the primary payment method"
+    text: "Getting started, dated 10 April 2026, says you set Credit as the main payment method. Spending then uses the credit line instead of the cash balance."
+  - name: "Watch the risk index and repay"
+    text: "Below 0.6 is Safe, 0.6 to 0.8 is Moderate, 0.8 to 0.9 is Margin Call, and 0.9 and above triggers liquidation. Repay from balance or from collateral. There is no fixed due date. Daily simple interest is 0.05%."
+faq:
+  - q: "Is RedotPay Credit a credit card?"
+    a: "The getting-started page dated 10 April 2026 calls it a payment tool and a credit line backed by cryptocurrency holdings, for app v3.0.0 and later. It is borrowing. Staked assets stay locked until you repay. It is not a separate bank credit card with a printed APR in the pages we read."
+  - q: "What is the RedotPay Credit interest rate?"
+    a: "Managing Your Credit Risk, dated 4 September 2026, and Understanding Your Credit Balance and Interest, dated 21 July 2026, both say simple interest at 0.05% per day on the principal, with no compounding. Daily interest equals principal credit balance times 0.05%. The pages say there is no lock-in period and no fixed repayment date."
+  - q: "What is the RedotPay credit limit?"
+    a: "Understanding Your Credit Limit, dated 4 September 2026, prints Available credit limit = Asset value × LTV − Outstanding balance. It does not print an LTV percentage for each coin. The getting-started page gives an example: spend 60 USD and the system stakes crypto worth about 100 USD. Treat that as the page’s example, not as a schedule. If the limit is zero or low, deposit more supported crypto or swap USDT or USDC into a supported asset."
+  - q: "When can RedotPay liquidate my crypto?"
+    a: "Managing Your Credit Risk says liquidation is triggered at a risk index of 0.9 and above. Below 0.6 is Safe, 0.6 to 0.8 is Moderate, and 0.8 to 0.9 is Margin Call. Market moves can raise the index because the collateral is crypto. You can add collateral, or turn on Auto-Collateral. You can release collateral only when the index is below 0.6 and will stay at or below 0.6."
+  - q: "How do I repay RedotPay Credit?"
+    a: "On the Credit page, tap the credit balance, then Repay. Pay from your available balance, or repay by using pledged collateral. A partial balance repayment lets you choose whether to release the matching collateral. A full balance repayment releases pledged assets by default. The pages do not print a late-fee amount. They say failure to repay may result in additional fees or restrictions, and they say not to pay intermediaries."
+  - q: "Does the older Credit Account page use the same rules?"
+    a: "How do I make a repayment on my Credit Account, dated 5 August 2026, says it applies to versions below v3.0.0. Guide to using the Credit Account says the same. This page follows the v3.0.0 articles. If your app is older, use the screens that article names, and do not mix the two sets of labels."
+---
+
+People search “RedotPay credit card”, “RedotPay credit limit”, and “RedotPay credit fees” because the word credit sounds like a bank card with a statement date. The help center describes something else. Checked on **15 November 2026**.
+
+## What RedotPay Credit is
+
+[Getting Started with RedotPay Credit](https://helpcenter.redotpay.com/en/articles/13224754-getting-started-with-redotpay-credit) (10 April 2026) says the feature is available in **app v3.0.0 and later**. Credit is a payment tool that gives a flexible credit line backed by cryptocurrency holdings, so you can spend in the RedotPay ecosystem without selling those assets at the moment of payment.
+
+That is borrowing. The same page says credit must be repaid under the terms of service, failure to repay may mean additional fees or restrictions, and you should not pay intermediaries. It prints **Money Lender’s Licence No: 1715/2025** and a hotline, **(852) 2765 4472**. This guide is not a loan offer and not a statement that the licence covers you where you live.
+
+US residents are not the audience of this site’s RedotPay card guides. Credit does not create an exception the [country lists](/en/articles/redotpay-supported-countries) did not write.
+
+## How the limit is calculated
+
+[Understanding Your Credit Limit](https://helpcenter.redotpay.com/en/articles/13224793-understanding-your-credit-limit) (4 September 2026) says the limit comes from the value of cryptocurrencies in the account:
+
+**Available credit limit = Asset value × LTV − Outstanding balance**
+
+The page does not print an LTV for each coin. Do not fill that gap with a blog’s percentage. The getting-started page gives one example: if you spend **60 USD**, the system stakes a corresponding amount of crypto, for example worth **100 USD**. That “for example” is the page’s illustration of real-time collateral. It is not a published table of loan-to-value ratios.
+
+Supported assets on the limit page, right now, are:
+
+| Asset | Counts toward the credit limit? |
+|---|---|
+| BTC, BNB, ETH, GRAM, S, SOL, TON, TRX, XRP | Yes, on the 4 September 2026 page |
+| USDT, USDC | No. Stablecoins do not increase available Credit |
+
+A zero or low limit usually means you need more of those supported coins. In the app: Credit, then **Increase Limit**. From there you can deposit more supported crypto, or swap existing USDT or USDC into a supported asset such as BTC or ETH. After you activate Credit, **Available Credit** shows how much each asset contributes. You can remove an asset that is counted but not yet pledged. It stays in your balance and simply stops counting toward the limit.
+
+[How to top up](/en/articles/how-to-top-up-redotpay) is the deposit path. Swapping stablecoins into BTC or ETH to raise a credit limit also raises price risk. The limit page does not tell you to do that as advice. It names the button.
+
+## Turn it on, then spend
+
+Getting started says the system calculates the limit from supported non-stablecoin holdings. To use it, set **Credit as your main payment method**. Once that is on, the system prioritizes the credit line instead of deducting the cash balance.
+
+Collateral is triggered at the moment of payment, not as a separate transfer you schedule. The staked portion cannot be withdrawn or traded until the corresponding balance is repaid.
+
+Where the page says you can use the line:
+
+- **Card spending**, with the RedotPay card.
+- **Checkouts** for international transfers and other in-app financial services.
+
+Every transaction adds to the **credit balance**, which is the amount owed. That is the opposite of a cash balance. [How to Use Credit Responsibly](https://helpcenter.redotpay.com/en/articles/13224844-how-to-use-credit-responsibly) (6 August 2026) says you can turn Credit off as the preferred payment method in Settings and repay anything outstanding. New spending then uses the crypto balance. You still owe what you already borrowed, plus interest, even if the price of the collateral falls.
+
+## Interest, without a second number
+
+Two v3.0.0 pages state the rate.
+
+[Understanding Your Credit Balance and Interest](https://helpcenter.redotpay.com/en/articles/11093493-understanding-your-credit-balance-and-interest) (21 July 2026) says a standard payment would typically sell crypto to cover the cost. Credit pledges it instead. At the moment of a purchase or transfer, the amount is added to the credit balance, and a portion of crypto is pledged. The page repeats the example of about **100 USD** of assets for a **60 USD** spend, and it says those assets are locked until the balance is repaid.
+
+Interest on that page:
+
+- Fixed rate of **0.05% per day**.
+- Simple interest on the principal balance. Interest does not compound on itself.
+- **Daily interest = Principal credit balance × 0.05%**.
+
+[Managing Your Credit Risk](https://helpcenter.redotpay.com/en/articles/13224824-managing-your-credit-risk) (4 September 2026) says the same daily rate, and it adds: no compounding, no hidden fees, and no lock-in period. There is **no fixed repayment date**. You can repay at any time.
+
+The pages do not print an APR, a monthly fee, or a late-fee amount. “No hidden fees” is their sentence. It is not a promise that a failed repayment is free. Both pages say failure to repay may result in additional fees and can affect account use. The [card fee table](/en/articles/redotpay-fees) is a different product: issuance, ATM, and FX. Do not add 0.05% to those rows and call it one price.
+
+## Risk index and liquidation
+
+Managing Your Credit Risk defines the risk index as the ratio between the total outstanding amount and the value of the collateral. Risk status is the label in the app.
+
+| Risk index | Status on the 4 September 2026 page |
+|---|---|
+| Below 0.6 | Safe |
+| 0.6–0.8 | Moderate |
+| 0.8–0.9 | Margin Call |
+| 0.9 and above | Liquidation is triggered |
+
+Because the collateral is crypto, a price drop can raise the index without a new purchase. Check the status in the app. If the index rises, you can add collateral. **Auto-Collateral** can add more when needed. You can release some collateral when the index is below 0.6, and only if it will remain at or below 0.6 after the change.
+
+Liquidation means the position can be closed to repay what you owe. The getting-started page’s line that you spend “without selling” describes the moment of payment. It does not cancel the liquidation rule on the risk page. Read both.
+
+[How to Use Credit Responsibly](https://helpcenter.redotpay.com/en/articles/13224844-how-to-use-credit-responsibly) says Credit can give short-term liquidity without selling, and that you must repay what you borrow, plus interest, regardless of how the holdings perform.
+
+## How to repay
+
+Understanding Your Credit Balance and Interest:
+
+1. On the Credit page, tap the **Credit Balance**.
+2. Tap **Repay**.
+3. Choose a method.
+
+| Method | What the page says |
+|---|---|
+| Repay via balance | Use funds in your balance. If the index is at or below 0.6 afterwards, some collateral may be released. |
+| Repay via collateral | Use pledged assets instead of the balance. |
+| Partial repayment via balance | You choose whether to release the matching collateral. |
+| Full repayment via balance | Pledged assets are released by default. |
+
+The risk page says there is no fixed due date. It does not publish an “overdue day count”. The consequence it does publish is liquidation at 0.9, plus the general warning that unpaid credit can mean additional fees or restrictions. If a screen in your app shows a fee the help center does not print, the screen is the amount. Do not pay a person who offers to “clear” the balance outside the app. The pages say not to pay intermediaries.
+
+## The older Credit Account screens
+
+[How do I make a repayment on my Credit Account?](https://helpcenter.redotpay.com/en/articles/12048691-how-do-i-make-a-repayment-on-my-credit-account) (5 August 2026) says it applies to **versions below v3.0.0**: Credit Account on the homepage, Outstanding (USD), Repay Now, then pay from the funding account or the credit account. [Guide to using the Credit Account](https://helpcenter.redotpay.com/en/articles/11093458-guide-to-using-the-credit-account) is also marked for versions prior to v3.0.0 and describes moving assets into a separate Credit Account yourself.
+
+If your app is v3.0.0 or later, follow the getting-started, limit, interest, and risk pages above. Do not apply a pre-3.0.0 label to the new screen, or the reverse.
+
+Card spending caps are a different chart. They are in the [limits guide](/en/articles/redotpay-limits). A credit line does not raise those caps, and those caps do not set the LTV.
+
+<CTABox lang="en" />
+
+## What to check before you turn it on
+
+1. Confirm the app version is v3.0.0 or later if you want the product these pages describe.
+2. Read the limit formula in the app. The help center does not print your personal LTV.
+3. Remember that staked coins cannot be withdrawn or traded until that part of the balance is repaid.
+4. Treat 0.05% a day as interest on a loan, and watch the index when prices move.
+5. Repay inside the app. The hotline on the pages is (852) 2765 4472. It is not a number this site answers.

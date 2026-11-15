@@ -61,7 +61,7 @@ export const homeFaq = [
   },
   {
     q: '¿La tarjeta RedotPay está disponible en mi país?',
-    a: 'Los residentes de Estados Unidos no pueden recibir tarjeta virtual ni física, quien está allí no puede abrir la app y los ciudadanos estadounidenses no terminan el KYC. Son tres páginas de ayuda, revisadas el 24 de octubre de 2026. Esta guía es para lectores en español en Latinoamérica y España. Estas páginas no se dirigen a Estados Unidos, excluido por RedotPay. Cuba, Nicaragua y Venezuela aparecen en las listas de nacionalidad, localización, emisión y envío. España, México, Argentina, Colombia, Perú, Chile, Ecuador, Guatemala, Bolivia, República Dominicana, Honduras, Paraguay, El Salvador, Costa Rica, Panamá, Uruguay y Guinea Ecuatorial no están nombrados. Que un país no aparezca no es una aceptación. Consulta la guía de países.',
+    a: 'Los residentes de Estados Unidos no pueden recibir tarjeta virtual ni física, quien está allí no puede abrir la app y los ciudadanos estadounidenses no terminan el KYC. Son tres páginas de ayuda, revisadas el 15 de noviembre de 2026. Esta guía es para lectores en español en Latinoamérica y España. Estas páginas no se dirigen a Estados Unidos, excluido por RedotPay. Cuba, Nicaragua y Venezuela aparecen en las listas de nacionalidad, localización, emisión y envío. España, México, Argentina, Colombia, Perú, Chile, Ecuador, Guatemala, Bolivia, República Dominicana, Honduras, Paraguay, El Salvador, Costa Rica, Panamá, Uruguay y Guinea Ecuatorial no están nombrados. Que un país no aparezca no es una aceptación. Consulta la guía de países.',
   },
   {
     q: '¿Cuál es el código de referido RedotPay?',

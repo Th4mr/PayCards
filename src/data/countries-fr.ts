@@ -47,6 +47,7 @@ export const COUNTRY_FR: Record<string, string> = {
   Tunisia: 'Tunisie',
   Turkey: 'Turquie',
   Ukraine: 'Ukraine',
+  'The Crimea region of Ukraine (including Sevastopol)': 'Région de Crimée en Ukraine (y compris Sébastopol)',
   'United States': 'États-Unis',
   Venezuela: 'Venezuela',
   Yemen: 'Yémen',
