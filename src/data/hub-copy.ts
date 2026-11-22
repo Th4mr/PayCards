@@ -4,7 +4,7 @@ export type HubFaq = { q: string; a: string };
 export const categoryCopy = {
   en: {
     guides: {
-      detail: 'These guides stay on published RedotPay figures: a 10 USD virtual card, a 100 USD physical card, the limitations chart dated 24 July 2026, and the four block lists. A missing country name is not approval. US residents are not issued a card.',
+      detail: 'These guides stay on published RedotPay figures: a 10 USD virtual card, a 100 USD physical card, RedotPay Card Fees & Limits, updated 12 November 2026, and the four block lists. A missing country name is not approval. US residents are not issued a card.',
       featuredHeading: 'Start with a numbered guide',
       featured: [
         { href: '/en/articles/redotpay-limits', title: 'Spend and ATM caps', text: '100,000 USD per payment and 1,000,000 USD a day on the chart, with lower ATM caps and a limit you can set yourself.' },
@@ -12,7 +12,7 @@ export const categoryCopy = {
         { href: '/en/articles/crypto-card-no-kyc', title: 'No-KYC cards', text: 'RedotPay requires identity checks. This page says what that rules out, without inventing another issuer’s fees.' },
       ],
       faq: [
-        { q: 'Where do the fee numbers come from?', a: 'The limitations chart, help-center page updated 24 July 2026, and the issuance pages. The amount in the app before you confirm is the one that applies.' },
+        { q: 'Where do the fee numbers come from?', a: 'RedotPay Card Fees & Limits, updated 12 November 2026, and the issuance pages. The amount in the app before you confirm is the one that applies.' },
         { q: 'Does a guide mean the card works in my country?', a: 'No. The country guide copies block lists. Absence from a list is not approval, and this site does not target the United States.' },
       ],
     },
@@ -58,7 +58,7 @@ export const categoryCopy = {
   },
   fr: {
     guides: {
-      detail: 'Ces guides citent les pages RedotPay : carte virtuelle 10 USD, carte physique 100 USD, tableau du 24 juillet 2026, et quatre listes de blocage. L’absence d’un pays n’est pas un accord. Les résidents du Maroc ne reçoivent pas de carte. Le plastique n’est pas livré en Tunisie. Ce site ne dit pas que la carte fonctionne en France.',
+      detail: 'Ces guides citent les pages RedotPay : carte virtuelle 10 USD, carte physique 100 USD, tableau RedotPay Card Fees & Limits du 12 novembre 2026, et quatre listes de blocage. L’absence d’un pays n’est pas un accord. Les résidents du Maroc ne reçoivent pas de carte. Le plastique n’est pas livré en Tunisie. Ce site ne dit pas que la carte fonctionne en France.',
       featuredHeading: 'Guides avec des chiffres',
       featured: [
         { href: '/fr/articles/frais-redotpay', title: 'Frais', text: 'Émission, caisse, conversion 1 % et 1,2 %, et les lignes que la page ne publie pas.' },
@@ -138,7 +138,7 @@ export const categoryCopy = {
       ],
     },
     comparisons: {
-      detail: 'Comparar empieza por si RedotPay puede emitir la tarjeta. Después van las cifras del cuadro del 24 de julio de 2026. Ganar puntos KAST termina el 30 de noviembre de 2026. La página de comisiones sigue sin un porcentaje de puntos. Leído el 8 de noviembre de 2026.',
+      detail: 'Comparar empieza por si RedotPay puede emitir la tarjeta. Después van las cifras del cuadro RedotPay Card Fees & Limits del 12 de noviembre de 2026. Ganar puntos KAST termina el 30 de noviembre de 2026. La página de comisiones sigue sin un porcentaje de puntos. Leído el 8 de noviembre de 2026.',
       featuredHeading: 'Comparar sin un ganador inventado',
       featured: [
         { href: '/es/articles/redotpay-vs-otras-tarjetas', title: 'Otras tarjetas', text: 'Bybit y Crypto.com quedan como enlaces oficiales. No copiamos sus tablas de comisiones.' },
@@ -220,7 +220,7 @@ export const categoryCopy = {
   },
   ar: {
     guides: {
-      detail: 'هذه الأدلة تنقل أرقام RedotPay المنشورة: 10 دولارات للافتراضية و100 دولار للمادية، وجدول 24 يوليو 2026، وأربع قوائم منع. غياب الاسم ليس موافقة. صفحة الجزائر شرح خطر قانوني وليست مسار تسجيل. البلاستيك لا يُشحن إلى مصر.',
+      detail: 'هذه الأدلة تنقل أرقام RedotPay المنشورة: 10 دولارات للافتراضية و100 دولار للمادية، وجدول RedotPay Card Fees & Limits بتاريخ 12 نوفمبر 2026، وأربع قوائم منع. غياب الاسم ليس موافقة. صفحة الجزائر شرح خطر قانوني وليست مسار تسجيل. البلاستيك لا يُشحن إلى مصر.',
       featuredHeading: 'ابدأ برقم منشور',
       featured: [
         { href: '/articles/redotpay-limits', title: 'حدود الإنفاق والصراف', text: '100,000 دولار للعملية و1,000,000 دولار يومياً في الجدول، وسقوف صراف أقل، وحد يمكنك خفضه من التطبيق.' },

@@ -54,7 +54,7 @@ const crumbs = [
 const schema = [articleSchema(article), breadcrumbSchema(crumbs)];
 if (data.faq.length) schema.push(faqSchema(data.faq));
 if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.description, data.howto));
-const noSignup = article.id === 'redotpay-pakistan';
+const noSignup = article.id === 'redotpay-pakistan' || article.id === 'redotpay-trade';
 ---
 <BaseLayout
   lang="en"
@@ -122,8 +122,10 @@ const noSignup = article.id === 'redotpay-pakistan';
         {noSignup ? null : <CTABox lang="en" position="end" />}
 
         <p class="rounded-xl border border-line bg-surface-2 p-4 text-sm leading-7 text-muted">
-          {noSignup ? (
+          {article.id === 'redotpay-pakistan' ? (
             <><strong class="text-fg">Note:</strong> PayCards is independent and is not part of RedotPay. This page reports published lists and what PVARA publishes about the Virtual Assets Act, 2026. It is not legal advice and it is not an invitation to sign up or deposit. There is no signup button and no referral link on this page.</>
+          ) : article.id === 'redotpay-trade' ? (
+            <><strong class="text-fg">Note:</strong> PayCards is independent and is not part of RedotPay. This page describes a leveraged perpetual-futures product. It is not a recommendation to trade and not an invitation to sign up. There is no signup button and no referral link on this page.</>
           ) : (
             <><strong class="text-fg">Note:</strong> PayCards is independent and is not part of RedotPay. Fees, limits, and country rules change, so confirm them in the official app before you pay. Crypto can lose value. This page is education, not financial advice. Links to RedotPay are <a href="/en/disclosure" class="underline">referral links</a>.</>
           )}

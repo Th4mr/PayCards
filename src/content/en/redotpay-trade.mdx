@@ -1,0 +1,96 @@
+---
+title: "RedotPay Trade: fees and blocked places"
+h1: "RedotPay Trade: what it is, what it costs, where it is blocked"
+description: "RedotPay Trade: perpetual futures on Hyperliquid. Maker 0.115%, taker 0.145%. Blocked in the Gulf, Egypt, and the Maghreb, plus a long official list."
+slug: "redotpay-trade"
+keyword: "RedotPay Trade"
+category: "guides"
+pubDate: 2026-11-22
+order: 8
+summary: "RedotPay Trade is a perpetual-futures tool in the app. Trades execute on-chain through Hyperliquid and settle in USDC. The fee page lists a maker total of 0.115% and a taker total of 0.145%, a one-time 1 USDC activation fee, and a 5 USDC minimum transfer in. The availability page restricts it in Kuwait, Saudi Arabia, the UAE, Qatar, Oman, Bahrain, Egypt, Algeria, Morocco, Tunisia, and Jordan, and in many other places. Leverage can multiply losses and a position can be liquidated. This page is not a recommendation to trade. Checked on 22 November 2026."
+cover: { icon: "alert", hue: 12 }
+related: ["is-redotpay-safe", "redotpay-fees", "redotpay-supported-countries"]
+faq:
+  - q: "Is RedotPay Trade the same as the card?"
+    a: "No. Getting started (4 September 2026) describes a perpetual-futures tool inside the app, executed on-chain through Hyperliquid. The 19 November 2026 page says Trade mode is a self-custody wallet and payment mode uses a custodial Main account. Card fees are a different chart."
+  - q: "What are the trading fees?"
+    a: "The fee article (4 September 2026) lists a maker total of 0.115% (0.015% base plus 0.1% builder) and a taker total of 0.145% (0.045% plus 0.1%). Hyperliquid charges a one-time 1 USDC activation fee on the first deposit. The withdrawal fee is described as currently waived during beta. The page says base fees may change with volume tiers. It does not print those tiers."
+  - q: "Can I use RedotPay Trade in Saudi Arabia, the UAE, Egypt, or Algeria?"
+    a: "No. The availability article (4 September 2026), re-read on 22 November 2026, lists Kuwait, Saudi Arabia, the UAE, Qatar, Oman, Bahrain, Egypt, Algeria, Morocco, Tunisia, and Jordan among the restricted jurisdictions. The same list also names Lebanon, Iraq, Pakistan, and India, and many places outside that region. If a restriction applies, the page says you may be unable to open a new position, and you can usually still close an existing one and transfer assets out."
+  - q: "What is the minimum I can move in?"
+    a: "The deposits article (4 September 2026) says the minimum deposit is 5 USDC per transfer from the main account into the trading account. It says funds moved back are credited to the main account balance instantly."
+---
+
+<div class="not-prose my-6 rounded-2xl border border-warn-line bg-warn-bg px-4 py-3 text-sm leading-7 text-warn-fg">
+<p class="font-bold">Leveraged trading can wipe out the margin</p>
+<p class="mt-1">RedotPay’s getting-started page says perpetual futures are an advanced, high-risk product. Leverage can multiply losses as well as gains, and a position can be liquidated if the market moves against you. Only trade what you can afford to lose. This page describes published terms. It is not a signal, a strategy, or an invitation to open a position. There is no signup button and no referral link on this page.</p>
+</div>
+
+RedotPay Trade is a new surface in the app. The pages below were read on **22 November 2026**. Card top-ups and card fees are a different product. Those numbers stay on the [fees page](/en/articles/redotpay-fees).
+
+## What the getting-started page says it is
+
+[Getting started with RedotPay Trade (beta testing)](https://helpcenter.redotpay.com/en/articles/16815786-getting-started-with-redotpay-trade-beta-testing) (4 September 2026) says RedotPay Trade is a perpetual-futures tool built into the app. Trades are executed on-chain through Hyperliquid, and assets are held in on-chain smart contracts.
+
+A perpetual future, on that page, is a derivatives contract with no expiry date. You can hold it for as long as the margin backing it is sufficient. The page says you can take a long or a short position and you can apply leverage. Leverage opens a larger position with less capital, and it increases potential losses. The page also says traders use these contracts to hedge. That description is the product definition. It is not advice to take either side.
+
+Availability may vary by jurisdiction. The page points to a separate access-terms document for the full legal text. This guide does not replace that document.
+
+## The Trade wallet and the Main account
+
+[What’s the difference between the Trade wallet and the Main account?](https://helpcenter.redotpay.com/en/articles/18514220-what-s-the-difference-between-the-trade-wallet-and-the-main-account) was updated on 19 November 2026 (help-center sitemap). When the page was opened on 22 November 2026 its label was “Updated this week.”
+
+It says RedotPay has two ways to hold assets. In Trade mode you control on-chain assets through a self-custody wallet. In payment mode you use a custodial Main account for payments and everyday spending. You switch with the bottom navigation. On the Trade home screen, tap Pay to return to payment mode.
+
+The same page says you can transfer funds from the Main account to trade on-chain, or move balances or profits from Perps or Prediction back to the Main account for spending. “Prediction” is a name on that page. This guide does not describe a prediction product beyond that sentence.
+
+The September getting-started page and the November wallet page use different words for custody: smart contracts on Hyperliquid, and a self-custody Trade wallet. Both sentences are quoted from those pages. Neither page was treated as cancelling the other.
+
+## Fees the help center prints
+
+[How are trading fees calculated on RedotPay Trade (beta testing)?](https://helpcenter.redotpay.com/en/articles/16816148-how-are-trading-fees-calculated-on-redotpay-trade-beta-testing) (4 September 2026) lists two fees on each filled order, both collected by Hyperliquid:
+
+| Order | Total | How the page splits it |
+|---|---|---|
+| Maker | 0.115% | 0.015% base execution + 0.1% builder |
+| Taker | 0.145% | 0.045% base execution + 0.1% builder |
+
+The page’s formula is filled value times the trading-fee rate, plus filled value times the builder-fee rate. Filled value is execution price times quantity filled. Its example is a taker fill worth 10,000 USDC: 4.5 USDC trading fee, 10 USDC builder fee, 14.5 USDC total.
+
+Other lines on the same page:
+
+- **Activation.** Hyperliquid charges a one-time **1 USDC** account activation fee on the first deposit.
+- **Withdrawal.** Set by Hyperliquid’s withdrawal rules. The page says it is **currently waived during beta**.
+- **Base fees** may decrease with 14-day trading-volume tiers or VIP status. The page does not print the tiers. It points to the Hyperliquid fee schedule for them.
+- HYPE staking discounts may lower the trading fee. Referral discounts and maker or taker type also affect the total. No discount percentage is printed.
+- Perpetual futures and spot use separate fee tables.
+- **Funding.** When the funding rate is positive, longs pay shorts. When it is negative, shorts pay longs. Hyperliquid calculates funding continuously and settles it periodically, based on how long the position is held.
+
+None of these percentages is the card’s 1% conversion line or the 1.2% non-default-currency line. Those stay on [RedotPay Card Fees & Limits](https://helpcenter.redotpay.com/en/articles/10339271-redotpay-card-fees-limits).
+
+## Moving funds
+
+[How do deposits, withdrawals, and settlement work on RedotPay Trade (beta testing)?](https://helpcenter.redotpay.com/en/articles/16815818-how-do-deposits-withdrawals-and-settlement-work-on-redotpay-trade-beta-testing) (4 September 2026) says RedotPay Trade settles in **USDC**. Realized profit and loss, initial margin, and trading fees are shown and settled in USDC.
+
+To move funds in, the page says: on the Trade page tap Add funds, enter an amount from the main account balance, and confirm. USDC moves into the trading account. The **minimum is 5 USDC per transfer**.
+
+To move funds out: enter the amount, confirm, and the page says the funds are credited to the main account balance **instantly**.
+
+## Where it is not available
+
+[Where is RedotPay Trade (beta testing) available?](https://helpcenter.redotpay.com/en/articles/16816231-where-is-redotpay-trade-beta-testing-available) (4 September 2026, re-read 22 November 2026) says Trade is not available in every region. Restrictions may follow your current location, the country you verified the account with, or both. The page says local law, sanctions, RedotPay’s own compliance rules, and limits from the underlying protocol can all change availability.
+
+<div class="not-prose my-6 rounded-2xl border border-warn-line bg-warn-bg px-4 py-3 text-sm leading-7 text-warn-fg">
+<p class="font-bold">Not available in these places, among others</p>
+<p class="mt-1">The restricted list includes Kuwait, Saudi Arabia, the United Arab Emirates, Qatar, Oman, Bahrain, Egypt, Algeria, Morocco, Tunisia, and Jordan. It also includes Lebanon, Iraq, Pakistan, and India. These names are not the whole list. A missing name on the four card-block lists is a different question, answered on the <a class="underline" href="/en/articles/redotpay-supported-countries">country guide</a>.</p>
+</div>
+
+The help article’s own list, copied in its published order:
+
+Algeria, Argentina, Australia, Austria, Bahrain, Belarus, Belgium, Brazil, British Virgin Islands, Bulgaria, Burundi, Canada, Central African Republic, People’s Republic of China, Congo (Kinshasa), Costa Rica, Croatia, Cuba, Cyprus, Czechia, Denmark, Egypt, Estonia, Ethiopia, Finland, France, Georgia, Germany, Greece, Hong Kong (China), Hungary, India, Iran, Iraq, Ireland, Italy, Japan, Jordan, Korea, Kuwait, Latvia, Lebanon, Libya, Lithuania, Luxembourg, Macau (China), Macau, Morocco, Myanmar, Nepal, Netherlands, New Zealand, Nicaragua, Nigeria, North Korea, Oman, Pakistan, Panama, Philippines, Poland, Portugal, Qatar, Romania, Russia, Saudi Arabia, Singapore, Slovakia, Slovenia, Somalia, South Africa, South Sudan, Spain, Sudan, Sweden, Syria, Taiwan (China), China, Thailand, Tunisia, Ukraine, United Arab Emirates, United Kingdom, United States, United States Minor Outlying Islands, Venezuela, Yemen, Zimbabwe.
+
+The article prints Macau twice and China under more than one name. This page does not merge those lines. You are responsible, the article says, for complying with the laws where you are. Absence of a name would not be approval. The names above are blocks.
+
+If a regional restriction applies, the page says you may be unable to open a new position, submit an order that increases exposure, or use order-entry tools to open a position. It says you can generally still view market data, view and manage existing positions, close existing positions, cancel open orders, and transfer assets out. It also says exactly which functions remain can vary by the reason for the restriction, the account status, and the system status at the time. “Generally” and “usually” are the article’s words.
+
+The four card lists (citizenship, location, issuance, delivery) are not this Trade list. A country can be absent from the card lists and still be named here. Algeria is an example: it is absent from the four card lists and present on this Trade list. The Arabic legal reading of that absence is [RedotPay in Algeria](/articles/redotpay-algeria). It is not a signup path.

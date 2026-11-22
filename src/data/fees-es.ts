@@ -4,7 +4,7 @@
  */
 import { SOURCES, feeRows, type SourceId } from './redotpay';
 
-export const REVIEWED_LABEL_ES = '25 de octubre de 2026';
+export const REVIEWED_LABEL_ES = '22 de noviembre de 2026';
 
 export const SOURCE_META_ES: Record<SourceId, { title: string; pageDate: string }> = {
   issuance: { title: '¿Hay comisiones por obtener una tarjeta?', pageDate: '27 de julio de 2026' },
@@ -26,7 +26,7 @@ export const SOURCE_META_ES: Record<SourceId, { title: string; pageDate: string 
   location: { title: 'Restricciones de acceso según la ubicación', pageDate: '28 de agosto de 2026' },
   issuanceBlock: { title: 'Restricciones de emisión de tarjeta', pageDate: 'actualizada esta semana (leída el 15 de noviembre de 2026)' },
   depositHow: { title: '¿Cómo depositar cripto en mi cuenta RedotPay?', pageDate: '28 de julio de 2026' },
-  limits: { title: 'Límites y comisiones de la tarjeta RedotPay', pageDate: '24 de julio de 2026' },
+  limits: { title: 'RedotPay Card Fees & Limits', pageDate: '12 de noviembre de 2026' },
   sg: { title: 'Página del programa de Singapur', pageDate: 'página de producto' },
 };
 
@@ -44,7 +44,7 @@ const ES_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'شحن البطاقة المادية': {
     item: 'Envío de la tarjeta física',
     value: 'Correo estándar exento en la tabla; DHL en el pago',
-    detail: 'El artículo del pedido (30 de julio de 2026) cita los 100 USD y no lista el porte. La tabla de comisiones de la página de límites (actualizada el 24 de julio de 2026) marca Standard Mail como exento (Waived) y DHL Express como variable según el país, calculado al pagar, y esa tabla de comisiones está fechada el 1 de diciembre de 2025. La tabla de límites de la misma página no tiene fecha propia. El artículo de plazos (22 de julio de 2026) dice: DHL en general de 3 a 10 días, correo estándar en general de 5 a 30 días. El importe que muestra el pago es el que se cobra.',
+    detail: 'El artículo del pedido (30 de julio de 2026) cita los 100 USD y no lista el porte. La tabla de comisiones de la página de límites (actualizada el 12 de noviembre de 2026) marca Standard Mail como exento (Waived) y DHL Express como variable según el país, calculado al pagar, y esa tabla de comisiones está fechada el 1 de diciembre de 2025. La tabla de límites de la misma página no tiene fecha propia. El artículo de plazos (22 de julio de 2026) dice: DHL en general de 3 a 10 días, correo estándar en general de 5 a 30 días. El importe que muestra el pago es el que se cobra.',
   },
   'رسوم شهرية أو سنوية للبطاقة العادية': {
     item: 'Comisión mensual o anual de la tarjeta estándar',
@@ -107,7 +107,7 @@ const ES_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'حدود الإنفاق والسحب العامة': {
     item: 'Límites generales de gasto y de retiro',
     value: '100 000 USD por operación, 1 000 000 USD al día',
-    detail: 'Las dos columnas de la tabla de límites muestran estos topes de gasto. Esa tabla de límites no tiene fecha propia; la página se actualizó el 24 de julio de 2026. La línea «en vigor desde el 1 de diciembre de 2025» pertenece a la tabla de comisiones, no a estos topes. Los topes de cajero van aparte: 3 750 USD o 23 000 HKD al día, y 50 000 USD o 75 000 HKD al mes, con una nota de que algunas tarjetas USD están en 3 000 al día y 10 000 al mes. Los retiros se limitan a 3 al día y 30 al mes. El límite que fijas en la app puede ser más bajo.',
+    detail: 'Las dos columnas de la tabla de límites muestran estos topes de gasto. Esa tabla de límites no tiene fecha propia; la página se actualizó el 12 de noviembre de 2026. La línea «en vigor desde el 1 de diciembre de 2025» pertenece a la tabla de comisiones, no a estos topes. Los topes de cajero van aparte: 3 750 USD o 23 000 HKD al día, y 50 000 USD o 75 000 HKD al mes, con una nota de que algunas tarjetas USD están en 3 000 al día y 10 000 al mes. Los retiros se limitan a 3 al día y 30 al mes. El límite que fijas en la app puede ser más bajo.',
   },
   'مكافأة التسجيل': {
     item: 'Recompensa de registro',
@@ -128,7 +128,7 @@ const ES_ROWS: Record<string, { item: string; value: string; detail: string }> =
 };
 
 export const FX_SCOPE_NOTE_ES =
-  'El 1 % de conversión de criptomonedas y el 1,2 % por una transacción en una moneda distinta de la de la tarjeta son comisiones generales de transacción. Están en la sección 2, Transactions, del gráfico de límites y comisiones (página actualizada el 24 de julio de 2026), no como una línea solo del cajero. Compara el importe cargado en la app.';
+  'El 1 % de conversión de criptomonedas y el 1,2 % por una transacción en una moneda distinta de la de la tarjeta son comisiones generales de transacción. Están en la sección 2, Transactions, del gráfico de límites y comisiones (página actualizada el 12 de noviembre de 2026), no como una línea solo del cajero. Compara el importe cargado en la app.';
 
 export const feeRowsEs = feeRows.map((row) => {
   const copy = ES_ROWS[row.item];

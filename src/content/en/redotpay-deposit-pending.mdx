@@ -1,0 +1,104 @@
+---
+title: "RedotPay deposit pending: why it waits"
+h1: "RedotPay deposit pending or not arrived"
+description: "RedotPay deposit pending: confirmations, a low amount, several sending addresses, or a KYT hold. MEXC and HTX are a separate case."
+slug: "redotpay-deposit-pending"
+keyword: "RedotPay deposit pending"
+category: "troubleshooting"
+pubDate: 2026-11-22
+order: 6
+summary: "A RedotPay deposit usually arrives in 1–15 minutes. If it is still pending, the help center lists network confirmations, a below-minimum amount, a transfer from more than one address (about 3–5 days), or a hold on a restricted or high-risk source. HTX-linked addresses are unsupported on a help article. MEXC-linked addresses are reported in a user-posted email and in RedotPay staff posts, not in a help article. Checked on 22 November 2026."
+cover: { icon: "alert", hue: 20 }
+related: ["how-to-top-up-redotpay", "is-redotpay-safe", "redotpay-withdraw-bank-paypal"]
+howto:
+  - name: "Open Deposit, then History"
+    text: "In the app, go to Deposit and tap the History icon in the top-right corner. That screen lists deposits and their status."
+  - name: "Check the transaction hash"
+    text: "On a blockchain explorer, confirm the hash has at least one confirmation, and that the asset and network match the Deposit screen."
+  - name: "Do not send the transfer again"
+    text: "The HTX article says not to submit an HTX-linked transfer again. Wait for review, or contact Support in the RedotPay app."
+  - name: "If the funds return to MEXC, contact MEXC"
+    text: "Staff posts on X say MEXC-linked funds are being returned to the original address. The help center does not publish that sentence."
+faq:
+  - q: "How long does a normal RedotPay deposit take?"
+    a: "How long do crypto deposits take to arrive (24 July 2026) says most crypto deposits arrive within 1–15 minutes, depending on how busy the network is. If it has been longer, the same page says the deposit may still be waiting for network confirmations. Check Deposit, then History."
+  - q: "Why would RedotPay hold a deposit?"
+    a: "Why has my crypto deposit not arrived yet (28 July 2026) says a transaction linked to a restricted or high-risk source may be held for review. The Know Your Transaction page (4 September 2026) says a flagged transaction may be held while RedotPay reviews it. Neither page prints a maximum number of days for every hold."
+  - q: "I sent from MEXC or HTX. What happens?"
+    a: "The HTX help article, re-read on 22 November 2026, says HTX-linked deposits and withdrawals are not supported and may be held. Do not send the transfer again. RedotPay has not published a help article for MEXC. A user-posted email from about 11 November 2026, and posts from the staff account @louis_redotpay, say MEXC-linked addresses are also unsupported, that a flagged MEXC or HTX transfer can take up to 30 days, and that MEXC funds are being returned to the original address."
+  - q: "Does a wrong network credit automatically?"
+    a: "No. The wrong-crypto page (28 July 2026) says an unsupported token or network will not be credited. Recovery, when possible, typically takes 7–15 business days, is not guaranteed, and handling fees apply. The deposit articles opened on 22 November 2026 do not describe a memo or destination tag."
+---
+
+A deposit that stays on “pending” is a status, not one cause. This page copies the checks RedotPay publishes, then the separate MEXC and HTX reports. Checked on **22 November 2026**. PayCards cannot see your transfer and cannot release it.
+
+## What the deposit pages say to check
+
+[Why has my crypto deposit not arrived yet?](https://helpcenter.redotpay.com/en/articles/10339282-why-has-my-crypto-deposit-not-arrived-yet) (28 July 2026) lists the checks:
+
+- **Asset and network.** If you sent the wrong asset or used an unsupported network, the deposit will not credit automatically. The example on that page is USDT-TRC20, with a minimum of 1 USDT.
+- **Minimum.** A deposit below the minimum cannot be credited. The minimums are on [Supported cryptocurrencies, networks, and minimum deposits](https://helpcenter.redotpay.com/en/articles/10693364-supported-cryptocurrencies-networks-minimum-deposits) (21 July 2026). That page also says a later deposit of the **same asset on the same network** that meets the minimum can be combined with the short one and then credited.
+- **Confirmations.** Network congestion can delay confirmations. Check the transaction hash in a blockchain explorer and make sure it has at least one confirmation.
+- **More than one sending address.** Deposits coming from more than one address can take about **3–5 days**.
+- **A restricted or high-risk source.** The deposit may be held for review. The page says to contact RedotPay Support.
+
+[How long do crypto deposits take to arrive?](https://helpcenter.redotpay.com/en/articles/10693373-how-long-do-crypto-deposits-take-to-arrive) (24 July 2026) says most crypto deposits arrive within **1–15 minutes**, depending on how busy the network is. That range is the ordinary case, not a promise for a flagged transfer.
+
+[How do I check my deposit progress?](https://helpcenter.redotpay.com/en/articles/10339283-how-do-i-check-my-deposit-progress) (28 July 2026) is two taps: **Deposit**, then the **History** icon in the top-right corner.
+
+The deposit articles opened on 22 November 2026 do not describe a memo or a destination tag. Match the asset, the network, and the address on the Deposit screen. The steps for a normal top-up are in [how to top up RedotPay](/en/articles/how-to-top-up-redotpay).
+
+## A wrong network is not the same as “pending”
+
+[What happens if I deposit the wrong crypto or use the wrong network?](https://helpcenter.redotpay.com/en/articles/10339288-what-happens-if-i-deposit-the-wrong-crypto-or-use-the-wrong-network) (28 July 2026) says an unsupported token or network will not be credited. Recovery, when possible, typically takes **7–15 business days**. Recovery is not guaranteed, and handling fees apply.
+
+The same page prints the recovery fees:
+
+- Deposits of 10–100 USD: **10 USD**.
+- Deposits of 100–5,000 USD: **10%** of the deposit.
+- Deposits over 5,000 USD: **500 USD**.
+- Complex cases: a fee of up to **20%** may apply.
+
+The form is on the Deposit page: select the crypto, tap the **?** icon, enter the TxID and network, pay the handling fee, enter a refund address on the **same network**, and submit. This is the published recovery path for a wrong asset or network. It is not the path the HTX article describes.
+
+## Compliance screening can hold a transfer
+
+[What is Know Your Transaction (KYT)?](https://helpcenter.redotpay.com/en/articles/10339287-what-is-know-your-transaction-kyt) (4 September 2026) says RedotPay screens transactions in real time. If a transaction is flagged, it may be held while RedotPay reviews it. The page also says RedotPay may freeze an account, decline funds, or report the activity. It names sanctions bodies including the US Treasury’s OFAC. It does not name MEXC or HTX, and it does not print a maximum review time.
+
+## HTX is in the help center. MEXC is not
+
+[Important update on transfers involving HTX](https://helpcenter.redotpay.com/en/articles/17332256-important-update-on-transfers-involving-htx) (5 October 2026, re-read 22 November 2026) says RedotPay does not currently support deposits or withdrawals to or from HTX-linked addresses. RedotPay may hold transfers involving HTX for compliance or risk-control checks. If you already sent one, **do not submit it again**. Wait for the review, or contact Support in the app. Use an address the Deposit or Withdraw screen lists. The article does not mention MEXC.
+
+RedotPay has not published a help-center article about MEXC. A help-center search for MEXC is recorded as returning no articles: [help center search](https://helpcenter.redotpay.com/en/?q=MEXC). The wording below is from a user-posted email and from staff posts on X.
+
+On 11 November 2026, [@Wayne_1175](https://x.com/Wayne_1175/status/2120471169954619853) posted a screenshot described as an email from the RedotPay team. The message is in Traditional Chinese. A translation of that text says transfers linked to MEXC or HTX are not supported, and that RedotPay does not support deposits from addresses linked to MEXC or HTX, or withdrawals to those addresses. A public English original of the email was not found. A Bitcointalk user reports receiving the same notice in English the same day ([post](https://bitcointalk.org/index.php?topic=5508072.240)). The exact English sentences of that email are unverified.
+
+Posts from @louis_redotpay, a RedotPay staff account, add timing and a return path:
+
+- 10 November 2026: if the transfer came from an address linked to MEXC or HTX and is flagged as high-risk, processing can take **up to 30 days** ([post](https://x.com/louis_redotpay/status/2120196035842613351)).
+- 16 November 2026: funds from addresses associated with MEXC will be **returned to their original addresses** ([post](https://x.com/louis_redotpay/status/2122318620697264344)).
+- 20 November 2026: the funds had been returned to the original address, and the sender should **contact MEXC** about the deposit ([post](https://x.com/louis_redotpay/status/2123595189348651504)).
+
+Those sentences are not on a RedotPay help page. Do not treat them as a published timetable for every account. The longer reading, including who is blocked from the card, is on [is RedotPay safe](/en/articles/is-redotpay-safe).
+
+## The Treasury order is background, not a RedotPay rule
+
+On 6 November 2026 the US Treasury said FinCEN found MEXC Global to be of primary money-laundering concern, and that US financial institutions would be barred from transacting with MEXC Global ([press release](https://home.treasury.gov/news/press-releases/sb0685)). The order was published in the Federal Register on 10 November 2026 and takes effect on **10 December 2026** ([order](https://www.federalregister.gov/documents/2026/11/10/2026-22962/imposition-of-special-measure-prohibiting-the-transmittal-of-funds-involving-mexc-global)). It binds US financial institutions. It is not a RedotPay help article.
+
+On 10 November 2026 Binance said it would stop processing transactions with MEXC entities and hold deposits from them for review ([announcement](https://www.binance.com/en/support/announcement/9ef6e347da924cdc90f53577ab483b1f)). That is Binance’s notice. It does not set RedotPay’s rule.
+
+## What to do while it is pending
+
+1. Open **Deposit**, then **History**, and read the status the app shows.
+2. Copy the transaction hash from the sender. On an explorer, check that it has at least one confirmation and that the asset and network match the Deposit screen.
+3. Do not send a second transfer to “speed it up,” and do not resubmit an HTX-linked transfer. The HTX article says not to.
+4. If the deposit article’s high-risk line fits, contact **Support in the RedotPay app**. PayCards cannot open a ticket for you.
+5. If staff posts about your MEXC transfer match what you see, and the funds come back to the sending address, contact **MEXC** about that deposit. The 20 November post says to do that.
+
+A hash that is already successful on the chain is not the same as a credit in the app. The chain shows the transfer. The app shows whether RedotPay has credited it.
+
+## The next deposit
+
+Send from a wallet or exchange the Deposit screen accepts, on the network that screen shows, at or above the minimum after network fees. Do not send from, or withdraw to, an address linked to MEXC or HTX. The card fee you pay after the balance arrives is a separate page: [RedotPay fees](/en/articles/redotpay-fees).
+
+<CTABox lang="en" />

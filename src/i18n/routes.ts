@@ -47,6 +47,9 @@ export const PAIRS: ReadonlyArray<Pair> = [
   { ar: '/articles/redotpay-signup-kyc', fr: '/fr/articles/inscription-redotpay' },
   { ar: '/articles/redotpay-vs-kast', en: '/en/articles/redotpay-vs-kast', es: '/es/articles/redotpay-vs-kast', pt: '/pt/articles/redotpay-vs-kast' },
   { es: '/es/articles/redotpay-qr-latam', pt: '/pt/articles/redotpay-pix' },
+  { ar: '/articles/redotpay-deposit-pending', en: '/en/articles/redotpay-deposit-pending' },
+  { ar: '/articles/redotpay-trade', en: '/en/articles/redotpay-trade' },
+  { ar: '/articles/redotpay-algeria', fr: '/fr/articles/redotpay-algerie' },
 ];
 
 /** روابط hreflang لزوج فيه لغتان على الأقل. x-default عربية إن وُجدت، وإلا الإنجليزية، وإلا أول لغة. */
