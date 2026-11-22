@@ -56,7 +56,7 @@ const schema = [articleSchema(article), breadcrumbSchema(crumbs)];
 if (data.faq.length) schema.push(faqSchema(data.faq));
 if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.description, data.howto));
 const showHub = article.id.startsWith('redotpay-') || article.id === 'what-is-redotpay';
-const noSignup = ['redotpay-algeria', 'redotpay-saudi-arabia'].includes(article.id);
+const noSignup = ['redotpay-algeria', 'redotpay-saudi-arabia', 'redotpay-trade'].includes(article.id);
 ---
 <BaseLayout
   title={data.title}
@@ -130,6 +130,8 @@ const noSignup = ['redotpay-algeria', 'redotpay-saudi-arabia'].includes(article.
         <p class="rounded-xl border border-line bg-surface-2 p-4 text-sm leading-7 text-muted">
           {article.id === 'redotpay-algeria' ? (
             <><strong class="text-fg">تنبيه:</strong> PayCards موقع مستقل وغير تابع لـ RedotPay. هذه الصفحة شرح لخطر قانوني، وليست استشارة قانونية ولا دعوة للتسجيل أو للشحن. لا زر تسجيل ولا رابط دعوة فيها. راجع النص الساري في الجريدة الرسمية قبل أي قرار.</>
+          ) : article.id === 'redotpay-trade' ? (
+            <><strong class="text-fg">تنبيه:</strong> PayCards موقع مستقل وغير تابع لـ RedotPay. هذه الصفحة شرح لعقود آجلة برافعة مالية، وهو منتج عالي المخاطر. ليست نصيحة للتداول ولا دعوة للتسجيل. لا زر تسجيل ولا رابط إحالة فيها.</>
           ) : article.id === 'redotpay-saudi-arabia' ? (
             <><strong class="text-fg">تنبيه:</strong> PayCards موقع مستقل وغير تابع لـ RedotPay. هذه الصفحة معلومات عن قوائم RedotPay وبيانات هيئة السوق المالية، وليست استشارة قانونية ولا دعوة للتسجيل أو للشحن. لا زر تسجيل ولا رابط دعوة فيها. اقرأ بيان الهيئة قبل أي قرار يخصك.</>
           ) : (

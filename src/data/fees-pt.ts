@@ -4,7 +4,7 @@
  */
 import { SOURCES, feeRows, type SourceId } from './redotpay';
 
-export const REVIEWED_LABEL_PT = '25 de outubro de 2026';
+export const REVIEWED_LABEL_PT = '22 de novembro de 2026';
 
 export const SOURCE_META_PT: Record<SourceId, { title: string; pageDate: string }> = {
   issuance: { title: 'Há taxas para obter um cartão?', pageDate: '27 de julho de 2026' },
@@ -26,7 +26,7 @@ export const SOURCE_META_PT: Record<SourceId, { title: string; pageDate: string 
   location: { title: 'Restrições de acesso conforme a localização', pageDate: '28 de agosto de 2026' },
   issuanceBlock: { title: 'Restrições de emissão de cartão', pageDate: 'atualizada esta semana (lida em 15 de novembro de 2026)' },
   depositHow: { title: 'Como depositar cripto na minha conta RedotPay?', pageDate: '28 de julho de 2026' },
-  limits: { title: 'Limites e taxas do cartão RedotPay', pageDate: '24 de julho de 2026' },
+  limits: { title: 'RedotPay Card Fees & Limits', pageDate: '12 de novembro de 2026' },
   sg: { title: 'Página do programa de Singapura', pageDate: 'página de produto' },
 };
 
@@ -44,7 +44,7 @@ const PT_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'شحن البطاقة المادية': {
     item: 'Envio do cartão físico',
     value: 'Correio padrão isento na tabela; DHL no pagamento',
-    detail: 'O artigo do pedido (30 de julho de 2026) cita os 100 USD e não lista o porte. A tabela de taxas da página de limites (atualizada em 24 de julho de 2026) marca Standard Mail como isento (Waived) e DHL Express como variável conforme o país, calculado no pagamento, e essa tabela de taxas está datada de 1º de dezembro de 2025. A tabela de limites da mesma página não tem data própria. O artigo de prazos (22 de julho de 2026) diz: DHL em geral de 3 a 10 dias, correio padrão em geral de 5 a 30 dias. O valor que o pagamento mostra é o que se cobra.',
+    detail: 'O artigo do pedido (30 de julho de 2026) cita os 100 USD e não lista o porte. A tabela de taxas da página de limites (atualizada em 12 de novembro de 2026) marca Standard Mail como isento (Waived) e DHL Express como variável conforme o país, calculado no pagamento, e essa tabela de taxas está datada de 1º de dezembro de 2025. A tabela de limites da mesma página não tem data própria. O artigo de prazos (22 de julho de 2026) diz: DHL em geral de 3 a 10 dias, correio padrão em geral de 5 a 30 dias. O valor que o pagamento mostra é o que se cobra.',
   },
   'رسوم شهرية أو سنوية للبطاقة العادية': {
     item: 'Taxa mensal ou anual do cartão padrão',
@@ -107,7 +107,7 @@ const PT_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'حدود الإنفاق والسحب العامة': {
     item: 'Limites gerais de gasto e de saque',
     value: '100.000 USD por operação, 1.000.000 USD por dia',
-    detail: 'As duas colunas da tabela de limites mostram estes tetos de gasto. Essa tabela de limites não tem data própria; a página foi atualizada em 24 de julho de 2026. A linha «em vigor desde 1º de dezembro de 2025» pertence à tabela de taxas, não a estes tetos. Os tetos de caixa eletrônico vão à parte: 3.750 USD ou 23.000 HKD por dia, e 50.000 USD ou 75.000 HKD por mês, com uma nota de que alguns cartões USD estão em 3.000 por dia e 10.000 por mês. Os saques se limitam a 3 por dia e 30 por mês. O limite que você define no aplicativo pode ser mais baixo.',
+    detail: 'As duas colunas da tabela de limites mostram estes tetos de gasto. Essa tabela de limites não tem data própria; a página foi atualizada em 12 de novembro de 2026. A linha «em vigor desde 1º de dezembro de 2025» pertence à tabela de taxas, não a estes tetos. Os tetos de caixa eletrônico vão à parte: 3.750 USD ou 23.000 HKD por dia, e 50.000 USD ou 75.000 HKD por mês, com uma nota de que alguns cartões USD estão em 3.000 por dia e 10.000 por mês. Os saques se limitam a 3 por dia e 30 por mês. O limite que você define no aplicativo pode ser mais baixo.',
   },
   'مكافأة التسجيل': {
     item: 'Recompensa de cadastro',
@@ -128,7 +128,7 @@ const PT_ROWS: Record<string, { item: string; value: string; detail: string }> =
 };
 
 export const FX_SCOPE_NOTE_PT =
-  'A taxa de 1 % na conversão de criptomoedas e a de 1,2 % numa transação em moeda diferente da do cartão são taxas gerais de transação. Estão na seção 2, Transactions, do gráfico de limites e taxas (página atualizada em 24 de julho de 2026), e não como uma linha só do caixa eletrônico. Compare o valor debitado no aplicativo.';
+  'A taxa de 1 % na conversão de criptomoedas e a de 1,2 % numa transação em moeda diferente da do cartão são taxas gerais de transação. Estão na seção 2, Transactions, do gráfico de limites e taxas (página atualizada em 12 de novembro de 2026), e não como uma linha só do caixa eletrônico. Compare o valor debitado no aplicativo.';
 
 export const feeRowsPt = feeRows.map((row) => {
   const copy = PT_ROWS[row.item];

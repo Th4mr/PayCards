@@ -5,7 +5,7 @@
  */
 import { SOURCES, feeRows, type SourceId } from './redotpay';
 
-export const REVIEWED_LABEL_EN = '25 October 2026';
+export const REVIEWED_LABEL_EN = '22 November 2026';
 
 export const SOURCE_META_EN: Record<SourceId, { title: string; pageDate: string }> = {
   issuance: { title: 'Are there any fees for getting a card?', pageDate: '27 July 2026' },
@@ -27,7 +27,7 @@ export const SOURCE_META_EN: Record<SourceId, { title: string; pageDate: string 
   location: { title: 'Location-based access restrictions', pageDate: '28 August 2026' },
   issuanceBlock: { title: 'Card issuance restrictions', pageDate: 'Updated this week (read 15 November 2026)' },
   depositHow: { title: 'How do I deposit crypto to my RedotPay account?', pageDate: '28 July 2026' },
-  limits: { title: 'RedotPay card limitations and fees', pageDate: '24 July 2026' },
+  limits: { title: 'RedotPay Card Fees & Limits', pageDate: '12 November 2026' },
   sg: { title: 'Singapore programme page', pageDate: 'product page' },
 };
 
@@ -45,7 +45,7 @@ const EN_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'شحن البطاقة المادية': {
     item: 'Physical card shipping',
     value: 'Standard mail waived on the chart; DHL at checkout',
-    detail: 'The order article (30 July 2026) names the 100 USD fee and does not list postage. The fees table on the limitations chart (page updated 24 July 2026) labels Standard Mail as waived and DHL Express as varying by country, calculated at checkout, and that fees table is marked effective from 1 December 2025. The limits table on the same page has no date of its own. The delivery-time article (22 July 2026) says DHL is usually 3–10 days and StandardMail usually 5–30 days. The checkout amount is the one charged.',
+    detail: 'The order article (30 July 2026) names the 100 USD fee and does not list postage. The fees table on the limitations chart (page updated 12 November 2026) labels Standard Mail as waived and DHL Express as varying by country, calculated at checkout, and that fees table is marked effective from 1 December 2025. The limits table on the same page has no date of its own. The delivery-time article (22 July 2026) says DHL is usually 3–10 days and StandardMail usually 5–30 days. The checkout amount is the one charged.',
   },
   'رسوم شهرية أو سنوية للبطاقة العادية': {
     item: 'Monthly or annual fee on the standard card',
@@ -108,7 +108,7 @@ const EN_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'حدود الإنفاق والسحب العامة': {
     item: 'General spend and withdrawal caps',
     value: '100,000 USD per transaction, 1,000,000 USD a day',
-    detail: 'Both columns on the limitations chart show those spend caps. That limits table has no date of its own; the chart page was updated on 24 July 2026. The line “effective from 1 December 2025” belongs to the fees table, not these caps. ATM caps are separate: 3,750 USD or 23,000 HKD a day, and 50,000 USD or 75,000 HKD a month, with a note that some USD cards are 3,000 a day and 10,000 a month. Withdrawals are limited to 3 a day and 30 a month. The limit you set in the app can be lower.',
+    detail: 'Both columns on the limitations chart show those spend caps. That limits table has no date of its own; the chart page was updated on 12 November 2026. The line “effective from 1 December 2025” belongs to the fees table, not these caps. ATM caps are separate: 3,750 USD or 23,000 HKD a day, and 50,000 USD or 75,000 HKD a month, with a note that some USD cards are 3,000 a day and 10,000 a month. Withdrawals are limited to 3 a day and 30 a month. The limit you set in the app can be lower.',
   },
   'مكافأة التسجيل': {
     item: 'Sign-up reward',
@@ -129,7 +129,7 @@ const EN_ROWS: Record<string, { item: string; value: string; detail: string }> =
 };
 
 export const FX_SCOPE_NOTE_EN =
-  'The 1% crypto-conversion fee and the 1.2% fee for a transaction in a currency other than the card currency are general transaction fees. They are in section 2, Transactions, of the limitations and fees chart (page updated 24 July 2026), not an ATM-only line. Compare the amount debited in the app.';
+  'The 1% crypto-conversion fee and the 1.2% fee for a transaction in a currency other than the card currency are general transaction fees. They are in section 2, Transactions, of the limitations and fees chart (page updated 12 November 2026), not an ATM-only line. Compare the amount debited in the app.';
 
 export const feeRowsEn = feeRows.map((row) => {
   const copy = EN_ROWS[row.item];

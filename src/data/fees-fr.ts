@@ -4,7 +4,7 @@
  */
 import { SOURCES, feeRows, type SourceId } from './redotpay';
 
-export const REVIEWED_LABEL_FR = '25 octobre 2026';
+export const REVIEWED_LABEL_FR = '22 novembre 2026';
 
 export const SOURCE_META_FR: Record<SourceId, { title: string; pageDate: string }> = {
   issuance: { title: 'Y a-t-il des frais pour obtenir une carte ?', pageDate: '27 juillet 2026' },
@@ -26,7 +26,7 @@ export const SOURCE_META_FR: Record<SourceId, { title: string; pageDate: string 
   location: { title: 'Restrictions d’accès selon la localisation', pageDate: '28 août 2026' },
   issuanceBlock: { title: 'Restrictions d’émission de carte', pageDate: 'mise à jour cette semaine (lue le 15 novembre 2026)' },
   depositHow: { title: 'Comment déposer des cryptos sur mon compte RedotPay ?', pageDate: '28 juillet 2026' },
-  limits: { title: 'Limites et frais de la carte RedotPay', pageDate: '24 juillet 2026' },
+  limits: { title: 'RedotPay Card Fees & Limits', pageDate: '12 novembre 2026' },
   sg: { title: 'Page du programme Singapour', pageDate: 'page produit' },
 };
 
@@ -44,7 +44,7 @@ const FR_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'شحن البطاقة المادية': {
     item: 'Livraison de la carte physique',
     value: 'Courrier standard offert sur le tableau ; DHL au paiement',
-    detail: 'L’article de commande (30 juillet 2026) cite les 100 USD et ne liste pas le port. Le tableau des frais sur la page des limites (mise à jour le 24 juillet 2026) marque Standard Mail comme offert (Waived) et DHL Express comme variable selon le pays, calculé au paiement, et ce tableau des frais est daté du 1er décembre 2025. Le tableau des limites sur la même page n’a pas de date propre. L’article sur la durée (22 juillet 2026) dit : DHL en général 3 à 10 jours, courrier standard en général 5 à 30 jours. Le montant affiché au paiement est celui qui est pris.',
+    detail: 'L’article de commande (30 juillet 2026) cite les 100 USD et ne liste pas le port. Le tableau des frais sur la page des limites (mise à jour le 12 novembre 2026) marque Standard Mail comme offert (Waived) et DHL Express comme variable selon le pays, calculé au paiement, et ce tableau des frais est daté du 1er décembre 2025. Le tableau des limites sur la même page n’a pas de date propre. L’article sur la durée (22 juillet 2026) dit : DHL en général 3 à 10 jours, courrier standard en général 5 à 30 jours. Le montant affiché au paiement est celui qui est pris.',
   },
   'رسوم شهرية أو سنوية للبطاقة العادية': {
     item: 'Frais mensuels ou annuels de la carte standard',
@@ -107,7 +107,7 @@ const FR_ROWS: Record<string, { item: string; value: string; detail: string }> =
   'حدود الإنفاق والسحب العامة': {
     item: 'Plafonds généraux de dépense et de retrait',
     value: '100 000 USD par opération, 1 000 000 USD par jour',
-    detail: 'Les deux colonnes du tableau des limites affichent ces plafonds de dépense. Ce tableau de limites n’a pas de date propre ; la page a été mise à jour le 24 juillet 2026. La ligne « en vigueur depuis le 1er décembre 2025 » appartient au tableau des frais, pas à ces plafonds. Les plafonds DAB sont à part : 3 750 USD ou 23 000 HKD par jour, et 50 000 USD ou 75 000 HKD par mois, avec une note que certaines cartes USD sont à 3 000 par jour et 10 000 par mois. Les retraits sont limités à 3 par jour et 30 par mois. La limite que vous fixez dans l’app peut être plus basse.',
+    detail: 'Les deux colonnes du tableau des limites affichent ces plafonds de dépense. Ce tableau de limites n’a pas de date propre ; la page a été mise à jour le 12 novembre 2026. La ligne « en vigueur depuis le 1er décembre 2025 » appartient au tableau des frais, pas à ces plafonds. Les plafonds DAB sont à part : 3 750 USD ou 23 000 HKD par jour, et 50 000 USD ou 75 000 HKD par mois, avec une note que certaines cartes USD sont à 3 000 par jour et 10 000 par mois. Les retraits sont limités à 3 par jour et 30 par mois. La limite que vous fixez dans l’app peut être plus basse.',
   },
   'مكافأة التسجيل': {
     item: 'Récompense d’inscription',
@@ -128,7 +128,7 @@ const FR_ROWS: Record<string, { item: string; value: string; detail: string }> =
 };
 
 export const FX_SCOPE_NOTE_FR =
-  'Les 1 % de conversion de cryptomonnaies et les 1,2 % pour une transaction dans une devise autre que celle de la carte sont des frais de transaction généraux. Ils figurent à la section 2, Transactions, du graphique des limites et frais (page mise à jour le 24 juillet 2026), et non comme une ligne réservée au DAB. Comparez le montant débité dans l’app.';
+  'Les 1 % de conversion de cryptomonnaies et les 1,2 % pour une transaction dans une devise autre que celle de la carte sont des frais de transaction généraux. Ils figurent à la section 2, Transactions, du graphique des limites et frais (page mise à jour le 12 novembre 2026), et non comme une ligne réservée au DAB. Comparez le montant débité dans l’app.';
 
 export const feeRowsFr = feeRows.map((row) => {
   const copy = FR_ROWS[row.item];

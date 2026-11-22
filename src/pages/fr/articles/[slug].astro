@@ -54,6 +54,7 @@ const crumbs = [
 const schema = [articleSchema(article), breadcrumbSchema(crumbs)];
 if (data.faq.length) schema.push(faqSchema(data.faq));
 if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.description, data.howto));
+const noSignup = article.id === 'redotpay-algerie';
 ---
 <BaseLayout
   lang="fr"
@@ -65,6 +66,7 @@ if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.desc
   schema={schema}
   published={data.pubDate}
   modified={data.updatedDate}
+  hideReferral={noSignup}
 >
   <article class="container-x pt-6 sm:pt-10">
     <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_16rem]">
@@ -89,9 +91,11 @@ if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.desc
             En bref
           </p>
           <p class="mt-2 leading-8">{data.summary}</p>
-          <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <CTAButton lang="fr" position="summary" label="Obtenir la carte" />
-          </div>
+          {noSignup ? null : (
+            <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <CTAButton lang="fr" position="summary" label="Obtenir la carte" />
+            </div>
+          )}
         </section>
 
         {toc.length > 2 && (
@@ -115,10 +119,14 @@ if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.desc
         </div>
 
         <div class="mt-10"><RedotHub lang="fr" /></div>
-        <CTABox lang="fr" position="end" />
+        {noSignup ? null : <CTABox lang="fr" position="end" />}
 
         <p class="rounded-xl border border-line bg-surface-2 p-4 text-sm leading-7 text-muted">
-          <strong class="text-fg">Note :</strong> PayCards est indépendant et ne fait pas partie de RedotPay. Les frais, les limites et les règles de pays changent : confirmez-les dans l’app officielle avant de payer. Les cryptomonnaies peuvent perdre de la valeur. Cette page est un guide, pas un conseil financier. Les liens vers RedotPay sont des <a href="/fr/disclosure" class="underline">liens de parrainage</a>.
+          {noSignup ? (
+            <><strong class="text-fg">Note :</strong> PayCards est indépendant et ne fait pas partie de RedotPay. Cette page explique un risque juridique. Ce n’est pas un conseil juridique, ni une invitation à s’inscrire ou à déposer. Il n’y a pas de bouton d’inscription ni de lien de parrainage sur cette page. Lisez le texte en vigueur au Journal officiel avant toute décision.</>
+          ) : (
+            <><strong class="text-fg">Note :</strong> PayCards est indépendant et ne fait pas partie de RedotPay. Les frais, les limites et les règles de pays changent : confirmez-les dans l’app officielle avant de payer. Les cryptomonnaies peuvent perdre de la valeur. Cette page est un guide, pas un conseil financier. Les liens vers RedotPay sont des <a href="/fr/disclosure" class="underline">liens de parrainage</a>.</>
+          )}
         </p>
       </div>
 
@@ -132,11 +140,13 @@ if (data.howto?.length) schema.push(howToSchema(data.h1 ?? data.title, data.desc
               </ol>
             </nav>
           )}
-          <div class="rounded-2xl border border-line bg-surface p-5 text-center">
-            <p class="text-sm font-bold">Ouvrir RedotPay</p>
-            <p class="mt-1 text-xs leading-6 text-muted">Carte virtuelle alimentée en crypto. Saisissez le code pendant l’inscription si vous en utilisez un.</p>
-            <CTAButton lang="fr" position="sidebar" label="Obtenir la carte" size="sm" full class="mt-3" />
-          </div>
+          {noSignup ? null : (
+            <div class="rounded-2xl border border-line bg-surface p-5 text-center">
+              <p class="text-sm font-bold">Ouvrir RedotPay</p>
+              <p class="mt-1 text-xs leading-6 text-muted">Carte virtuelle alimentée en crypto. Saisissez le code pendant l’inscription si vous en utilisez un.</p>
+              <CTAButton lang="fr" position="sidebar" label="Obtenir la carte" size="sm" full class="mt-3" />
+            </div>
+          )}
         </div>
       </aside>
     </div>
